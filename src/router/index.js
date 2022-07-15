@@ -4,19 +4,19 @@ import Home from "../views/Home.vue"
 
 export const routes = [
     {
-        path: "/xApp",
+        path: "/",
         name: "Home",
         component: Home,
         props: { msg: "Escrows" },
     },
     {
-        path: "/xApp/loans",
+        path: "/loans",
         name: "Loan",
         component: Home,
         props: { msg: "Open Loans" },
     },
     {
-        path: "/xApp/stash",
+        path: "/stash",
         name: "Stash",
         component: Home,
         props: { msg: "Stash Tokens" },
