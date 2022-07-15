@@ -18,8 +18,8 @@ import Connection from './plugins/connection.js'
 
 const connection = {
 	site: 'https://panicbot.xyz',
-	socket: 'wss://localhost:3006',
-	url: 'https://localhost:3006'
+	socket: 'wss://127.0.0.1:3006',
+	url: 'https://127.0.0.1:3006'
 }
 
 const app = createApp(App)
