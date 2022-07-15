@@ -6,7 +6,7 @@
     "author": "how@errazib.com",
     "private": true,
     "scripts": {
-        "dev": "vite",
+        "dev": "vite --port 3007",
         "build": "vite build",
         "serve": "vite preview --port 3007"
     },
