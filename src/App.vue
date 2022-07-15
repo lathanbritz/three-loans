@@ -13,8 +13,6 @@
         },
         data() {
             return {
-                path: path,
-                params: params,
                 active_component: 'LandingScreen',
                 account: 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                 socket: null,
