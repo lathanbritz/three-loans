@@ -81,10 +81,3 @@
         } 
     }
 </script>
-
-<style>
-    #app {
-        /* background-color: #753ee2;
-        color: #fff; */
-    }
-</style>

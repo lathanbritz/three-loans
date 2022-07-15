@@ -7,8 +7,8 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a class="btn btn-purple" href="/loans" role="button" id="loan">loan</a>
-                    <a class="btn btn-green ms-2" href="/stash" role="button" id="stash">stash</a>
+                    <a class="btn btn-purple" href="/xApp/loans" role="button" id="loan">loan</a>
+                    <a class="btn btn-green ms-2" href="/xApp/stash" role="button" id="stash">stash</a>
                 </p>
             </p>
         </div>
