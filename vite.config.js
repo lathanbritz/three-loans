@@ -5,10 +5,10 @@ import fs from 'fs'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  server: {
-    https: {
-      key: fs.readFileSync('../../ssl/panicbot.xyz.key'),
-      cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
-    },
-  },
+  // server: {
+  //   https: {
+  //     key: fs.readFileSync('../../ssl/panicbot.xyz.key'),
+  //     cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
+  //   },
+  // },
 })

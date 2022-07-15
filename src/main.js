@@ -19,6 +19,7 @@ import Connection from './plugins/connection.js'
 const connection = {
 	site: 'https://panicbot.xyz',
 	socket: 'wss://panicbot.xyz:3006',
+	socket_local: 'wss://127.0.0.1:3006',
 	url: 'https://panicbot.xyz:3006'
 }
 

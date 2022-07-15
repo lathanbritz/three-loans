@@ -3,8 +3,8 @@
 </template>
 
 <script>
-    import DefaultLayout from "./layouts/DefaultLayout.vue";
-    import MainLayout from "./layouts/MainLayout.vue";
+    import DefaultLayout from "./layouts/DefaultLayout.vue"
+    import MainLayout from "./layouts/MainLayout.vue"
 
     export default {
         components: {
@@ -13,6 +13,8 @@
         },
         data() {
             return {
+                path: path,
+                params: params,
                 active_component: 'LandingScreen',
                 account: 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                 socket: null,
@@ -39,13 +41,20 @@
             },
         },
         mounted() {
+            
             this.connectWebsocket()
         },
         methods: {
             connectWebsocket() {
                 const self = this
+                console.log('location', window.location.origin)
+                if ('https://192.168.0.19:3007/' == window.location.origin) {
+                    this.socket = new WebSocket(this.connection.socket_local)
+                }
+                else {
+                    this.socket = new WebSocket(this.connection.socket)    
+                }
                 
-                this.socket = new WebSocket(this.connection.socket)
                 this.reconnect_socket++
                 this.socket.onopen = function (message) {
                     // self.socket.send(JSON.stringify({
