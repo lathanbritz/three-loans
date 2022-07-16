@@ -52,8 +52,8 @@
     </div>
     <footer>
         <p>XRPL ledger: {{ledger}}</p>
-        <p>account: {{account}}</p>
         <p>ott: {{ott}}</p>
+        <p>account: {{account}}</p>
         <p>res: {{res}}</p>
         <p>test: {{test}}</p>
     </footer>
@@ -95,6 +95,7 @@
                     this.nodetype = 'TESTNET'
                     this.ready = true
                 } else {
+                    this.test = process.env.VUE_APP_TEST
                     const data = await this.getTokenData()
                     console.log('data', data)
                 }
@@ -105,7 +106,7 @@
                 try {
                     const urlParams = new URLSearchParams(window.location.search)
                     this.ott = urlParams.get('xAppToken')
-                    this.test = process.env.VUE_APP_TEST
+                    
 
                     const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
                     const apiKey = process.env.VUE_APP_XAPP_KEY
