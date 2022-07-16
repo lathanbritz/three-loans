@@ -88,6 +88,7 @@
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
             this.subscribe()
+            this.test = import.meta.env.VUE_APP_TEST
             
             try {
                 if (typeof window.ReactNativeWebView === 'undefined') {
@@ -112,8 +113,8 @@
 
                     const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
                     const apiKey = import.meta.env.VUE_APP_XAPP_KEY
-                    this.test = import.meta.env.VUE_APP_TEST
                     
+
                     const res = await this.axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
                     console.log('res', res)
                     this.res = res
