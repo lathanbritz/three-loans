@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import fs from 'fs'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const config = (process.env.NODE_ENV === 'production') ? {
   plugins: [vue()],
   server: {
     https: {
@@ -11,4 +11,6 @@ export default defineConfig({
       cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
     },
   },
-})
+} : { plugins: [vue()] }
+
+export default defineConfig(config)

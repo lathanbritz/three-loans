@@ -55,8 +55,6 @@
         <p>ott: {{ott}}</p>
         <p>account: {{account}}</p>
         <p>res: {{res}}</p>
-        <p>vue: {{vue}}</p>
-        <p>vite: {{vite}}</p>
     </footer>
 </template>
 
@@ -79,8 +77,6 @@
                 ready: false,
                 ott: '',
                 res: '',
-                vue: '',
-                vite: ''
             }
         },
         updated() {
@@ -92,12 +88,6 @@
             this.subscribe()
             
             try {
-                console.log('hi')
-                console.log('process.env', process.env)
-                this.vite = process.env.VITE_APP_TITLE
-                console.log('vite', process.env.VITE_APP_TITLE)
-                this.vue = process.env.VUE_APP_TITLE
-                console.log('vue', process.env.VUE_APP_TITLE)
                 if (typeof window.ReactNativeWebView === 'undefined') {
                     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                     this.nodetype = 'TESTNET'
@@ -106,7 +96,10 @@
                     console.log('data', data)
                 }
                 this.ready = true
-            } catch(e) { return }
+            } catch(e) { 
+                console.log('error', e)
+                return 
+            }
         },
         methods: {
             async getTokenData() {
@@ -116,7 +109,7 @@
                     
 
                     const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
-                    const apiKey = process.env.VUE_APP_XAPP_KEY
+                    const apiKey = import.meta.env.VUE_APP_XAPP_KEY
                     
                     const res = await this.axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
                     console.log('res', res)
