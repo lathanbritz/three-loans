@@ -167,10 +167,10 @@
             onmessage() {
                 const self = this
                 this.socket.send(JSON.stringify({
-                        request: 'SUBSCRIBE',
-                        message: {account: self.account},
-                        channel: self.account
-                    }))
+                    request: 'SUBSCRIBE',
+                    message: {account: self.account},
+                    channel: self.account
+                }))
 
                 this.socket.onmessage = function (message) {
                     let data = JSON.parse(message.data)
@@ -185,12 +185,11 @@
                             console.log('PONG!')
                             self.pong = true
                         }
-                        console.log('adasda', data)
                     }
                 }
             },
             subscribe() {
-                console.log('subscribed')
+                console.log('subscribing..')
                 this.subscribed = true
                 this.pong = false
                 const self = this
