@@ -88,8 +88,8 @@
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
             this.subscribe()
-            this.test = import.meta.env.VUE_APP_TEST
-            
+            this.test = import.meta.env.VITE_APP_TITLE
+
             try {
                 if (typeof window.ReactNativeWebView === 'undefined') {
                     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
