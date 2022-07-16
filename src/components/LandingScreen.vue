@@ -52,6 +52,7 @@
     </div>
     <footer>
         <p>XRPL ledger: {{ledger}}</p>
+        <p>account: {{account}}</p>
         <p>ott: {{ott}}</p>
     </footer>
 </template>
