@@ -112,7 +112,7 @@
                     
 
                     const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
-                    const apiKey = import.meta.env.VUE_APP_XAPP_KEY
+                    const apiKey = import.meta.env.VITE_APP_XAPP_KEY
                     
 
                     const res = await this.axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
