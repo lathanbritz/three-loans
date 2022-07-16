@@ -115,7 +115,7 @@
                         if ('CreateEscrow' in data) {
                             // now we need to create sign request...
                             const result = await xapp.signPayload(data['CreateEscrow'])
-
+                            console.log('CreateEscrow', result)
                             // head where im at
                             // need to test this this local in browser.
                             // create sign in request... via qr_code
@@ -123,7 +123,7 @@
 
                         }
                         if ('rate_update' in data) {
-                            console.log('rate update', data.rate_update)
+                            ///console.log('rate update', data.rate_update)
                         }
                     }
                 }
