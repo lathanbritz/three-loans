@@ -55,6 +55,7 @@
         <p>account: {{account}}</p>
         <p>ott: {{ott}}</p>
         <p>res: {{res}}</p>
+        <p>test: {{test}}</p>
     </footer>
 </template>
 
@@ -76,7 +77,8 @@
                 pong: false,
                 ready: false,
                 ott: '',
-                res: ''
+                res: '',
+                test: ''
             }
         },
         updated() {
@@ -106,6 +108,7 @@
 
                     const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
                     const apiKey = process.env.VUE_APP_XAPP_KEY
+                    this.test = process.env.VUE_APP_TEST
                     const res = await axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
                     console.log('res', res)
                     this.res = res
