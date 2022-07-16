@@ -54,6 +54,7 @@
         <p>XRPL ledger: {{ledger}}</p>
         <p>account: {{account}}</p>
         <p>ott: {{ott}}</p>
+        <p>res: {{res}}</p>
     </footer>
 </template>
 
@@ -74,7 +75,8 @@
                 ledger: 0,
                 pong: false,
                 ready: false,
-                ott: ''
+                ott: '',
+                res: ''
             }
         },
         updated() {
@@ -101,6 +103,12 @@
                 try {
                     const urlParams = new URLSearchParams(window.location.search)
                     this.ott = urlParams.get('xAppToken')
+
+                    const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
+                    const apiKey = process.env.VUE_APP_XAPP_KEY
+                    const res = await axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
+                    console.log('res', res)
+                    this.res = res
                     // const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/account?account=${this.account}`)
 
                     // const data = await xapp.getTokenData(ott)
