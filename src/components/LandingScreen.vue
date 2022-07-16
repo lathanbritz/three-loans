@@ -79,7 +79,7 @@
         updated() {
             this.resubscribe()
         },
-        asyncmounted() {
+        async mounted() {
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
             this.subscribe()
