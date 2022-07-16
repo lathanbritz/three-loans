@@ -88,7 +88,7 @@
         async mounted() {
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
-            this.subscribe()
+            
             this.test = import.meta.env.VITE_APP_TITLE
 
             try {
@@ -103,6 +103,10 @@
             } catch(e) { 
                 console.log('error', e)
                 return 
+            }
+
+            if (this.ready) {
+                this.subscribe()
             }
         },
         methods: {
