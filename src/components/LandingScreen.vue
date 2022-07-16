@@ -60,6 +60,7 @@
 
 <script>
     import xapp from '../plugins/xapp.js'
+    import client from '../plugins/ws-client.js'
 
     export default {
         name: 'LandingScreen',
@@ -92,13 +93,13 @@
             this.test = import.meta.env.VITE_APP_TITLE
 
             try {
-                if (typeof window.ReactNativeWebView === 'undefined') {
-                    this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
-                    this.nodetype = 'TESTNET'
-                } else {
+                // if (typeof window.ReactNativeWebView === 'undefined') {
+                //     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
+                //     this.nodetype = 'TESTNET'
+                // } else {
                     const data = await this.getTokenData()
                     console.log('data', data)
-                }
+                // }
                 this.ready = true
             } catch(e) { 
                 console.log('error', e)
@@ -116,14 +117,27 @@
                     this.ott = urlParams.get('xAppToken')
                     
                     const data = await xapp.getTokenData(this.ott)
-                    // console.log('data', data)
-
+                    console.log('data', data)
+                
                     this.account = data.account_info.account
-                    
+                    // const result = await xapp.signPayload()
+                    this.test()
                     return data
                 } catch(e) {
                     console.log('error', e)
                 }
+            },
+            async test() {
+                const command = {
+                    "id": 2,
+                    "command": "account_info",
+                    "account":  this.account,
+                    "strict": true,
+                    "ledger_index": "current",
+                    "queue": true
+                }
+                const res = await client.send(command)
+                console.log('res', res)
             },
             appendLoans(item) {
                 this.ledger = item.ledger

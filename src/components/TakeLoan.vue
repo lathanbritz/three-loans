@@ -107,16 +107,20 @@
             sign() {
                 console.log('socket', this.socket)
                 const self = this
-                this.socket.onmessage = function (message) {
+                this.socket.onmessage = async function (message) {
                     let data = JSON.parse(message.data)
                     console.log('data', data)
                     if (self.account in data) {
                         data = data[self.account]
-                        if ('escrow_qr' in data) {
-                            const escrow_qr = data.escrow_qr
-                            self.qr_link = escrow_qr.link
-                            self.qr_png = escrow_qr.qr_code
-                            self.sign_request = true
+                        if ('CreateEscrow' in data) {
+                            // now we need to create sign request...
+                            const result = await xapp.signPayload(data['CreateEscrow'])
+
+                            // head where im at
+                            // need to test this this local in browser.
+                            // create sign in request... via qr_code
+                            // send to back end server and get OTT from that request.
+
                         }
                         if ('rate_update' in data) {
                             console.log('rate update', data.rate_update)
