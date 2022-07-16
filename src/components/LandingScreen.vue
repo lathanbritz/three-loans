@@ -115,19 +115,12 @@
                     const apiKey = import.meta.env.VITE_APP_XAPP_KEY
                     
 
-                    const res = await this.axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
-                    console.log('res', res)
-                    this.res = res
-                    // const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/account?account=${this.account}`)
+                    const {data} = await this.axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
+                    if ('ott' in data) {
+                        this.account = data.ott.account_info.account
+                    }
 
-                    // const data = await xapp.getTokenData(ott)
-
-                    // if(this.error === this.$t('xapp.error.get_ott_data')) {
-                    //     this.error = false
-                    //     this.wsConnect(data)
-                    // }
-
-                    // return data
+                    return data
                 } catch(e) {
                     this.res = e.AxiosError
                     // this.error = this.$t('xapp.error.get_ott_data')
