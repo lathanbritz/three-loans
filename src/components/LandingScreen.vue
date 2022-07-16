@@ -79,7 +79,7 @@
         updated() {
             this.resubscribe()
         },
-        mounted() {
+        asyncmounted() {
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
             this.subscribe()
@@ -91,15 +91,16 @@
                     this.ready = true
                 } else {
                     const data = await this.getTokenData()
-                    await this.wsConnect(data)
+                    console.log('data', data)
                 }
             } catch(e) { return }
         },
         methods: {
-            getTokenData() {
+            async getTokenData() {
                 try {
                     const urlParams = new URLSearchParams(window.location.search)
                     this.ott = urlParams.get('xAppToken')
+                    // const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/account?account=${this.account}`)
 
                     // const data = await xapp.getTokenData(ott)
 
