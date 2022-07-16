@@ -60,7 +60,6 @@
 </template>
 
 <script>
-    import { XummSdk } from 'xumm-sdk'
 
     export default {
         name: 'LandingScreen',
