@@ -60,6 +60,8 @@
 </template>
 
 <script>
+    import { XummSdk } from 'xumm-sdk'
+
     export default {
         name: 'LandingScreen',
         props: ['socket', 'component'],
@@ -110,6 +112,7 @@
                     const urlParams = new URLSearchParams(window.location.search)
                     this.ott = urlParams.get('xAppToken')
                     
+                    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
 
                     const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
                     const apiKey = import.meta.env.VITE_APP_XAPP_KEY
@@ -129,7 +132,7 @@
 
                     // return data
                 } catch(e) {
-                    this.res = e
+                    this.res = e.AxiosError
                     // this.error = this.$t('xapp.error.get_ott_data')
                     // throw e
                 }
