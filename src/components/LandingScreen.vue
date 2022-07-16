@@ -90,15 +90,15 @@
             this.subscribe()
             
             try {
+                this.test = process.env.VUE_APP_TEST
                 if (typeof window.ReactNativeWebView === 'undefined') {
                     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                     this.nodetype = 'TESTNET'
-                    this.ready = true
                 } else {
-                    this.test = process.env.VUE_APP_TEST
                     const data = await this.getTokenData()
                     console.log('data', data)
                 }
+                this.ready = true
             } catch(e) { return }
         },
         methods: {
