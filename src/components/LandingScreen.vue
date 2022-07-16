@@ -60,6 +60,7 @@
 </template>
 
 <script>
+    import xapp from '../plugins/xapp.js'
 
     export default {
         name: 'LandingScreen',
@@ -115,15 +116,10 @@
                     const urlParams = new URLSearchParams(window.location.search)
                     this.ott = urlParams.get('xAppToken')
                     
-                    const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
-                    const apiKey = import.meta.env.VITE_APP_XAPP_KEY
+                    const data = xapp.getTokenData(this.ott)
                     
-
-                    const {data} = await this.axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
-                    if ('ott' in data) {
-                        this.account = data.ott.account_info.account
-                    }
-
+                    this.account = data.account_info.account
+                    
                     return data
                 } catch(e) {
                     this.res = e.AxiosError
