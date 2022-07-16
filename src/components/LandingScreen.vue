@@ -54,7 +54,6 @@
         <p>XRPL ledger: {{ledger}}</p>
         <p>ott: {{ott}}</p>
         <p>account: {{account}}</p>
-        <p>res: {{res}}</p>
         <p>test: {{test}}</p>
     </footer>
 </template>
@@ -122,9 +121,7 @@
                     
                     return data
                 } catch(e) {
-                    this.res = e.AxiosError
-                    // this.error = this.$t('xapp.error.get_ott_data')
-                    // throw e
+                    console.log('error', e)
                 }
             },
             appendLoans(item) {
