@@ -92,8 +92,12 @@
             this.subscribe()
             
             try {
+                console.log('hi')
+                console.log('process.env', process.env)
                 this.vite = process.env.VITE_APP_TITLE
+                console.log('vite', process.env.VITE_APP_TITLE)
                 this.vue = process.env.VUE_APP_TITLE
+                console.log('vue', process.env.VUE_APP_TITLE)
                 if (typeof window.ReactNativeWebView === 'undefined') {
                     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                     this.nodetype = 'TESTNET'
