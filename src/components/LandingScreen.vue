@@ -90,7 +90,7 @@
             this.subscribe()
             
             try {
-                this.test = process.env.VUE_APP_TEST
+                this.test = process.env.VITE_APP_TITLE
                 if (typeof window.ReactNativeWebView === 'undefined') {
                     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                     this.nodetype = 'TESTNET'
