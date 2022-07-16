@@ -10,6 +10,9 @@ export default defineConfig({
       cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
     },
   },
+  define: {
+    'process.env': {}
+  }
 })
 
 // export default defineConfig({ plugins: [vue()] })
