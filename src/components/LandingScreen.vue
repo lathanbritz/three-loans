@@ -115,8 +115,9 @@
                     const urlParams = new URLSearchParams(window.location.search)
                     this.ott = urlParams.get('xAppToken')
                     
-                    const data = xapp.getTokenData(this.ott)
-                    
+                    const data = await xapp.getTokenData(this.ott)
+                    // console.log('data', data)
+
                     this.account = data.account_info.account
                     
                     return data
