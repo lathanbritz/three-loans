@@ -52,6 +52,7 @@
     </div>
     <footer>
         <p>XRPL ledger: {{ledger}}</p>
+        <p>ott: {{ott}}</p>
     </footer>
 </template>
 
@@ -61,7 +62,8 @@
         props: ['socket', 'component'],
         data() {
             return {
-                account: 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
+                account: null,
+                nodetype: null,
                 rows: [],
                 callback: null,
                 subscribed: false,
@@ -69,31 +71,49 @@
                 qr_link: null,
                 qr_png: null,
                 ledger: 0,
-                pong: false
+                pong: false,
+                ready: false,
+                ott: ''
             }
         },
         updated() {
             this.resubscribe()
         },
         mounted() {
-            // console.log('aaaa', this.component)
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
-
-            
-            
-            // if (this.callback == null) {
-            //     this.callback = setInterval(() => {
-            //         this.fetchData()
-            //         if (!this.subscribed && this.socket != null) {
-            //             this.subscribe()
-            //         }
-            //     }, 2_000)
-            // }
             this.subscribe()
             
+            try {
+                if (typeof window.ReactNativeWebView === 'undefined') {
+                    this.account = 'rLWQ9tsmrJJc9wUmHDaHNGzUNK7dGefRZk',
+                    this.nodetype = 'TESTNET'
+                    this.ready = true
+                } else {
+                    const data = await this.getTokenData()
+                    await this.wsConnect(data)
+                }
+            } catch(e) { return }
         },
         methods: {
+            getTokenData() {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search)
+                    this.ott = urlParams.get('xAppToken')
+
+                    // const data = await xapp.getTokenData(ott)
+
+                    // if(this.error === this.$t('xapp.error.get_ott_data')) {
+                    //     this.error = false
+                    //     this.wsConnect(data)
+                    // }
+
+                    // return data
+                } catch(e) {
+                    // this.error = this.$t('xapp.error.get_ott_data')
+                    // throw e
+                }
+            },
             appendLoans(item) {
                 this.ledger = item.ledger
                 let found = false
