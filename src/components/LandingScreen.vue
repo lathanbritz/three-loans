@@ -86,7 +86,7 @@
             
             try {
                 if (typeof window.ReactNativeWebView === 'undefined') {
-                    this.account = 'rLWQ9tsmrJJc9wUmHDaHNGzUNK7dGefRZk',
+                    this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                     this.nodetype = 'TESTNET'
                     this.ready = true
                 } else {
