@@ -105,11 +105,12 @@
                 try {
                     const urlParams = new URLSearchParams(window.location.search)
                     this.ott = urlParams.get('xAppToken')
+                    this.test = process.env.VUE_APP_TEST
 
                     const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
                     const apiKey = process.env.VUE_APP_XAPP_KEY
-                    this.test = process.env.VUE_APP_TEST
-                    const res = await axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
+                    
+                    const res = await this.axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': this.ott } })
                     console.log('res', res)
                     this.res = res
                     // const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/account?account=${this.account}`)
