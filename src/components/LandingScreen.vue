@@ -55,7 +55,8 @@
         <p>ott: {{ott}}</p>
         <p>account: {{account}}</p>
         <p>res: {{res}}</p>
-        <p>test: {{test}}</p>
+        <p>vue: {{vue}}</p>
+        <p>vite: {{vite}}</p>
     </footer>
 </template>
 
@@ -78,7 +79,8 @@
                 ready: false,
                 ott: '',
                 res: '',
-                test: ''
+                vue: '',
+                vite: ''
             }
         },
         updated() {
@@ -90,7 +92,8 @@
             this.subscribe()
             
             try {
-                this.test = process.env.VITE_APP_TITLE
+                this.vite = process.env.VITE_APP_TITLE
+                this.vue = process.env.VUE_APP_TITLE
                 if (typeof window.ReactNativeWebView === 'undefined') {
                     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                     this.nodetype = 'TESTNET'
