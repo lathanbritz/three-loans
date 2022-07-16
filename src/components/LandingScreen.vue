@@ -112,8 +112,6 @@
                     const urlParams = new URLSearchParams(window.location.search)
                     this.ott = urlParams.get('xAppToken')
                     
-                    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
-
                     const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
                     const apiKey = import.meta.env.VITE_APP_XAPP_KEY
                     
