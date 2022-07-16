@@ -129,6 +129,7 @@
 
                     // return data
                 } catch(e) {
+                    this.res = e
                     // this.error = this.$t('xapp.error.get_ott_data')
                     // throw e
                 }
