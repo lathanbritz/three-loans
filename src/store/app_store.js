@@ -18,6 +18,7 @@ export const AppStore = {
             commit('ACCOUNT', account)
         },
         appendLoans({commit}, data) {
+            commit('APPEND_LOANS', data)
         }
     },
     mutations: {

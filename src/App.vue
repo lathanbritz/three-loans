@@ -118,6 +118,10 @@
                             console.log('SUBSCRIBED!')
                             this.active_socket = this.socket
                         }
+                        if ('rate_update' in data) {
+                            console.log('rate update', data.rate_update)
+                            this.$store.dispatch('appendLoans', data.rate_update)
+                        }
                     }
                 }
                 setInterval(() => {
