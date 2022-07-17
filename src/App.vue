@@ -19,6 +19,8 @@
                 timeout_socket: null,
                 reconnect_socket: 0,
                 layout: null,
+                ready:false,
+                ott: ''
             };
         },
         watch: {
@@ -39,10 +41,41 @@
             },
         },
         mounted() {
-            
+            try {
+                // if (typeof window.ReactNativeWebView === 'undefined') {
+                //     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
+                //     this.nodetype = 'TESTNET'
+                // } else {
+                    const data = await this.getTokenData()
+                    console.log('data2', data)
+                    this.$store.dispatch('xummTokenData', data)
+                    this.$store.dispatch('setAccount', data.account)
+                // }
+                this.ready = true
+            } catch(e) { 
+                console.log('error', e)
+                return 
+            }
+
+
             this.connectWebsocket()
         },
         methods: {
+            async getTokenData() {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search)
+                    this.ott = urlParams.get('xAppToken')
+                    
+                    const data = await xapp.getTokenData(this.ott)
+                    console.log('data1', data)
+                
+                    this.account = data.account_info.account
+
+                    return data
+                } catch(e) {
+                    console.log('error', e)
+                }
+            },
             connectWebsocket() {
                 const self = this
                 console.log('location', window.location.origin)

@@ -5,6 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import { createStore } from 'vuex'
 import App from "./App.vue"
 import VueNumerals from 'vue-numerals'
 import router from "./router"
@@ -24,6 +25,14 @@ const connection = {
 }
 
 const app = createApp(App)
+
+const store = createStore({
+    modules: {
+        AppStore
+    }
+})
+
+app.use(store)
 app.use(router)
 app.use(Connection, connection)
 app.use(VueNumerals)
