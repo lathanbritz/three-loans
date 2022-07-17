@@ -33,6 +33,9 @@
 </template>
 
 <script>
+    import xapp from '../plugins/xapp.js'
+    import client from '../plugins/ws-client.js'
+
     export default {
         name: 'TakeLoan',
         props: ['socket', 'component'],
@@ -109,7 +112,7 @@
                 const self = this
                 this.socket.onmessage = async function (message) {
                     let data = JSON.parse(message.data)
-                    console.log('data', data)
+                    // console.log('data', data)
                     if (self.account in data) {
                         data = data[self.account]
                         if ('CreateEscrow' in data) {
