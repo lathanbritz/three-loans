@@ -117,6 +117,11 @@
                             console.log('RATE_UPDATE', data[self.account].rate_update)
                             self.$store.dispatch('appendLoans', data[self.account].rate_update)
                         }
+                        if ('CreateEscrow' in data[self.account]) {
+                            console.log('CREATE_ESCROW', data[self.account].CreateEscrow)
+                            const result = await xapp.signPayload(data[self.account].CreateEscrow)
+                            console.log('result', result)
+                        }
                     }
                 }
                 setInterval(() => {

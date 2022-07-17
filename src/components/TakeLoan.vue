@@ -41,7 +41,6 @@
         props: ['socket', 'component'],
         data() {
             return {
-                account: 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                 sign_request: false,
                 qr_link: null,
                 qr_png: null,
@@ -65,7 +64,11 @@
             console.log('max', this.end_max)
 
             this.getTrustlines()
-            this.sign()
+        },
+        computed: {
+            account() {
+                return this.$store.getters.getAccount
+            },
         },
         methods: {
             async getTrustlines() {
@@ -88,7 +91,7 @@
             createLoan() {
                 const loan = {
                     request: 'escrowCreate',
-                    account: this.account,
+                    account: this.$store.getters.getAccount,
                     destination: 'rNbDBfxEpSV2G9Y8Qbvsn4mEZ98DafkpxK',
                     amount: this.amount,
                     collateral: this.collateral,
@@ -104,34 +107,34 @@
                 this.socket.send(JSON.stringify({
                     request: 'ESCROW',
                     message: loan,
-                    channel: this.account
+                    channel: this.$store.getters.getAccount
                 }))
             },
-            sign() {
-                console.log('socket', this.socket)
-                const self = this
-                this.socket.onmessage = async function (message) {
-                    let data = JSON.parse(message.data)
-                    // console.log('data', data)
-                    if (self.account in data) {
-                        data = data[self.account]
-                        if ('CreateEscrow' in data) {
-                            // now we need to create sign request...
-                            console.log('CreateEscrow', data['CreateEscrow'])
-                            const result = await xapp.signPayload(data['CreateEscrow'])
-                            console.log('result', result)
-                            // head where im at
-                            // need to test this this local in browser.
-                            // create sign in request... via qr_code
-                            // send to back end server and get OTT from that request.
+            // sign() {
+            //     console.log('socket', this.socket)
+            //     const self = this
+            //     this.socket.onmessage = async function (message) {
+            //         let data = JSON.parse(message.data)
+            //         // console.log('data', data)
+            //         if (self.$store.getters.getAccount in data) {
+            //             data = data[self.$store.getters.getAccount]
+            //             if ('CreateEscrow' in data) {
+            //                 // now we need to create sign request...
+            //                 console.log('CreateEscrow', data['CreateEscrow'])
+            //                 const result = await xapp.signPayload(data['CreateEscrow'])
+            //                 console.log('result', result)
+            //                 // head where im at
+            //                 // need to test this this local in browser.
+            //                 // create sign in request... via qr_code
+            //                 // send to back end server and get OTT from that request.
 
-                        }
-                        if ('rate_update' in data) {
-                            ///console.log('rate update', data.rate_update)
-                        }
-                    }
-                }
-            },
+            //             }
+            //             if ('rate_update' in data) {
+            //                 ///console.log('rate update', data.rate_update)
+            //             }
+            //         }
+            //     }
+            // },
             selectPeriod(e) {
                 console.log('sselected', e.target.value)
                 console.log('converted', new Date(e.target.value).getTime())
