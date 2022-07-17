@@ -103,12 +103,11 @@
                 console.log('createLoan', loan)
                 console.log('amount', this.amount)
                 
-                this.$emit('socket-send', loan)
-                // this.socket.send(JSON.stringify({
-                //     request: 'ESCROW',
-                //     message: loan,
-                //     channel: this.$store.getters.getAccount
-                // }))
+                this.$emit('socket-send', {
+                    request: 'ESCROW',
+                    message: loan,
+                    channel: this.$store.getters.getAccount
+                })
             },
             // sign() {
             //     console.log('socket', this.socket)

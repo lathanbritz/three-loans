@@ -36,7 +36,7 @@
         },
         methods: {
             sendSocket(params) {
-                console.log('sendSocket222', params)
+                // bubble message to parent
                 this.$emit('socket-send', params)
             }
         }

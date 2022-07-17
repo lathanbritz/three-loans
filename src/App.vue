@@ -161,6 +161,7 @@
             },
             sendSocket(params) {
                 console.log('sendSocket', params)
+                this.socket.send(JSON.stringify(params))
             }
         } 
     }
