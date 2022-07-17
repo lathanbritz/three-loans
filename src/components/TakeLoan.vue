@@ -37,6 +37,7 @@
     export default {
         name: 'TakeLoan',
         props: ['component'],
+        emits: ['socket-send'],
         data() {
             return {
                 sign_request: false,

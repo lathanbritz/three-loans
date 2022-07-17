@@ -2,7 +2,7 @@
     <Nav />
 
     <header class="container">
-        <TakeLoan @socket-send="socketSend" :component="component">What is the point of all?</TakeLoan>
+        <TakeLoan @socket-send="sendSocket" :component="component">What is the point of all?</TakeLoan>
         <LandingScreen :component="component">{escrows}</LandingScreen>
     </header>
 
@@ -27,6 +27,7 @@
     export default {
         name: "DefaultLayout",
         props: ['component'],
+        emits: ['socket-send'],
         components: {
             Nav,
             Refs,

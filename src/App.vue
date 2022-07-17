@@ -1,5 +1,5 @@
 <template>
-    <component :is="layout"  @socket-send="socketSend" :component="active_component" :ready="ready" />
+    <component :is="layout"  @socket-send="sendSocket" :component="active_component" :ready="ready" />
 </template>
 
 <script>
@@ -159,8 +159,8 @@
                     console.log('account is empty')
                 }
             },
-            socketSend(params) {
-                console.log('socket-send', params)
+            sendSocket(params) {
+                console.log('sendSocket', params)
             }
         } 
     }
