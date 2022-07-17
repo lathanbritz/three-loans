@@ -102,7 +102,7 @@
                 console.log('createLoan', loan)
                 console.log('amount', this.amount)
                 
-                this.$emit('socket_send', loan)
+                this.$emit('socket-send', loan)
                 // this.socket.send(JSON.stringify({
                 //     request: 'ESCROW',
                 //     message: loan,
