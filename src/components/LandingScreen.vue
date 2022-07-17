@@ -71,7 +71,6 @@
             this.account = this.$store.getters.getAccount
             if (this.account != '') {
                 this.ready = true
-                this.resubscribe()
             }
             if (this.ready) {
                 this.onmessage()
