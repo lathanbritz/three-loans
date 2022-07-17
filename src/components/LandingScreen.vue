@@ -122,45 +122,26 @@
                 }) 
             },
             resubscribe() {
-                console.log('resubscribe ~ socket state', this.socket.readyState)
-                const self = this
-                if (this.socket.readyState == 0) {
-                    this.socket.onopen = function (message) {
-                        self.socket.send(JSON.stringify({
-                            request: 'PING',
-                            message: {account: self.account},
-                            channel: self.account
-                        }))
-                        console.log(`PING socket ${self.account} !`)
-                        setTimeout(() => {
-                            if (!self.pong) {
-                                self.onmessage()
-                            }
-                        }, 5_000)
-                        console.log('three escrow sockets connected! :)')   
-                    }
-                }
+                console.log('resubscribe ~ socket', this.socket.readyState)
                 if (this.socket.readyState == 1) {
-                    this.socket.send(JSON.stringify({
-                        request: 'PING',
-                        message: {account: this.account},
-                        channel: this.account
-                    }))
-                    console.log(`PING socket ${this.account} !`)
+                    this.onmessage()
                     setTimeout(() => {
-                        if (!self.pong) {
-                            self.onmessage()
+                        if (!this.pong) {
+                            this.ping()
                         }
                     }, 5_000)
                 }
             },
+            ping() {
+                this.socket.send(JSON.stringify({
+                    request: 'PING',
+                    message: {account: this.account},
+                    channel: this.account
+                }))
+                console.log(`PING socket ${this.account} !`)
+            },
             onmessage() {
                 const self = this
-                this.socket.send(JSON.stringify({
-                    request: 'SUBSCRIBE',
-                    message: {account: self.account},
-                    channel: self.account
-                }))
 
                 this.socket.onmessage = function (message) {
                     let data = JSON.parse(message.data)

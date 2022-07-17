@@ -92,11 +92,17 @@
                 
                 this.reconnect_socket++
                 this.socket.onopen = function (message) {
-                    // self.socket.send(JSON.stringify({
-                    //     request: 'SUBSCRIBE',
-                    //     message: {request: 'subscribeUpdates'},
-                    //     channel: self.account
-                    // }))
+                    self.socket.send(JSON.stringify({
+                        request: 'SUBSCRIBE',
+                        message: {account: self.account},
+                        channel: self.account
+                    }))
+                    self.socket.send(JSON.stringify({
+                        request: 'PING',
+                        message: {account: self.account},
+                        channel: self.account
+                    }))
+
                     console.log('three escrow sockets connected! :)')
                 }
                 this.socket.onmessage = function (message) {
