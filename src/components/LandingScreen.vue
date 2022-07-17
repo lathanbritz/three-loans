@@ -62,19 +62,8 @@
         props: ['socket', 'component'],
         data() {
             return {
-                ready: false,
-                account : ''
+                
             }
-        },
-        updated() {
-            console.log('updated updated updated updated updated updated updated updated landing.....')
-            this.account = this.$store.getters.getAccount
-            if (this.account != '') {
-                this.ready = true
-            }
-            // if (this.ready) {
-            //     this.onmessage()
-            // }
         },
         async mounted() {
             if (this.component != 'LandingScreen') { return }
@@ -88,7 +77,10 @@
             ledger() {
                 return this.$store.getters.getLedger
             },
-            "columns": function columns() {
+            account() {
+                return this.$store.getters.getAccount
+            },
+            columns() {
                 if (this.rows.length == 0) {
                     return []
                 }
