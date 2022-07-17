@@ -118,7 +118,7 @@
                             console.log('SUBSCRIBED!')
                             this.active_socket = this.socket
                         }
-                        if ('rate_update' in data) {
+                        if ('rate_update' in data[self.account]) {
                             console.log('rate update', data.rate_update)
                             this.$store.dispatch('appendLoans', data.rate_update)
                         }
