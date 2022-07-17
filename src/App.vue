@@ -3,8 +3,8 @@
 </template>
 
 <script>
-    import xapp from '../plugins/xapp.js'
-    import client from '../plugins/ws-client.js'
+    import xapp from './plugins/xapp.js'
+    import client from './plugins/ws-client.js'
     import DefaultLayout from "./layouts/DefaultLayout.vue"
     import MainLayout from "./layouts/MainLayout.vue"
 
