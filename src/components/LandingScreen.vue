@@ -62,118 +62,32 @@
         props: ['socket', 'component'],
         data() {
             return {
-                nodetype: null,
-                rows: [],
-                callback: null,
-                sign_request: false,
-                qr_link: null,
-                qr_png: null,
-                ledger: 0,
-                pong: false,
-                ready: false,
-                account : ''
             }
         },
-        updated() {
-            console.log('updated updated updated updated updated updated updated updated landing.....')
-            this.account = this.$store.getters.getAccount
-            if (this.account != '') {
-                this.ready = true
-                this.resubscribe()
-            }
-            console.log('token ddd', this.$store.getters.getXummTokenData)
-            
-        },
-        async mounted() {
+        mounted() {
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
         },
+        computed: {
+            rows() {
+                console.log('loanss...s')
+                return this.$store.getters.getLoans
+            },
+            account() {
+                return this.$store.getters.getAccount
+            },
+            ledger() {
+                return this.$store.getters.getLedger
+            },
+            "columns": function columns() {
+                if (this.rows.length == 0) {
+                    return []
+                }
+                return Object.keys(this.rows[0]).filter( code => code !== 'ledger').filter( code => code !== 'currency').filter( code => code !== 'account').filter( code => code !== 'issuer').filter( code => code !== 'escrow_condition')
+            }
+        },
         methods: {
-            appendLoans(item) {
-                this.ledger = item.ledger
-                let found = false
-                for (let index = 0; index < this.rows.length; index++) {
-                    const element = this.rows[index]
-                    if (element.escrow_condition === item.escrow_condition) {
-                        this.rows[index].original_rate = item.original_rate
-                        this.rows[index].current_rate = item.current_rate
-                        this.rows[index].ledger = item.ledger
-                        this.rows[index].currency = item.currency
-                        this.rows[index].liquidation = item.liquidity_base
-                        this.rows[index].current = item.liquidity_call
-                        return
-                    }
-                }
-                this.rows.push({
-                    amount: item.amount,
-                    collateral: item.collateral,
-                    original_rate: item.original_rate,
-                    current_rate: item.current_rate,
-                    liquidation: item.liquidity_base,
-                    current: item.liquidity_call,
-                    original: item.capital,
-                    ledger: item.ledger,
-                    amount: item.amount,
-                    account: item.account,
-                    currency: item.currency,
-                    issuer: item.issuer,
-                    escrow_condition: item.escrow_condition,
-                    loan_term: item.cancel_after,
-                }) 
-            },
-            resubscribe() {
-                console.log('resubscribe ~ socket', this.socket.readyState)
-                if (this.socket.readyState == 1) {
-                    this.onmessage()
-                    setTimeout(() => {
-                        if (!this.pong) {
-                            this.ping()
-                        }
-                    }, 5_000)
-                }
-            },
-            ping() {
-                this.socket.send(JSON.stringify({
-                    request: 'PING',
-                    message: {account: this.account},
-                    channel: this.account
-                }))
-                console.log(`PING socket ${this.account} !`)
-            },
-            onmessage() {
-                const self = this
-
-                this.socket.onmessage = function (message) {
-                    let data = JSON.parse(message.data)
-                    console.log('data', data)
-                    if (self.account in data) {
-                        data = data[self.account]
-                        if ('rate_update' in data) {
-                            console.log('rate update', data.rate_update)
-                            self.appendLoans(data.rate_update)
-                        }
-                        if ('PONG' in data) {
-                            console.log('PONG!')
-                            self.pong = true
-                        }
-                    }
-                }
-            },
-            // subscribe() {
-            //     console.log('subscribing..')
-            //     this.subscribed = true
-            //     this.pong = false
-            //     const self = this
-            //     this.socket.onopen = function (message) {
-            //         self.onmessage()
-            //         console.log('three escrow sockets connected! :)')   
-            //     }
-            // },
-            async fetchData() {
-                console.log('fetchData')
-                const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/account?account=${this.account}`)
-                this.rows = data
-            },
+            
             "sortTable": function sortTable(col) {
                 if (this.sortColumn === col) {
                     this.ascending = !this.ascending
@@ -216,14 +130,6 @@
 				return bytes
 			}
         },
-        computed: {
-            "columns": function columns() {
-                if (this.rows.length == 0) {
-                    return []
-                }
-                return Object.keys(this.rows[0]).filter( code => code !== 'ledger').filter( code => code !== 'currency').filter( code => code !== 'account').filter( code => code !== 'issuer').filter( code => code !== 'escrow_condition')
-            }
-        }
     }
 </script>
 <style scoped>
