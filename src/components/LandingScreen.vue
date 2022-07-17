@@ -72,9 +72,9 @@
             if (this.account != '') {
                 this.ready = true
             }
-            if (this.ready) {
-                this.onmessage()
-            }
+            // if (this.ready) {
+            //     this.onmessage()
+            // }
         },
         async mounted() {
             if (this.component != 'LandingScreen') { return }
