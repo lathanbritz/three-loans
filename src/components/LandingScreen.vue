@@ -76,6 +76,8 @@
         },
         updated() {
             console.log('updated updated updated updatedupdated updated updated updated landing.....')
+            console.log('accc on get...', this.$store.getters.getAccount)
+            console.log('token ddd', this.$store.getters.getXummTokenData)
             this.resubscribe()
         },
         async mounted() {
