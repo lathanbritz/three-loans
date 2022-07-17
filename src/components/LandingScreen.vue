@@ -88,52 +88,6 @@
             }
         },
         methods: {
-            appendLoans(item) {
-                this.ledger = item.ledger
-                for (let index = 0; index < this.rows.length; index++) {
-                    const element = this.rows[index]
-                    if (element.escrow_condition === item.escrow_condition) {
-                        this.rows[index].original_rate = item.original_rate
-                        this.rows[index].current_rate = item.current_rate
-                        this.rows[index].ledger = item.ledger
-                        this.rows[index].currency = item.currency
-                        this.rows[index].liquidation = item.liquidity_base
-                        this.rows[index].current = item.liquidity_call
-                        return
-                    }
-                }
-                this.rows.push({
-                    amount: item.amount,
-                    collateral: item.collateral,
-                    original_rate: item.original_rate,
-                    current_rate: item.current_rate,
-                    liquidation: item.liquidity_base,
-                    current: item.liquidity_call,
-                    original: item.capital,
-                    ledger: item.ledger,
-                    amount: item.amount,
-                    account: item.account,
-                    currency: item.currency,
-                    issuer: item.issuer,
-                    escrow_condition: item.escrow_condition,
-                    loan_term: item.cancel_after,
-                }) 
-            },
-            onmessage() {
-                const self = this
-
-                this.socket.onmessage = function (message) {
-                    let data = JSON.parse(message.data)
-                    console.log('data', data)
-                    if (self.account in data) {
-                        data = data[self.account]
-                        if ('RRRRRR' in data) {
-                            console.log('rate update', data.rate_update)
-                            self.appendLoans(data.rate_update)
-                        }
-                    }
-                }
-            },
             "sortTable": function sortTable(col) {
                 if (this.sortColumn === col) {
                     this.ascending = !this.ascending
