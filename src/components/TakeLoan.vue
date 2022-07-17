@@ -33,12 +33,11 @@
 </template>
 
 <script>
-    import xapp from '../plugins/xapp.js'
-    import client from '../plugins/ws-client.js'
 
     export default {
         name: 'TakeLoan',
-        props: ['socket', 'component'],
+        props: ['component'],
+        emits: ['socket_send'],
         data() {
             return {
                 sign_request: false,
@@ -104,11 +103,12 @@
                 console.log('createLoan', loan)
                 console.log('amount', this.amount)
                 
-                this.socket.send(JSON.stringify({
-                    request: 'ESCROW',
-                    message: loan,
-                    channel: this.$store.getters.getAccount
-                }))
+                this.$emit('socket_send', loan)
+                // this.socket.send(JSON.stringify({
+                //     request: 'ESCROW',
+                //     message: loan,
+                //     channel: this.$store.getters.getAccount
+                // }))
             },
             // sign() {
             //     console.log('socket', this.socket)

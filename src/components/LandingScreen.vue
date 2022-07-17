@@ -59,7 +59,7 @@
 <script>
     export default {
         name: 'LandingScreen',
-        props: ['socket', 'component'],
+        props: ['component'],
         data() {
             return {
                 
