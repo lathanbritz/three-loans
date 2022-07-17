@@ -122,7 +122,7 @@
                 }) 
             },
             resubscribe() {
-                console.log('resubscribe')
+                console.log('resubscribe ~ socket state', this.socket.readyState)
                 const self = this
                 if (this.socket.readyState == 1) {
                     this.socket.send(JSON.stringify({
