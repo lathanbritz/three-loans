@@ -20,7 +20,7 @@ export const AppStore = {
         TOKEN_DATA(state, data) {
             state.xumm.tokenData = data
         },
-        TOKEN_DATA(state, account) {
+        ACCOUNT(state, account) {
             state.account = account
         },
     },
