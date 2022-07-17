@@ -57,9 +57,6 @@
 </template>
 
 <script>
-    import xapp from '../plugins/xapp.js'
-    import client from '../plugins/ws-client.js'
-
     export default {
         name: 'LandingScreen',
         props: ['socket', 'component'],
