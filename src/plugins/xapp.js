@@ -25,6 +25,56 @@ const getTokenData = async (ott) => {
     }    
 }
 
+const sendCommandtoXumm = (command) => {
+    if (typeof window.ReactNativeWebView === 'undefined') throw new Error('This is not a react native webview')
+    window.ReactNativeWebView.postMessage(JSON.stringify(command))
+}
+
+const openSignRequest = (uuid) => {
+    try {
+        sendCommandtoXumm({
+            command: 'openSignRequest',
+            uuid: uuid
+        })
+    } catch(e) {
+        throw e
+    }
+}
+
+const closeXapp = () => {
+    try {
+        sendCommandtoXumm({
+            command: "close",
+            refreshEvents: false
+        })
+    } catch(e) {
+        throw e
+    }
+}
+
+const openExternalBrowser = (url) => {
+    try {
+        sendCommandtoXumm({
+            command: 'openBrowser',
+            url: url
+        })
+    } catch(e) {
+        throw e
+    }
+}
+
+const openTxViewer = (tx, account) => {
+    try {
+        sendCommandtoXumm({
+            command: 'txDetails',
+            tx,
+            account
+        })
+    } catch(e) {
+        throw e
+    }
+}
+
 const status = () => {
     return new Promise((resolve, reject) => {
         function message(event) {
@@ -57,7 +107,49 @@ const payload = async (payload) => {
     }
 }
 
+const versionCheck = (v1, v2) => {
+    var v1parts = v1.split('.');
+    var v2parts = v2.split('.');
+
+    // First, validate both numbers are true version numbers
+    function validateParts(parts) {
+        for (var i = 0; i < parts.length; ++i) {
+            if (!/^\d+$/.test(parts[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    if (!validateParts(v1parts) || !validateParts(v2parts)) {
+        return NaN;
+    }
+
+    for (var i = 0; i < v1parts.length; ++i) {
+        if (v2parts.length === i) {
+            return 1;
+        }
+
+        if (v1parts[i] === v2parts[i]) {
+            continue;
+        }
+        if (v1parts[i] > v2parts[i]) {
+            return 1;
+        }
+        return -1;
+    }
+
+    if (v1parts.length != v2parts.length) {
+        return -1;
+    }
+
+    return 0;
+}
+
 export default {
     getTokenData,
+    closeXapp,
     signPayload: payload,
+    openExternalBrowser,
+    openTxViewer,
+    versionCheck
 }
