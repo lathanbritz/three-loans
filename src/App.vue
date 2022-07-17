@@ -40,7 +40,7 @@
                 this.layout = to.meta.layout !== undefined ? to.meta.layout : "DefaultLayout";
             },
         },
-        mounted() {
+        async mounted() {
             try {
                 // if (typeof window.ReactNativeWebView === 'undefined') {
                 //     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
