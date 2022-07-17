@@ -1,5 +1,5 @@
 <template>
-    <component :is="layout"  :socket="socket" :component="active_component" :ready="ready" />
+    <component :is="layout"  :socket="active_socket" :component="active_component" :ready="ready" />
 </template>
 
 <script>
@@ -18,9 +18,11 @@
                 active_component: 'LandingScreen',
                 account: '',
                 socket: null,
+                active_socket: null,
                 timeout_socket: null,
                 reconnect_socket: 0,
                 layout: null,
+                pong: false,
                 ready: false
             };
         },
@@ -97,11 +99,7 @@
                         message: {account: self.account},
                         channel: self.account
                     }))
-                    self.socket.send(JSON.stringify({
-                        request: 'PING',
-                        message: {account: self.account},
-                        channel: self.account
-                    }))
+                    self.ping()
 
                     console.log('three escrow sockets connected! :)')
                 }
@@ -110,7 +108,22 @@
                         clearTimeout(self.timeout_socket)
                         self.timeout_socket = null
                     }
+                    let data = JSON.parse(message.data)
+                    if (self.account in data) {
+                        if ('PONG' in data[self.account]) {
+                            console.log('PONG!')
+                            self.pong = true
+                        }
+                        if ('SUBSCRIBED' in data[self.account]) {
+                            this.active_socket = socket
+                        }
+                    }
                 }
+                setInterval(() => {
+                    self.pong = false
+                    self.ping()
+                }, 5_000)
+
                 this.socket.onerror = function (message) {
                     console.log("There was an error connection to three escrow socket! :(")
                     console.log(message)
@@ -128,6 +141,18 @@
                     }
                 }
             },
+            ping() {
+                if (this.account != '') {
+                    this.socket.send(JSON.stringify({
+                        request: 'PING',
+                        message: {account: this.account},
+                        channel: this.account
+                    }))
+                }
+                else {
+                    console.log('account is empty')
+                }
+            }
         } 
     }
 </script>
