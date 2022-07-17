@@ -98,7 +98,7 @@
 
                     console.log('three escrow sockets connected! :)')
                 }
-                this.socket.onmessage = function (message) {
+                this.socket.onmessage = async function (message) {
                     if (self.timeout_socket != null) {
                         clearTimeout(self.timeout_socket)
                         self.timeout_socket = null
