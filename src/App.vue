@@ -116,7 +116,7 @@
                         }
                         if ('SUBSCRIBED' in data[self.account]) {
                             console.log('SUBSCRIBED!')
-                            this.active_socket = socket
+                            this.active_socket = this.socket
                         }
                     }
                 }
