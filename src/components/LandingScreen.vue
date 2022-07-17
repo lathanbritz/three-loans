@@ -71,7 +71,7 @@
                 qr_png: null,
                 ledger: 0,
                 pong: false,
-                ready: false
+                ready: false,
                 account : ''
             }
         },
