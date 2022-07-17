@@ -117,8 +117,9 @@
                         data = data[self.account]
                         if ('CreateEscrow' in data) {
                             // now we need to create sign request...
+                            console.log('CreateEscrow', data['CreateEscrow'])
                             const result = await xapp.signPayload(data['CreateEscrow'])
-                            console.log('CreateEscrow', result)
+                            console.log('result', result)
                             // head where im at
                             // need to test this this local in browser.
                             // create sign in request... via qr_code
