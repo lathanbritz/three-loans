@@ -67,6 +67,7 @@
         methods: {
             async getTokenData() {
                 try {
+                    console.log('fetching token data')
                     const urlParams = new URLSearchParams(window.location.search)
                     const ott = urlParams.get('xAppToken')
 
