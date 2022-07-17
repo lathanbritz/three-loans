@@ -72,22 +72,22 @@
                 ledger: 0,
                 pong: false,
                 ready: false
+                account : ''
             }
         },
         updated() {
-            console.log('updated updated updated updatedupdated updated updated updated landing.....')
-            console.log('accc on get...', this.$store.getters.getAccount)
+            console.log('updated updated updated updated updated updated updated updated landing.....')
+            this.account = this.$store.getters.getAccount
+            if (this.account != '') {
+                this.ready = true
+                this.resubscribe()
+            }
             console.log('token ddd', this.$store.getters.getXummTokenData)
-            this.resubscribe()
+            
         },
         async mounted() {
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
-            
-
-            if (this.ready) {
-                this.subscribe()
-            }
         },
         computed: {
             account() {
@@ -168,16 +168,16 @@
                     }
                 }
             },
-            subscribe() {
-                console.log('subscribing..')
-                this.subscribed = true
-                this.pong = false
-                const self = this
-                this.socket.onopen = function (message) {
-                    self.onmessage()
-                    console.log('three escrow sockets connected! :)')   
-                }
-            },
+            // subscribe() {
+            //     console.log('subscribing..')
+            //     this.subscribed = true
+            //     this.pong = false
+            //     const self = this
+            //     this.socket.onopen = function (message) {
+            //         self.onmessage()
+            //         console.log('three escrow sockets connected! :)')   
+            //     }
+            // },
             async fetchData() {
                 console.log('fetchData')
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/account?account=${this.account}`)
