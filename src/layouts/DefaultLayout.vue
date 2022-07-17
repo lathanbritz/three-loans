@@ -37,6 +37,7 @@
         methods: {
             sendSocket(params) {
                 console.log('sendSocket222', params)
+                this.$emit('socket-send', params)
             }
         }
     }
