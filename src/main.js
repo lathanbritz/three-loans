@@ -11,6 +11,8 @@ import VueNumerals from 'vue-numerals'
 import router from "./router"
 import Connection from './plugins/connection.js'
 
+import { AppStore } from './store/app_store.js'
+
 // const connection = {
 // 	site: 'https://panicbot.app',
 // 	socket: 'ws://127.0.0.1:3006',
