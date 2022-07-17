@@ -52,9 +52,7 @@
     </div>
     <footer>
         <p>XRPL ledger: {{ledger}}</p>
-        <p>ott: {{ott}}</p>
         <p>account: {{account}}</p>
-        <p>test: {{test}}</p>
     </footer>
 </template>
 
@@ -77,10 +75,7 @@
                 qr_png: null,
                 ledger: 0,
                 pong: false,
-                ready: false,
-                ott: '',
-                res: '',
-                test: ''
+                ready: false
             }
         },
         updated() {
@@ -90,55 +85,12 @@
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
             
-            this.test = import.meta.env.VITE_APP_TITLE
-
-            try {
-                // if (typeof window.ReactNativeWebView === 'undefined') {
-                //     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
-                //     this.nodetype = 'TESTNET'
-                // } else {
-                    const data = await this.getTokenData()
-                    console.log('data', data)
-                // }
-                this.ready = true
-            } catch(e) { 
-                console.log('error', e)
-                return 
-            }
 
             if (this.ready) {
                 this.subscribe()
             }
         },
         methods: {
-            async getTokenData() {
-                try {
-                    const urlParams = new URLSearchParams(window.location.search)
-                    this.ott = urlParams.get('xAppToken')
-                    
-                    const data = await xapp.getTokenData(this.ott)
-                    console.log('data', data)
-                
-                    this.account = data.account_info.account
-                    // const result = await xapp.signPayload()
-                    this.test()
-                    return data
-                } catch(e) {
-                    console.log('error', e)
-                }
-            },
-            async test() {
-                const command = {
-                    "id": 2,
-                    "command": "account_info",
-                    "account":  this.account,
-                    "strict": true,
-                    "ledger_index": "current",
-                    "queue": true
-                }
-                const res = await client.send(command)
-                console.log('res', res)
-            },
             appendLoans(item) {
                 this.ledger = item.ledger
                 let found = false

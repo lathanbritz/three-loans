@@ -1,5 +1,5 @@
 <template>
-    <component :is="layout"  :socket="socket" :component="active_component"/>
+    <component :is="layout"  :socket="socket" :component="active_component" :ready="ready" />
 </template>
 
 <script>
@@ -14,13 +14,12 @@
         data() {
             return {
                 active_component: 'LandingScreen',
-                account: 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
+                account: '',
                 socket: null,
                 timeout_socket: null,
                 reconnect_socket: 0,
                 layout: null,
-                ready:false,
-                ott: ''
+                ready: false
             };
         },
         watch: {
@@ -50,6 +49,7 @@
                     console.log('data2', data)
                     this.$store.dispatch('xummTokenData', data)
                     this.$store.dispatch('setAccount', data.account)
+                    this.account = data.account
                 // }
                 this.ready = true
             } catch(e) { 
@@ -57,19 +57,19 @@
                 return 
             }
 
-
-            this.connectWebsocket()
+            if (this.ready) {
+                this.connectWebsocket()
+            }
         },
         methods: {
             async getTokenData() {
                 try {
                     const urlParams = new URLSearchParams(window.location.search)
-                    this.ott = urlParams.get('xAppToken')
+                    const ott = urlParams.get('xAppToken')
                     
-                    const data = await xapp.getTokenData(this.ott)
+                    const data = await xapp.getTokenData(ott)
                     console.log('data1', data)
-                
-                    this.account = data.account_info.account
+            
 
                     return data
                 } catch(e) {
