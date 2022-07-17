@@ -34,8 +34,10 @@
             TakeLoan,
             LandingScreen
         },
-        sendSocket(params) {
+        methods: {
+            sendSocket(params) {
                 console.log('sendSocket222', params)
             }
+        }
     }
 </script>
