@@ -2,8 +2,8 @@
     <Nav />
 
     <header class="container">
-        <TakeLoan :socket="socket" :component="component">What is the point of all?</TakeLoan>
-        <LandingScreen :socket="socket" :component="component">{escrows}</LandingScreen>
+        <TakeLoan :socket_send="socket_send" :component="component">What is the point of all?</TakeLoan>
+        <LandingScreen :component="component">{escrows}</LandingScreen>
     </header>
 
     <main class="container flex-shrink-0 mb-4">
