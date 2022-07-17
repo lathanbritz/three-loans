@@ -25,6 +25,24 @@ const getTokenData = async (ott) => {
     }    
 }
 
+const status = () => {
+    return new Promise((resolve, reject) => {
+        function message(event) {
+            window.removeEventListener("message", message)
+            document.removeEventListener("message", message)
+
+            const data = JSON.parse(event.data)
+            if(data.method !== 'payloadResolved') return reject('')
+            if(data.reason === 'SIGNED') return resolve()
+            else return reject('')
+        }
+        //iOS
+        window.addEventListener('message', message)
+        //Android
+        document.addEventListener('message', message)
+    })
+}
+
 
 const payload = async (payload) => {
     try {
