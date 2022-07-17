@@ -65,7 +65,6 @@
                 nodetype: null,
                 rows: [],
                 callback: null,
-                subscribed: false,
                 sign_request: false,
                 qr_link: null,
                 qr_png: null,
@@ -88,11 +87,6 @@
         async mounted() {
             if (this.component != 'LandingScreen') { return }
             console.log('Landing screen mounted')
-        },
-        computed: {
-            account() {
-                return this.$store.getters.getAccount
-            },
         },
         methods: {
             appendLoans(item) {
