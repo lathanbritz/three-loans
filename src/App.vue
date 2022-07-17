@@ -13,6 +13,7 @@
             DefaultLayout,
             MainLayout,
         },
+        emits: ['socket_send'],
         data() {
             return {
                 active_component: 'LandingScreen',
