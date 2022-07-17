@@ -115,6 +115,7 @@
                             self.pong = true
                         }
                         if ('SUBSCRIBED' in data[self.account]) {
+                            console.log('SUBSCRIBED!')
                             this.active_socket = socket
                         }
                     }
