@@ -111,16 +111,16 @@
                     let data = JSON.parse(message.data)
                     if (self.account in data) {
                         if ('PONG' in data[self.account]) {
-                            console.log('PONG!')
+                            console.log('PONG')
                             self.pong = true
                         }
                         if ('SUBSCRIBED' in data[self.account]) {
                             console.log('SUBSCRIBED!')
-                            this.active_socket = this.socket
+                            self.active_socket = self.socket
                         }
                         if ('rate_update' in data[self.account]) {
-                            console.log('rate update', data.rate_update)
-                            this.$store.dispatch('appendLoans', data.rate_update)
+                            console.log('RATE_UPDATE', data[self.account].rate_update)
+                            self.$store.dispatch('appendLoans', data[self.account].rate_update)
                         }
                     }
                 }
