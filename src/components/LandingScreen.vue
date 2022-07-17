@@ -124,6 +124,22 @@
             resubscribe() {
                 console.log('resubscribe ~ socket state', this.socket.readyState)
                 const self = this
+                if (this.socket.readyState == 0) {
+                    this.socket.onopen = function (message) {
+                        self.socket.send(JSON.stringify({
+                            request: 'PING',
+                            message: {account: self.account},
+                            channel: self.account
+                        }))
+                        console.log(`PING socket ${self.account} !`)
+                        setTimeout(() => {
+                            if (!self.pong) {
+                                self.onmessage()
+                            }
+                        }, 5_000)
+                        console.log('three escrow sockets connected! :)')   
+                    }
+                }
                 if (this.socket.readyState == 1) {
                     this.socket.send(JSON.stringify({
                         request: 'PING',
