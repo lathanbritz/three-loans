@@ -62,7 +62,6 @@
         props: ['socket', 'component'],
         data() {
             return {
-                account: null,
                 nodetype: null,
                 rows: [],
                 callback: null,
@@ -76,6 +75,7 @@
             }
         },
         updated() {
+            console.log('updated updated updated updatedupdated updated updated updated landing.....')
             this.resubscribe()
         },
         async mounted() {
@@ -86,6 +86,11 @@
             if (this.ready) {
                 this.subscribe()
             }
+        },
+        computed: {
+            account() {
+                return this.$store.getters.getAccount
+            },
         },
         methods: {
             appendLoans(item) {
