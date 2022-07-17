@@ -50,7 +50,6 @@
                 //     this.nodetype = 'TESTNET'
                 // } else {
                     const data = await this.getTokenData()
-                    console.log('data2', data)
                     this.$store.dispatch('xummTokenData', data)
                     this.$store.dispatch('setAccount', data.account)
                     this.account = data.account
@@ -70,12 +69,8 @@
                 try {
                     const urlParams = new URLSearchParams(window.location.search)
                     const ott = urlParams.get('xAppToken')
-                    
-                    const data = await xapp.getTokenData(ott)
-                    console.log('data1', data)
-            
 
-                    return data
+                    return await xapp.getTokenData(ott)
                 } catch(e) {
                     console.log('error', e)
                 }
@@ -127,7 +122,7 @@
                 setInterval(() => {
                     self.pong = false
                     self.ping()
-                }, 5_000)
+                }, 10_000)
 
                 this.socket.onerror = function (message) {
                     console.log("There was an error connection to three escrow socket! :(")
