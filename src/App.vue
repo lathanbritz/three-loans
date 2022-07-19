@@ -90,6 +90,7 @@
                 }
             },
             connectWebsocket() {
+                console.log('connectWebsocket............')
                 const self = this
                 console.log('location', window.location.origin)
                 if ('https://192.168.0.19:3007' == window.location.origin) {
