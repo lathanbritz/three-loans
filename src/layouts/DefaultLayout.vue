@@ -19,6 +19,9 @@
 </template>
 
 <script>
+    import xapp from '../plugins/xapp.js'
+    import client from '../plugins/ws-client.js'
+
     import Nav from "../components/Nav.vue"
     import Refs from "../components/Refs.vue"
     import TakeLoan from "../components/TakeLoan.vue"
@@ -33,6 +36,19 @@
             Refs,
             TakeLoan,
             LandingScreen
+        },
+        data() {
+            return {
+                active_component: 'LandingScreen',
+                account: '',
+                socket: null,
+                active_socket: null,
+                timeout_socket: null,
+                reconnect_socket: 0,
+                layout: null,
+                pong: false,
+                ready: false
+            };
         },
         methods: {
             sendSocket(params) {

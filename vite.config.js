@@ -10,6 +10,9 @@ export default defineConfig({
       cert: fs.readFileSync('../../ssl/panicbot_xyz.crt'),
     },
   },
+  buildModules: [
+    'nuxt-vite'
+  ],
   define: {
     'process.env': {}
   }
