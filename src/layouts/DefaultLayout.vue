@@ -2,7 +2,7 @@
     <Nav />
 
     <header class="container">
-        <TakeLoan @socket-send="sendSocket" :component="active_component">What is the point of all?</TakeLoan>
+        <TakeLoan @socket-send="sendSocket" :component="component">What is the point of all?</TakeLoan>
         <LandingScreen :component="component">{escrows}</LandingScreen>
     </header>
 
@@ -29,6 +29,7 @@
 
     export default {
         name: 'DefaultLayout',
+        props: ['component'],
         components: {
             Nav,
             Refs,
@@ -37,33 +38,14 @@
         },
         data() {
             return {
-                active_component: 'LandingScreen',
                 account: '',
                 socket: null,
                 active_socket: null,
                 timeout_socket: null,
                 reconnect_socket: 0,
-                layout: null,
                 pong: false,
                 ready: false
             }
-        },
-        watch: {
-            $route(to) {
-                console.log(to)
-                switch (to.fullPath) {
-                    case '/':
-                        this.active_component = 'LandingScreen'
-                        break
-                    case '/loans':
-                        this.active_component = 'TakeLoan'
-                        break
-                
-                    default:
-                        break
-                }
-                this.layout = to.meta.layout !== undefined ? to.meta.layout : "DefaultLayout";
-            },
         },
         beforeMount() {
             console.log('beforeMount beforeMount beforeMount')
