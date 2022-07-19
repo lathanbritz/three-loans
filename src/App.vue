@@ -51,6 +51,7 @@
         },
         async mounted() {
             console.log('mounted mounted ------')
+            console.log('token data,,,,', this.$store.getters.getXummTokenData)
             if ( this.$store.getters.getXummTokenData == null) {
                 try {
                     // if (typeof window.ReactNativeWebView === 'undefined') {
