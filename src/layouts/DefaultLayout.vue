@@ -37,6 +37,7 @@
         methods: {
             sendSocket(params) {
                 // bubble message to parent
+                console.log('mid point', params)
                 this.$emit('socket-send', params)
             }
         }
