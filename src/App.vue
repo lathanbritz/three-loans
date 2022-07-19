@@ -43,6 +43,9 @@
                 this.layout = to.meta.layout !== undefined ? to.meta.layout : "DefaultLayout";
             },
         },
+        onDeactivated() {
+            console.log('onDeactivated onDeactivated onDeactivated')
+        },
         beforeMount() {
             console.log('beforeMount beforeMount beforeMount')
         },
