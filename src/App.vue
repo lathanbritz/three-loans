@@ -71,6 +71,7 @@
                     const urlParams = new URLSearchParams(window.location.search)
                     const ott = urlParams.get('xAppToken')
 
+                    console.log('ott', ott)
                     return await xapp.getTokenData(ott)
                 } catch(e) {
                     console.log('error token fetch', e)
@@ -131,13 +132,13 @@
                 }, 10_000)
 
                 this.socket.onerror = function (message) {
-                    console.log("There was an error connection to three escrow socket! :(")
+                    console.log('There was an error connection to three escrow socket! :(')
                     console.log(message)
                     self.socket.close()
                 }
 
                 this.socket.onclose = function (message) {
-                    console.log("three socket escrow disconnected!", message)
+                    console.log('three socket escrow disconnected!', message)
                     if (self.timeout_socket == null && message.code != 1005) {
                         self.timeout_socket = setTimeout(() => {
                             if (self.reconnect_socket < 30) {
