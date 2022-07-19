@@ -44,21 +44,26 @@
             },
         },
         async mounted() {
-            try {
-                // if (typeof window.ReactNativeWebView === 'undefined') {
-                //     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
-                //     this.nodetype = 'TESTNET'
-                // } else {
-                    const data = await this.getTokenData()
-                    this.$store.dispatch('xummTokenData', data)
-                    this.$store.dispatch('setAccount', data.account)
-                    this.account = data.account
-                // }
-                this.ready = true
-            } catch(e) { 
-                console.log('error mounted', e)
-                return 
+            if ( this.$store.getters.getXummTokenData == null) {
+                try {
+                    // if (typeof window.ReactNativeWebView === 'undefined') {
+                    //     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
+                    //     this.nodetype = 'TESTNET'
+                    // } else {
+                        const data = await this.getTokenData()
+                        if (data == null) { return }
+                        this.$store.dispatch('xummTokenData', data)
+                        this.$store.dispatch('setAccount', data.account)
+                        this.account = data.account
+                    // }
+                    this.ready = true
+                } catch(e) { 
+                    console.log('error mounted', e)
+                    return 
+                }
             }
+            
+            this.account = this.$store.getters.getAccount
 
             if (this.ready) {
                 this.connectWebsocket()
@@ -70,8 +75,7 @@
                     console.log('fetching token data')
                     const urlParams = new URLSearchParams(window.location.search)
                     const ott = urlParams.get('xAppToken')
-
-                    console.log('ott', ott)
+                    if (ott == null)  { return }
                     return await xapp.getTokenData(ott)
                 } catch(e) {
                     console.log('error token fetch', e)

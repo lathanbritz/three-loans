@@ -4,7 +4,7 @@ export const AppStore = {
     state: () => ({
         version: '0.0.1',
         xumm: {
-            tokenData: {}
+            tokenData: null
         },
         account: '',
         ledger: 0,
