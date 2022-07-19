@@ -7,8 +7,8 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a class="btn btn-purple" href="/loans" role="button" id="loan">loan</a>
-                    <a class="btn btn-green ms-2" href="/stash" role="button" id="stash">stash</a>
+                    <NuxtLink class="btn btn-purple" to="/loans" role="button" id="loan">loan</NuxtLink>
+                    <NuxtLink class="btn btn-green ms-2" to="/stash" role="button" id="stash">stash</NuxtLink>
                 </p>
             </p>
         </div>
