@@ -43,6 +43,12 @@
                 this.layout = to.meta.layout !== undefined ? to.meta.layout : "DefaultLayout";
             },
         },
+        beforeMount() {
+            console.log('beforeMount beforeMount beforeMount')
+        },
+        unmounted() {
+            console.log('unmounted unmounted unmounted')
+        },
         async mounted() {
             if ( this.$store.getters.getXummTokenData == null) {
                 try {
