@@ -56,7 +56,7 @@
                 // }
                 this.ready = true
             } catch(e) { 
-                console.log('error', e)
+                console.log('error mounted', e)
                 return 
             }
 
@@ -73,7 +73,7 @@
 
                     return await xapp.getTokenData(ott)
                 } catch(e) {
-                    console.log('error', e)
+                    console.log('error token fetch', e)
                 }
             },
             connectWebsocket() {
