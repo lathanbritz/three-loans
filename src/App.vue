@@ -62,13 +62,14 @@
                         this.$store.dispatch('setAccount', data.account)
                         this.account = data.account
                     // }
-                    this.ready = true
+                    
                 } catch(e) { 
                     console.log('error mounted', e)
                     return 
                 }
             }
             
+            this.ready = true
             this.account = this.$store.getters.getAccount
 
             if (this.ready) {
