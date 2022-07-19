@@ -46,10 +46,10 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item text-uppercase" v-for="route in routes" :key="route.path">
-                        <router-link :to="route.path" class="nav-link" :title="route.name" :class="{ active: isActive(route.path) }">
+                        <NuxtLink :to="route.path" class="nav-link" :title="route.name" :class="{ active: isActive(route.path) }">
                             <i class="bi bi-house-fill" v-if="route.path === '/'"></i>
                             {{ route.path !== "/" ? route.name : "" }}
-                        </router-link>
+                        </NuxtLink>
                     </li>
                 </ul>
             </div>
