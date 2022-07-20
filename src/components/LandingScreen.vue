@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 mb-4 bg-light rounded-3" v-if="component==='LandingScreen'">
+    <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
             <h1 class="display-1 fw-bold main-text text-center"><em><slot></slot></em></h1>
             <p class="col-md-8 fs-4">
@@ -7,8 +7,8 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <NuxtLink class="btn btn-purple" to="/loans" role="button" id="loan">loan</NuxtLink>
-                    <NuxtLink class="btn btn-green ms-2" to="/stash" role="button" id="stash">stash</NuxtLink>
+                    <a class="btn btn-purple" @click="$emit('action','loan')" role="button" id="loan">loan</a>
+                    <a class="btn btn-green ms-2" @click="$emit('action','stash')" role="button" id="stash">stash</a>
                 </p>
             </p>
         </div>
@@ -59,15 +59,13 @@
 <script>
     export default {
         name: 'LandingScreen',
-        props: ['component'],
         data() {
             return {
                 
             }
         },
         async mounted() {
-            if (this.component != 'LandingScreen') { return }
-            console.log('Landing screen mounted')
+            
         },
         computed: {
             rows() {

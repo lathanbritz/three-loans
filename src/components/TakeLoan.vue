@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 mb-4 bg-light rounded-3" v-if="component==='TakeLoan'">
+    <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold"><slot></slot></h1>
             <p v-if="qr_link==null" class="col-md-8 fs-4">
@@ -36,7 +36,6 @@
 
     export default {
         name: 'TakeLoan',
-        props: ['component'],
         emits: ['socket-send'],
         data() {
             return {
@@ -53,9 +52,6 @@
             }
         },
         mounted() {
-            if (this.component != 'TakeLoan') { return }
-            console.log('TakeLoan mounted')
-
             // set max date range.
             const max = new Date()
             max.setDate(max.getDate() + 31)
@@ -108,6 +104,7 @@
                     message: loan,
                     channel: this.$store.getters.getAccount
                 })
+                this.$emit('action', 'home')
             },
             // sign() {
             //     console.log('socket', this.socket)

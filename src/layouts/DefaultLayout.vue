@@ -2,8 +2,8 @@
     <Nav />
 
     <header class="container">
-        <TakeLoan @socket-send="sendSocket" :component="component">What is the point of all?</TakeLoan>
-        <LandingScreen :component="component">{escrows}</LandingScreen>
+        <TakeLoan v-if="components.TakeLoan" @socket-send="sendSocket" @action="buttonAction">What is the point of all?</TakeLoan>
+        <LandingScreen v-if="components.LandingScreen" @action="buttonAction">{escrows}</LandingScreen>
     </header>
 
     <main class="container flex-shrink-0 mb-4">
@@ -29,7 +29,6 @@
 
     export default {
         name: 'DefaultLayout',
-        props: ['component'],
         components: {
             Nav,
             Refs,
@@ -39,32 +38,37 @@
         data() {
             return {
                 account: '',
+                nodetype: 'TESTNET',
                 socket: null,
                 active_socket: null,
                 timeout_socket: null,
                 reconnect_socket: 0,
                 pong: false,
-                ready: false
+                ready: false,
+                components: {
+                    LandingScreen: true,
+                    TakeLoan: false,
+                }
             }
         },
         beforeMount() {
             console.log('beforeMount beforeMount beforeMount')
         },
         async mounted() {
-            console.log('mounted mounted ------')
-            console.log('token data,,,,', this.$store.getters.getXummTokenData)
+            console.log('token data on mounted', this.$store.getters.getXummTokenData)
             if ( this.$store.getters.getXummTokenData == null) {
                 try {
-                    // if (typeof window.ReactNativeWebView === 'undefined') {
-                    //     this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
-                    //     this.nodetype = 'TESTNET'
-                    // } else {
+                    if (typeof window.ReactNativeWebView === 'undefined') {
+                        this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
+                        this.nodetype = 'TESTNET'
+                        this.$store.dispatch('setAccount', 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v')
+                    } else {
                         const data = await this.getTokenData()
                         if (data == null) { return }
                         this.$store.dispatch('xummTokenData', data)
                         this.$store.dispatch('setAccount', data.account)
                         this.account = data.account
-                    // }
+                    }
                     
                 } catch(e) { 
                     console.log('error mounted', e)
@@ -179,7 +183,20 @@
                 console.log('sendSocket', params)
                 console.log('scoket', this.socket)
                 console.log('account', this.account)
-                //this.socket.send(JSON.stringify(params))
+                this.socket.send(JSON.stringify(params))
+            },
+            buttonAction(action) {
+                console.log('buttonAction', action)
+                switch (action) {
+                    case 'loan':
+                        this.components.TakeLoan = true
+                        this.components.LandingScreen = false
+                        break
+                    case 'home':
+                        this.components.LandingScreen = true
+                        this.components.TakeLoan = false
+                        break
+                }
             }
         } 
     }
