@@ -124,7 +124,7 @@
                         self.timeout_socket = null
                     }
                     let data = JSON.parse(message.data)
-                    log('ddd', data)
+                    console.log('ddd', data)
                     if (self.account in data) {
                         if ('PONG' in data[self.account]) {
                             console.log('PONG')
