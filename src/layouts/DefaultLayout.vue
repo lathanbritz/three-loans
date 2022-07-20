@@ -40,7 +40,6 @@
                 account: '',
                 nodetype: 'TESTNET',
                 socket: null,
-                active_socket: null,
                 timeout_socket: null,
                 reconnect_socket: 0,
                 pong: false,
@@ -59,15 +58,16 @@
             if ( this.$store.getters.getXummTokenData == null) {
                 try {
                     if (typeof window.ReactNativeWebView === 'undefined') {
+                        this.$store.dispatch('setAccount', 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v')
                         this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                         this.nodetype = 'TESTNET'
-                        this.$store.dispatch('setAccount', 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v')
                     } else {
                         const data = await this.getTokenData()
                         if (data == null) { return }
                         this.$store.dispatch('xummTokenData', data)
                         this.$store.dispatch('setAccount', data.account)
                         this.account = data.account
+                        this.nodetype = data.nodetype
                     }
                     
                 } catch(e) { 
@@ -96,7 +96,6 @@
                 }
             },
             connectWebsocket() {
-                console.log('connectWebsocket............')
                 const self = this
                 console.log('location', window.location.origin)
                 if ('https://192.168.0.19:3007' == window.location.origin) {
@@ -125,6 +124,7 @@
                         self.timeout_socket = null
                     }
                     let data = JSON.parse(message.data)
+                    log('ddd', data)
                     if (self.account in data) {
                         if ('PONG' in data[self.account]) {
                             console.log('PONG')
@@ -132,7 +132,6 @@
                         }
                         if ('SUBSCRIBED' in data[self.account]) {
                             console.log('SUBSCRIBED!')
-                            self.active_socket = self.socket
                         }
                         if ('rate_update' in data[self.account]) {
                             console.log('RATE_UPDATE', data[self.account].rate_update)
