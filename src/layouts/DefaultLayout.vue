@@ -180,9 +180,6 @@
                 }
             },
             sendSocket(params) {
-                console.log('sendSocket', params)
-                console.log('scoket', this.socket)
-                console.log('account', this.account)
                 this.socket.send(JSON.stringify(params))
             },
             buttonAction(action) {
