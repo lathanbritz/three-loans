@@ -52,9 +52,15 @@
         },
         deactivated() {
             console.log('deactivated deactivated deactivated!!!!')
+            if (this.socket != null) {
+                this.socket.close()
+            }
         },
         beforeUnmount() {
             console.log('beforeUnmount beforeUnmount beforeUnmount!!!!')
+            if (this.socket != null) {
+                this.socket.close()
+            }
         },
         beforeMount() {
             console.log('beforeMount beforeMount beforeMount')
