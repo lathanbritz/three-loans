@@ -135,7 +135,7 @@
                         }
                         if ('RATE_UPDATE' in data[self.account]) {
                             console.log('RATE_UPDATE', data[self.account].RATE_UPDATE)
-                            self.$store.dispatch('appendLoans', data[self.account].rate_update)
+                            self.$store.dispatch('appendLoans', data[self.account].RATE_UPDATE)
                         }
                         if ('ESCROW_CREATE' in data[self.account]) {
                             console.log('ESCROW_CREATE', data[self.account].ESCROW_CREATE)
