@@ -53,13 +53,13 @@
         deactivated() {
             console.log('deactivated deactivated deactivated!!!!')
             if (this.socket != null) {
-                this.socket.close()
+                this.socket.close('message test')
             }
         },
         beforeUnmount() {
             console.log('beforeUnmount beforeUnmount beforeUnmount!!!!')
             if (this.socket != null) {
-                this.socket.close()
+                this.socket.close('message test')
             }
         },
         beforeMount() {
