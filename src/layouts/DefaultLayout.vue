@@ -124,6 +124,7 @@
                         self.timeout_socket = null
                     }
                     let data = JSON.parse(message.data)
+                    
                     if (self.account in data) {
                         if ('PONG' in data[self.account]) {
                             console.log('PONG')
@@ -134,9 +135,10 @@
                         }
                         if ('RATE_UPDATE' in data[self.account]) {
                             console.log('RATE_UPDATE', data[self.account].RATE_UPDATE)
-                            self.$store.dispatch('appendLoans', data[self.account].RATE_UPDATE)
+                            self.$store.dispatch('appendLoans', data[self.account].rate_update)
                         }
                         if ('CREATE_ESCROW' in data[self.account]) {
+                            console.log('ddd', data[self.account])
                             console.log('CREATE_ESCROW', data[self.account].CREATE_ESCROW)
                             const result = await xapp.signPayload(data[self.account].CREATE_ESCROW)
                             console.log('result', result)
