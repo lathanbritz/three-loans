@@ -50,6 +50,9 @@
                 }
             }
         },
+        deactivated() {
+            console.log('deactivated deactivated deactivated!!!!')
+        },
         beforeUnmount() {
             console.log('beforeUnmount beforeUnmount beforeUnmount!!!!')
         },
