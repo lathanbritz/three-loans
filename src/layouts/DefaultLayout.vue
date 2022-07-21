@@ -50,6 +50,9 @@
                 }
             }
         },
+        beforeUnmount() {
+            console.log('beforeUnmount beforeUnmount beforeUnmount!!!!')
+        },
         beforeMount() {
             console.log('beforeMount beforeMount beforeMount')
         },
