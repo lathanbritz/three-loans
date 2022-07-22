@@ -7,12 +7,16 @@ export const AppStore = {
             tokenData: null
         },
         account: '',
+        uuid: '',
         ledger: 0,
         loans: []
     }),
     actions: {
         xummTokenData({commit}, data) {
             commit('TOKEN_DATA', data)
+        },
+        setUUID({commit}, uuid) {
+            commit('UUID', uuid)
         },
         setAccount({commit}, account) {
             commit('ACCOUNT', account)
@@ -27,6 +31,9 @@ export const AppStore = {
         },
         ACCOUNT(state, account) {
             state.account = account
+        },
+        UUID(state, uuid) {
+            state.uuid = uuid
         },
         APPEND_LOANS(state, data) {
             state.ledger = data.ledger
@@ -66,6 +73,9 @@ export const AppStore = {
         },
         getXummTokenData: state => {
             return state.xumm.tokenData
+        },
+        getUUID:  state => {
+            return state.uuid
         },
         getAccount: state => {
             return state.account

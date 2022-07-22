@@ -32,7 +32,6 @@
         },
         data() {
             return {
-                account: '',
                 nodetype: 'TESTNET',
                 socket: null,
                 timeout_socket: null,
@@ -66,7 +65,6 @@
                 try {
                     if (typeof window.ReactNativeWebView === 'undefined') {
                         this.$store.dispatch('setAccount', 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v')
-                        this.account = 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v',
                         this.nodetype = 'TESTNET'
                     } else {
                         const data = await this.getTokenData()
@@ -74,7 +72,7 @@
                         this.$store.dispatch('xummTokenData', data)
                         console.log('token data', data)
                         this.$store.dispatch('setAccount', data.account)
-                        this.account = data.account
+                        this.$store.dispatch('setUUID', data.user)
                         this.nodetype = data.nodetype
                     }
                     
@@ -85,7 +83,6 @@
             }
             
             this.ready = true
-            this.account = this.$store.getters.getAccount
 
             if (this.ready) {
                 this.connectWebsocket()
@@ -119,8 +116,8 @@
                 this.socket.onopen = function (message) {
                     self.socket.send(JSON.stringify({
                         request: 'SUBSCRIBE',
-                        message: {account: self.account},
-                        channel: self.account
+                        message: {account: self.$store.getters.getAccount, uuid:self.$store.getters.getUUID},
+                        channel: self.$store.getters.getAccount
                     }))
                     self.ping()
 
@@ -132,22 +129,22 @@
                         self.timeout_socket = null
                     }
                     let data = JSON.parse(message.data)
-                    
-                    if (self.account in data) {
-                        if ('PONG' in data[self.account]) {
+                    const account = self.$store.getters.getAccount
+                    if (account in data) {
+                        if ('PONG' in data[account]) {
                             console.log('PONG')
                             self.pong = true
                         }
-                        if ('SUBSCRIBED' in data[self.account]) {
+                        if ('SUBSCRIBED' in data[account]) {
                             console.log('SUBSCRIBED!')
                         }
-                        if ('RATE_UPDATE' in data[self.account]) {
-                            console.log('RATE_UPDATE', data[self.account].RATE_UPDATE)
-                            self.$store.dispatch('appendLoans', data[self.account].RATE_UPDATE)
+                        if ('RATE_UPDATE' in data[account]) {
+                            console.log('RATE_UPDATE', data[account].RATE_UPDATE)
+                            self.$store.dispatch('appendLoans', data[account].RATE_UPDATE)
                         }
-                        if ('ESCROW_CREATE' in data[self.account]) {
-                            console.log('ESCROW_CREATE', data[self.account].ESCROW_CREATE)
-                            const result = await xapp.signPayload(data[self.account].ESCROW_CREATE)
+                        if ('ESCROW_CREATE' in data[account]) {
+                            console.log('ESCROW_CREATE', data[account].ESCROW_CREATE)
+                            const result = await xapp.signPayload(data[account].ESCROW_CREATE)
                             console.log('result', result)
                         }
                     }
@@ -175,11 +172,11 @@
                 }
             },
             ping() {
-                if (this.account != '') {
+                if (this.$store.getters.getAccount != '') {
                     this.socket.send(JSON.stringify({
                         request: 'PING',
-                        message: {account: this.account},
-                        channel: this.account
+                        message: {account: this.$store.getters.getAccount},
+                        channel: this.$store.getters.getAccount
                     }))
                 }
                 else {
