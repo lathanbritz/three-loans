@@ -19,7 +19,7 @@
                     v-on:change="selectPeriod($event)"
                     :min="end_now" :max="end_max">
 
-                <p><a class="btn btn-black text-white" @click="returnHome" role="button" id="return">Return</a><p><a class="btn btn-purple text-white" @click="createLoan" role="button" id="login">Create Loan</a></p></p>
+                <p><a class="btn btn-black text-white" @click="returnHome" role="button" id="return">Return</a><a class="btn btn-purple text-white" @click="createLoan" role="button" id="login">Create Loan</a></p>
             </p>
 
             <p v-if="qr_link!=null" class="col-md-8 fs-4">
