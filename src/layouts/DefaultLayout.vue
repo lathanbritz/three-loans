@@ -147,7 +147,7 @@
                             account: self.$store.getters.getAccount, 
                             uuid:self.$store.getters.getUUID,
                             version: tokenData?.version,
-                            local: tokenData?.local,
+                            locale: tokenData?.locale,
                             currency: tokenData?.currency,
                             nodetype: tokenData?.nodetype,
                             nodewss: tokenData?.nodewss,
