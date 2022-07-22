@@ -72,6 +72,7 @@
                         const data = await this.getTokenData()
                         if (data == null) { return }
                         this.$store.dispatch('xummTokenData', data)
+                        console.log('token data', data)
                         this.$store.dispatch('setAccount', data.account)
                         this.account = data.account
                         this.nodetype = data.nodetype
