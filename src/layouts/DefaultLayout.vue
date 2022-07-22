@@ -83,7 +83,7 @@
                         this.nodetype = 'TESTNET'
                     } else {
                         const tokenData = await this.getTokenData()
-                        if (data == null) { return }
+                        if (tokenData == null) { return }
                         this.$store.dispatch('xummTokenData', tokenData)
                         console.log('token data', tokenData)
                         this.$store.dispatch('setAccount', tokenData.account)
