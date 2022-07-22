@@ -3,8 +3,8 @@
 </template>
 
 <script>
-    import DefaultLayout from "./layouts/DefaultLayout.vue"
-    import MainLayout from "./layouts/MainLayout.vue"
+    import DefaultLayout from './layouts/DefaultLayout.vue'
+    import MainLayout from './layouts/MainLayout.vue'
 
     export default {
         components: {
@@ -19,7 +19,7 @@
         watch: {
             $route(to) {
                 console.log(to)
-                this.layout = to.meta.layout !== undefined ? to.meta.layout : "DefaultLayout";
+                this.layout = to.meta.layout !== undefined ? to.meta.layout : 'DefaultLayout'
             },
         },
     }
