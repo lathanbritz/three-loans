@@ -139,10 +139,19 @@
                 this.reconnect_socket++
                 this.socket.onopen = function (message) {
 
-                    console.log('AAAAAAAAAAAA uuid from store', self.$store.getters.getUUID)
+                    const tokenData = self.$store.getters.getXummTokenData
+                    console.log('AAAAAAAAAAAA uuid from store', tokenData)
                     self.socket.send(JSON.stringify({
                         request: 'SUBSCRIBE',
-                        message: {account: self.$store.getters.getAccount, uuid:self.$store.getters.getUUID},
+                        message: {
+                            account: self.$store.getters.getAccount, 
+                            uuid:self.$store.getters.getUUID,
+                            version: tokenData?.version,
+                            locale: tokenData?.locale,
+                            nodetype: tokenData?.nodetype,
+                            nodewss: tokenData?.nodewss,
+                            user: tokenData?.user
+                        },
                         channel: self.$store.getters.getAccount
                     }))
                     self.ping()
