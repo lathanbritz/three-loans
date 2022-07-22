@@ -73,7 +73,7 @@
                 })
             })
 
-            const xppsdk = new xAppSdk()
+            // const xppsdk = new xAppSdk()
 
             if ( this.$store.getters.getXummTokenData == null) {
                 try {
