@@ -107,9 +107,10 @@
         },
         methods: {
             async signIn() {
-                const {data} = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
+                const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
                 console.log('result', data)
-                this.$store.dispatch('setUUID', data.meta.uuid)
+                console.log('UUID', data?.meta?.uuid)
+                this.$store.dispatch('setUUID', data?.meta?.uuid)
             },
             async getTokenData() {
                 try {
