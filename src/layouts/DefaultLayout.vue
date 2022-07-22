@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import {XummSdkJwt} from 'xumm-sdk'
     import xapp from '../plugins/xapp.js'
 
     import Refs from '../components/Refs.vue'
@@ -62,7 +63,6 @@
         async mounted() {
             console.log('token data on mounted', this.$store.getters.getXummTokenData)
             console.log('keyyy', import.meta.env.VITE_APP_XAPP_KEY)
-            const {XummSdkJwt} = require('xumm-sdk')
             const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
 
             Sdk.getOttData().then(c => {
