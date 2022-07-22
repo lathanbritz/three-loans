@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import {XummSdkJwt} from 'xumm-sdk'
+    // import {XummSdkJwt} from 'xumm-sdk'
     import xapp from '../plugins/xapp.js'
 
     import Refs from '../components/Refs.vue'
