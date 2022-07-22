@@ -10,8 +10,9 @@
                         </option>
                     </select>
                 </div>
+                <label>Destination</label><input v-model="destination" /><br/>
                 <label>Amount</label><input v-model="amount" placeholder="100" /><br/>
-                <label>Collateral</label><input v-model="collateral" placeholder="100" /><br/>
+                <label>Collateral</label><input v-model="collateral" placeholder="10" /><br/>
                 <label for="end">Expires:</label>
                 <input type="datetime-local" id="end" name="escrow-end"
                     v-model="end_date"
@@ -47,8 +48,9 @@
                 end_now: new Date().toISOString().split('.')[0],
                 end_date: new Date().toISOString().split('.')[0],
                 end_max: new Date().toISOString().split('.')[0],
-                amount: 0,
-                collateral: 0
+                amount: null,
+                collateral: null,
+                destination: 'rNbDBfxEpSV2G9Y8Qbvsn4mEZ98DafkpxK'
             }
         },
         mounted() {
@@ -87,7 +89,7 @@
                 const loan = {
                     request: 'escrowCreate',
                     account: this.$store.getters.getAccount,
-                    destination: 'rNbDBfxEpSV2G9Y8Qbvsn4mEZ98DafkpxK',
+                    destination: this.destination,
                     amount: this.amount,
                     collateral: this.collateral,
                     currency: this.trustline.split('-')[0],
@@ -96,9 +98,11 @@
                     source_tag: 0,
                     cancel_after: this.end_date
                 }
+
                 console.log('createLoan', loan)
                 console.log('amount', this.amount)
-                
+                console.log('destination', this.destination)
+
                 this.$emit('socket-send', {
                     request: 'ESCROW',
                     message: loan,
@@ -106,31 +110,6 @@
                 })
                 this.$emit('action', 'home')
             },
-            // sign() {
-            //     console.log('socket', this.socket)
-            //     const self = this
-            //     this.socket.onmessage = async function (message) {
-            //         let data = JSON.parse(message.data)
-            //         // console.log('data', data)
-            //         if (self.$store.getters.getAccount in data) {
-            //             data = data[self.$store.getters.getAccount]
-            //             if ('CreateEscrow' in data) {
-            //                 // now we need to create sign request...
-            //                 console.log('CreateEscrow', data['CreateEscrow'])
-            //                 const result = await xapp.signPayload(data['CreateEscrow'])
-            //                 console.log('result', result)
-            //                 // head where im at
-            //                 // need to test this this local in browser.
-            //                 // create sign in request... via qr_code
-            //                 // send to back end server and get OTT from that request.
-
-            //             }
-            //             if ('rate_update' in data) {
-            //                 ///console.log('rate update', data.rate_update)
-            //             }
-            //         }
-            //     }
-            // },
             selectPeriod(e) {
                 console.log('sselected', e.target.value)
                 console.log('converted', new Date(e.target.value).getTime())

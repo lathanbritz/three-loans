@@ -20,7 +20,6 @@
 
 <script>
     import xapp from '../plugins/xapp.js'
-    import client from '../plugins/ws-client.js'
 
     import Nav from "../components/Nav.vue"
     import Refs from "../components/Refs.vue"
