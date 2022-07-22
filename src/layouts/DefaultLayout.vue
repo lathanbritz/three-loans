@@ -138,6 +138,8 @@
                 
                 this.reconnect_socket++
                 this.socket.onopen = function (message) {
+
+                    console.log('AAAAAAAAAAAA uuid from store', self.$store.getters.getUUID)
                     self.socket.send(JSON.stringify({
                         request: 'SUBSCRIBE',
                         message: {account: self.$store.getters.getAccount, uuid:self.$store.getters.getUUID},
