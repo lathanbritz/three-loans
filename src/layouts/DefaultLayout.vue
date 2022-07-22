@@ -62,18 +62,21 @@
         },
         async mounted() {
             console.log('token data on mounted', this.$store.getters.getXummTokenData)
-            console.log('keyyy', import.meta.env.VITE_APP_XAPP_KEY)
-            const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
+            // console.log('keyyy', import.meta.env.VITE_APP_XAPP_KEY)
+            // const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
 
-            Sdk.getOttData().then(c => {
-                console.log('OTT Data', c)
+            // Sdk.getOttData().then(c => {
+            //     console.log('OTT Data', c)
 
-                Sdk.ping().then(c => {
-                    console.log('Pong', c)
-                })
-            })
+            //     Sdk.ping().then(c => {
+            //         console.log('Pong', c)
+            //     })
+            // })
 
-            // const xppsdk = new xAppSdk()
+            const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
+            console.log('result', result)
+
+            // // const xppsdk = new xAppSdk()
 
             if ( this.$store.getters.getXummTokenData == null) {
                 try {
