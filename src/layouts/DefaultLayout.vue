@@ -62,6 +62,17 @@
         async mounted() {
             console.log('token data on mounted', this.$store.getters.getXummTokenData)
 
+            const {XummSdkJwt} = require('xumm-sdk')
+            const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
+
+            Sdk.getOttData().then(c => {
+                console.log('OTT Data', c)
+
+                Sdk.ping().then(c => {
+                    console.log('Pong', c)
+                })
+            })
+
             const xppsdk = new xAppSdk()
 
             if ( this.$store.getters.getXummTokenData == null) {
