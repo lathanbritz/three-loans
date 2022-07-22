@@ -82,13 +82,17 @@
                         this.$store.dispatch('setAccount', 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v')
                         this.nodetype = 'TESTNET'
                     } else {
-                        const data = await this.getTokenData()
+                        const tokenData = await this.getTokenData()
                         if (data == null) { return }
-                        this.$store.dispatch('xummTokenData', data)
-                        console.log('token data', data)
-                        this.$store.dispatch('setAccount', data.account)
+                        this.$store.dispatch('xummTokenData', tokenData)
+                        console.log('token data', tokenData)
+                        this.$store.dispatch('setAccount', tokenData.account)
+                        this.nodetype = tokenData.nodetype
+
+                        const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
+                        console.log('user..', data)
                         await this.signIn()
-                        this.nodetype = data.nodetype
+                        
                     }
                     
                 } catch(e) { 
@@ -140,7 +144,6 @@
                 this.socket.onopen = function (message) {
 
                     const tokenData = self.$store.getters.getXummTokenData
-                    console.log('AAAAAAAAAAAA uuid from store', tokenData)
                     self.socket.send(JSON.stringify({
                         request: 'SUBSCRIBE',
                         message: {
