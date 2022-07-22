@@ -87,7 +87,7 @@
                         this.$store.dispatch('xummTokenData', data)
                         console.log('token data', data)
                         this.$store.dispatch('setAccount', data.account)
-                        this.$store.dispatch('setUUID', data.user)
+                        this.signIn()
                         this.nodetype = data.nodetype
                     }
                     
@@ -97,8 +97,7 @@
                 }
             }
 
-            const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
-            console.log('result', result)
+            
             
             this.ready = true
 
@@ -107,6 +106,11 @@
             }
         },
         methods: {
+            async signIn() {
+                const {data} = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
+                console.log('result', data)
+                this.$store.dispatch('setUUID', data.meta.uuid)
+            },
             async getTokenData() {
                 try {
                     console.log('fetching token data')
