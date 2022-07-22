@@ -87,7 +87,7 @@
                         this.$store.dispatch('xummTokenData', data)
                         console.log('token data', data)
                         this.$store.dispatch('setAccount', data.account)
-                        this.signIn()
+                        await this.signIn()
                         this.nodetype = data.nodetype
                     }
                     
@@ -111,6 +111,7 @@
                 console.log('result', data)
                 console.log('UUID', data?.meta?.uuid)
                 this.$store.dispatch('setUUID', data?.meta?.uuid)
+                console.log('uuid from store', this.$store.getters.getUUID)
             },
             async getTokenData() {
                 try {
