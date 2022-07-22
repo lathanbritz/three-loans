@@ -1,5 +1,4 @@
 <template>
-    <Nav />
 
     <main class="container flex-shrink-0 mb-4">
         <router-view />
@@ -14,13 +13,11 @@
 </template>
 
 <script>
-    import Nav from "../components/Nav.vue";
-    import Refs from "../components/Refs.vue";
+    import Refs from '../components/Refs.vue';
 
     export default {
-        name: "MainLayout",
+        name: 'MainLayout',
         components: {
-            Nav,
             Refs,
         },
     };
