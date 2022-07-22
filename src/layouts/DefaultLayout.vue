@@ -73,8 +73,6 @@
             //     })
             // })
 
-            const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
-            console.log('result', result)
 
             // // const xppsdk = new xAppSdk()
 
@@ -98,6 +96,9 @@
                     return 
                 }
             }
+
+            const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
+            console.log('result', result)
             
             this.ready = true
 
