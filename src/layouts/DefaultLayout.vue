@@ -1,7 +1,7 @@
 <template>
     <header class="container">
-        <TakeLoan v-if="components.TakeLoan" @socket-send="sendSocket" @action="buttonAction">What is the point of all?</TakeLoan>
-        <LandingScreen v-if="components.LandingScreen" @action="buttonAction">{escrows}</LandingScreen>
+        <Loan v-if="components.Loan" @socket-send="sendSocket" @action="buttonAction">What is the point of all?</Loan>
+        <Landing v-if="components.Landing" @action="buttonAction">{escrows}</Landing>
     </header>
 
     <main class="container flex-shrink-0 mb-4">
@@ -20,15 +20,15 @@
     import xapp from '../plugins/xapp.js'
 
     import Refs from '../components/Refs.vue'
-    import TakeLoan from '../components/TakeLoan.vue'
-    import LandingScreen from '../components/LandingScreen.vue'
+    import Loan from '../components/Loan.vue'
+    import Landing from '../components/Landing.vue'
 
     export default {
         name: 'DefaultLayout',
         components: {
             Refs,
-            TakeLoan,
-            LandingScreen
+            Loan,
+            Landing
         },
         data() {
             return {
@@ -40,8 +40,8 @@
                 pong: false,
                 ready: false,
                 components: {
-                    LandingScreen: true,
-                    TakeLoan: false,
+                    Landing: true,
+                    Loan: false,
                 }
             }
         },
@@ -192,12 +192,12 @@
                 console.log('buttonAction', action)
                 switch (action) {
                     case 'loan':
-                        this.components.TakeLoan = true
-                        this.components.LandingScreen = false
+                        this.components.Loan = true
+                        this.components.Landing = false
                         break
                     case 'home':
-                        this.components.LandingScreen = true
-                        this.components.TakeLoan = false
+                        this.components.Landing = true
+                        this.components.Loan = false
                         break
                 }
             }

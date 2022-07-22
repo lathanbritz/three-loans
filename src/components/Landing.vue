@@ -58,7 +58,7 @@
 
 <script>
     export default {
-        name: 'LandingScreen',
+        name: 'Landing',
         data() {
             return {
                 

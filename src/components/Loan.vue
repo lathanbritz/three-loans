@@ -36,7 +36,7 @@
 <script>
 
     export default {
-        name: 'TakeLoan',
+        name: 'Loan',
         emits: ['socket-send'],
         data() {
             return {
