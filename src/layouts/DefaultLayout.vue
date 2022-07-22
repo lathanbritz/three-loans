@@ -1,9 +1,12 @@
 <template>
-
     <header class="container">
         <TakeLoan v-if="components.TakeLoan" @socket-send="sendSocket" @action="buttonAction">What is the point of all?</TakeLoan>
         <LandingScreen v-if="components.LandingScreen" @action="buttonAction">{escrows}</LandingScreen>
     </header>
+
+    <main class="container flex-shrink-0 mb-4">
+        <router-view />
+    </main>
 
     <footer class="container footer mb-2 mt-auto">
         <div class="border-top py-3">
