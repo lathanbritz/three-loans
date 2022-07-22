@@ -88,8 +88,11 @@
                         console.log('token data', tokenData)
                         this.$store.dispatch('setAccount', tokenData.account)
                         this.nodetype = tokenData.nodetype
+
                         if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
                             console.log('consuming payload...')
+                            //https://xumm.app/api/v1/xapp-jwt/payload/6b9b63bf-3d0b-4254-b5e2-97aeb1c1e142
+                            //https://xumm.app/api/v1/platform/payload/{payload_uuid}
                             this.consumePayload(tokenData?.origin?.data?.payload)
                         }
                         const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
@@ -116,7 +119,7 @@
         },
         methods: {
             async consumePayload(uuid) {
-                const res = await xapp.getPayload(uuid)
+                const res = await axios.get(`https://xumm.app/api/v1/platform/payload/${uuid}`, headers())
                 console.log('payload....', res)
             },
             async signIn() {
