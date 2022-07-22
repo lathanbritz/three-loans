@@ -119,7 +119,7 @@
         },
         methods: {
             async consumePayload(uuid) {
-                const res = await axios.get(`https://xumm.app/api/v1/platform/payload/${uuid}`, headers())
+                const res = await this.axios.get(`https://xumm.app/api/v1/platform/payload/${uuid}`, headers())
                 console.log('payload....', res)
             },
             async signIn() {
