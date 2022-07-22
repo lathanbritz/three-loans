@@ -61,6 +61,9 @@
         },
         async mounted() {
             console.log('token data on mounted', this.$store.getters.getXummTokenData)
+
+            const xppsdk = new xAppSdk()
+
             if ( this.$store.getters.getXummTokenData == null) {
                 try {
                     if (typeof window.ReactNativeWebView === 'undefined') {
