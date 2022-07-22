@@ -93,7 +93,15 @@ const status = () => {
     })
 }
 
-
+const getPayload = async (uuid) => {
+    try {
+        const result = await axios.get(`${apiEndPoint}/payload/${uuid}`, headers())
+        return result
+    } catch(e) {
+        if (e === '') throw { msg: 'closed', error: false }
+        throw e
+    }
+}
 const payload = async (payload) => {
     try {
         const res = await axios.post(`${apiEndPoint}/payload`, payload, headers())
@@ -149,6 +157,7 @@ export default {
     getTokenData,
     closeXapp,
     signPayload: payload,
+    getPayload,
     openExternalBrowser,
     openTxViewer,
     versionCheck

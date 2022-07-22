@@ -88,7 +88,10 @@
                         console.log('token data', tokenData)
                         this.$store.dispatch('setAccount', tokenData.account)
                         this.nodetype = tokenData.nodetype
-
+                        if (tokenData?.origin?.type = 'PUSH_NOTIFICATION') {
+                            console.log('consuming payload...')
+                            this.consumePayload(tokenData?.origin?.data?.payload)
+                        }
                         const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                         console.log('is user', data)
                         if (data.user == false) {
@@ -112,6 +115,10 @@
             }
         },
         methods: {
+            async consumePayload(uuid) {
+                const res = await xapp.getPayload(uuid)
+                console.log('payload....', res)
+            },
             async signIn() {
                 const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
                 console.log('result', data)
