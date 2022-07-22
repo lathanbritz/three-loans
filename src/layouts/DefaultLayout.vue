@@ -88,7 +88,7 @@
                         console.log('token data', tokenData)
                         this.$store.dispatch('setAccount', tokenData.account)
                         this.nodetype = tokenData.nodetype
-                        if (tokenData?.origin?.type == 'PUSH_NOTIFICATION') {
+                        if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
                             console.log('consuming payload...')
                             this.consumePayload(tokenData?.origin?.data?.payload)
                         }
