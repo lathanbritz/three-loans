@@ -90,9 +90,10 @@
                         this.nodetype = tokenData.nodetype
 
                         const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
-                        console.log('user..', data)
-                        await this.signIn()
-                        
+                        console.log('is user', data)
+                        if (false == true) {
+                            await this.signIn()
+                        }
                     }
                     
                 } catch(e) { 
@@ -101,8 +102,6 @@
                 }
             }
 
-            
-            
             this.ready = true
 
             if (this.ready) {
