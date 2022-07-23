@@ -138,9 +138,9 @@
         },
         methods: {
             async consumePayload(payload_uuid) {
-                console.log('consumePayload....', payload)
-                // const payload = await Sdk.payload.get(payload_uuid)
-                
+                console.log('consumePayload....', payload_uuid)
+                const payload = await Sdk.payload.get(payload_uuid)
+                console.log('payload....', payload)
             },
             async signIn() {
                 console.log('in signIn')
