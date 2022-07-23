@@ -63,7 +63,7 @@
         async mounted() {
             const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
 
-            Sdk.getOttData().then(tokenData => {
+            Sdk.getOttData().then(async tokenData => {
                 console.log('OTT Data', tokenData)
                 this.$store.dispatch('xummTokenData', tokenData)
                 this.$store.dispatch('setAccount', tokenData.account)
