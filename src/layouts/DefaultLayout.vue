@@ -86,10 +86,12 @@
                 
                 Sdk.ping().then(data => {
                     console.log('Pong', data)
+                    console.log('token data on mounted', this.$store.getters.getXummTokenData)
+                    this.connectWebsocket()
                 })
             })
 
-            console.log('token data on mounted', this.$store.getters.getXummTokenData)
+            
 
             // if ( this.$store.getters.getXummTokenData == null) {
             //     try {
@@ -124,11 +126,11 @@
             //     }
             // }
 
-            this.ready = true
+            // this.ready = true
 
-            if (this.ready) {
-                this.connectWebsocket()
-            }
+            // if (this.ready) {
+            //     this.connectWebsocket()
+            // }
         },
         methods: {
             async consumePayload(payload_uuid) {
