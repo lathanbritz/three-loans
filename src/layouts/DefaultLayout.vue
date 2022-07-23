@@ -24,7 +24,7 @@
     import Loan from '../components/Loan.vue'
     import Landing from '../components/Landing.vue'
 
-    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY, import.meta.env.VITE_APP_XAPP_SECRET)
+    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
 
     export default {
         name: 'DefaultLayout',
