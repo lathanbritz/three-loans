@@ -79,10 +79,10 @@
                     this.$store.dispatch('setUUID', data.uuid)
                 }
 
-                if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
-                    console.log('consuming payload...')
-                    this.consumePayload(tokenData?.origin?.data?.payload)
-                }
+                // if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
+                //     console.log('consuming payload...')
+                //     this.consumePayload(tokenData?.origin?.data?.payload)
+                // }
 
                 
                 Sdk.ping().then(data => {
@@ -136,8 +136,8 @@
         methods: {
             async consumePayload(payload_uuid) {
 
-                const payload = await Sdk.payload.get(payload_uuid)
-                console.log('payload....', payload)
+                // const payload = await Sdk.payload.get(payload_uuid)
+                // console.log('payload....', payload)
             },
             async signIn() {
                 console.log('in signInsignInsignInsignInsignInsignInsignInsignIn')
