@@ -89,6 +89,7 @@
                 
                 Sdk.ping().then(data => {
                     console.log('Pong', data)
+                    console.log('PONG user UUID', data.jwtData.client_id)
                     console.log('token data on mounted', this.$store.getters.getXummTokenData)
                     this.connectWebsocket()
                 })
