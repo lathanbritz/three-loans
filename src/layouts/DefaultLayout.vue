@@ -72,13 +72,10 @@
 
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
-
-                console.log('t DDD', tokenData.jwtData)
-                console.log('OTT Data again...', tokenData)
                 // undefined is not an object (evaluating 't.jwtData.client_id')
-                await this.signIn(tokenData.jwtData.client_id)
+                await this.signIn()
                 if (data.user == false) {
-                    await this.signIn(tokenData.jwtData.client_id)
+                    await this.signIn()
                 }
                 else {
                     this.$store.dispatch('setUUID', data.uuid)
@@ -144,10 +141,9 @@
                 // const payload = await Sdk.payload.get(payload_uuid)
                 // console.log('payload....', payload)
             },
-            async signIn(uuid) {
-                console.log('in signIn', uuid)
-
-                xapp.openSignRequest({ uuid: '...' })
+            async signIn() {
+                console.log('in signIn')
+                xapp.openSignRequest({ 'txjson': { 'TransactionType': 'SignIn' }})
                 .then(d => {
                     // d (returned value) can be Error or return data:
                     console.log('openSignRequest response:', d instanceof Error ? d.message : d)
