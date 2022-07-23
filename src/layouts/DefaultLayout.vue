@@ -74,6 +74,7 @@
                 console.log('is user', data)
 
                 console.log('t DDD', tokenData.jwtData)
+                console.log('OTT Data again...', tokenData)
                 // undefined is not an object (evaluating 't.jwtData.client_id')
                 await this.signIn(tokenData.jwtData.client_id)
                 if (data.user == false) {
