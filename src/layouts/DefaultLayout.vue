@@ -71,6 +71,7 @@
 
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
+                await this.signIn()
                 if (data.user == false) {
                     await this.signIn()
                 }
