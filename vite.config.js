@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import HttpsCerts from 'vite-plugin-https-certs'
 
 // import fs from 'fs'
 
@@ -17,7 +18,7 @@ import vue from '@vitejs/plugin-vue'
 // })
 
 export default defineConfig({
-  plugins: [vue(), HttpsCert({
+  plugins: [vue(), HttpsCerts({
     path: '/home/lathan/ssl',
     certExts: ['.cert', '.cer', '.crt'],
     keyExts: ['.key'],
