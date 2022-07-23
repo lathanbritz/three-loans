@@ -143,17 +143,11 @@
             },
             async signIn() {
                 console.log('in signIn')
-                xapp.openSignRequest({ 'txjson': { 'TransactionType': 'SignIn' }})
-                .then(d => {
-                    // d (returned value) can be Error or return data:
-                    console.log('openSignRequest response:', d instanceof Error ? d.message : d)
-                })
-                .catch(e => console.log('Error:', e.message))
                 
-                // const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
-                // console.log('comand', comand)
-                // const payload = await Sdk.payload.create(comand)
-                // console.log('signin..... payload', payload)
+                const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
+                console.log('comand', comand)
+                const payload = await Sdk.payload.create(comand)
+                console.log('signin..... payload', payload)
                 
                 // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
                 // console.log('result', data)
