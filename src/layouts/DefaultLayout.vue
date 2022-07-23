@@ -82,7 +82,7 @@
                 }
 
                 if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
-                    console.log('consuming payload...', tokenData?.origin?.data?.payload)
+                    console.log('data origin', tokenData?.origin)
                     this.consumePayload(tokenData?.origin?.data?.payload)
                 }
 
@@ -149,7 +149,7 @@
                 })
             },
             async consumePayload(payload_uuid) {
-
+                console.log('consumePayload....', payload_uuid)    
                 const payload = await Sdk.payload.get(payload_uuid)
                 console.log('payload....', payload)
             },
