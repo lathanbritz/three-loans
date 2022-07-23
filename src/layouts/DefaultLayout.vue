@@ -118,8 +118,8 @@
             }
         },
         methods: {
-            async consumePayload(uuid) {
-                const res = await xapp.getPayload(uuid)
+            async consumePayload(payload_uuid) {
+                const res = await xapp.getPayload(payload_uuid)
                 console.log('payload....', res)
             },
             async signIn() {
