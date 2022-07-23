@@ -71,15 +71,15 @@
             //     }
             // )
             // console.log('payload..........', data)
-            // const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
+            const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
 
-            // Sdk.getOttData().then(c => {
-            //     console.log('OTT Data', c)
+            Sdk.getOttData().then(c => {
+                console.log('OTT Data', c)
 
-            //     Sdk.ping().then(c => {
-            //         console.log('Pong', c)
-            //     })
-            // })
+                Sdk.ping().then(c => {
+                    console.log('Pong', c)
+                })
+            })
 
             console.log('token data on mounted', this.$store.getters.getXummTokenData)
 
