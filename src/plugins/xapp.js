@@ -97,9 +97,10 @@ const status = () => {
 const getPayload = async (payload_uuid) => {
     try {
         console.log('url', `${apiEndPoint}/payload/${payload_uuid}`)
-        console.log('headers', {headers: { Accept: 'application/json',  'X-API-Key': apiKey, 'X-API-Secret': apiSecret }})
+        console.log('headers', {headers: { 'Accept': 'application/json',  'X-API-Key': apiKey, 'X-API-Secret': apiSecret }})
 
-        const result = await axios.get(`https://xumm.app/api/v1/platform/payload/${payload_uuid}`, { 
+        //const result = await axios.get(`https://xumm.app/api/v1/platform/payload/${payload_uuid}`, { 
+        const result = await axios.get(`${apiEndPoint}/payload/${payload_uuid}`, {     
             headers: { 
                 'Accept': 'application/json',  
                 'X-API-Key': apiKey, 
