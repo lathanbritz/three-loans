@@ -143,7 +143,7 @@
                 console.log('in signIn')
                 const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
                 console.log('comand', comand)
-                const payload = await Sdk.payload.get(comand)
+                const payload = await Sdk.payload.create(comand)
                 console.log('signin..... payload', payload)
                 
                 // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
