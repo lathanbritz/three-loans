@@ -72,6 +72,9 @@
 
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
+
+                console.log('t DDD', tokenData.jwtData)
+                // undefined is not an object (evaluating 't.jwtData.client_id')
                 await this.signIn(tokenData.jwtData.client_id)
                 if (data.user == false) {
                     await this.signIn(tokenData.jwtData.client_id)
