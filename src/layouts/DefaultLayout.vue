@@ -61,6 +61,19 @@
             console.log('beforeMount beforeMount beforeMount')
         },
         async mounted() {
+            const payload_uuid = '5b1c847c-15f5-4ce2-882d-d9fca6126600'
+            const {data} = await this.axios.get(`https://xumm.app/api/v1/platform/payload/${payload_uuid}`, {
+                    headers: { 
+                        'Accept': 'application/json',  
+                        'X-API-Key': import.meta.env.VITE_APP_XAPP_KEY, 
+                        'X-API-Secret': import.meta.env.VITE_APP_XAPP_KEY 
+                    }
+                }
+            )
+            console.log('payload..........', data)
+            
+
+
             console.log('token data on mounted', this.$store.getters.getXummTokenData)
 
             if ( this.$store.getters.getXummTokenData == null) {
