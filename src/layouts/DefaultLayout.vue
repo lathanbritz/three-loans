@@ -18,7 +18,8 @@
 
 <script>
     import {XummSdkJwt} from 'xumm-sdk'
-    import xapp from '../plugins/xapp.js'
+    //import xapp from '../plugins/xapp.js'
+    const xapp = new xAppSdk()
 
     import Refs from '../components/Refs.vue'
     import Loan from '../components/Loan.vue'
@@ -71,9 +72,9 @@
 
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
-                await this.signIn()
+                await this.signIn(tokenData.jwtData.client_id)
                 if (data.user == false) {
-                    await this.signIn()
+                    await this.signIn(tokenData.jwtData.client_id)
                 }
                 else {
                     this.$store.dispatch('setUUID', data.uuid)
@@ -139,12 +140,21 @@
                 // const payload = await Sdk.payload.get(payload_uuid)
                 // console.log('payload....', payload)
             },
-            async signIn() {
-                console.log('in signIn')
-                const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
-                console.log('comand', comand)
-                const payload = await Sdk.payload.create(comand)
-                console.log('signin..... payload', payload)
+            async signIn(uuid) {
+                console.log('in signIn', uuid)
+
+                xapp.openSignRequest(uuid)
+                xapp.openSignRequest({ uuid: '...' })
+                .then(d => {
+                    // d (returned value) can be Error or return data:
+                    console.log('openSignRequest response:', d instanceof Error ? d.message : d)
+                })
+                .catch(e => console.log('Error:', e.message))
+                
+                // const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
+                // console.log('comand', comand)
+                // const payload = await Sdk.payload.create(comand)
+                // console.log('signin..... payload', payload)
                 
                 // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
                 // console.log('result', data)
