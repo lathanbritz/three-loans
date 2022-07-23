@@ -18,8 +18,8 @@
 
 <script>
     import {XummSdkJwt} from 'xumm-sdk'
-    //import xapp from '../plugins/xapp.js'
-    const xapp = new xAppSdk()
+    import xapp from '../plugins/xapp.js'
+    // const xapp = new xAppSdk()
 
     import Refs from '../components/Refs.vue'
     import Loan from '../components/Loan.vue'
@@ -64,108 +64,111 @@
             console.log('beforeMount beforeMount beforeMount')
         },
         async mounted() {
-            Sdk.getOttData().then(async tokenData => {
-                console.log('OTT Data', tokenData)
-                this.$store.dispatch('xummTokenData', tokenData)
-                this.$store.dispatch('setAccount', tokenData.account)
-                this.nodetype = tokenData.nodetype
+            // Sdk.getOttData().then(async tokenData => {
+            //     console.log('OTT Data', tokenData)
+            //     this.$store.dispatch('xummTokenData', tokenData)
+            //     this.$store.dispatch('setAccount', tokenData.account)
+            //     this.nodetype = tokenData.nodetype
 
-                const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
-                console.log('is user', data)
-                // undefined is not an object (evaluating 't.jwtData.client_id')
-                await this.signIn()
-                if (data.user == false) {
-                    await this.signIn()
-                }
-                else {
-                    this.$store.dispatch('setUUID', data.uuid)
-                }
+            //     const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
+            //     console.log('is user', data)
+            //     // undefined is not an object (evaluating 't.jwtData.client_id')
+            //     await this.signIn()
+            //     if (data.user == false) {
+            //         await this.signIn()
+            //     }
+            //     else {
+            //         this.$store.dispatch('setUUID', data.uuid)
+            //     }
 
-                // if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
-                //     console.log('consuming payload...')
-                //     this.consumePayload(tokenData?.origin?.data?.payload)
-                // }
+            //     // if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
+            //     //     console.log('consuming payload...')
+            //     //     this.consumePayload(tokenData?.origin?.data?.payload)
+            //     // }
 
                 
-                Sdk.ping().then(data => {
-                    console.log('Pong', data)
-                    console.log('token data on mounted', this.$store.getters.getXummTokenData)
-                    this.connectWebsocket()
-                })
-            })
+            //     Sdk.ping().then(data => {
+            //         console.log('Pong', data)
+            //         console.log('token data on mounted', this.$store.getters.getXummTokenData)
+            //         this.connectWebsocket()
+            //     })
+            // })
 
             
 
-            // if ( this.$store.getters.getXummTokenData == null) {
-            //     try {
-            //         if (typeof window.ReactNativeWebView === 'undefined') {
-            //             this.$store.dispatch('setAccount', 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v')
-            //             this.nodetype = 'TESTNET'
-            //         } else {
-            //             const tokenData = await this.getTokenData()
-            //             if (tokenData == null) { return }
-            //             this.$store.dispatch('xummTokenData', tokenData)
-            //             console.log('token data', tokenData)
-            //             this.$store.dispatch('setAccount', tokenData.account)
-            //             this.nodetype = tokenData.nodetype
+            if ( this.$store.getters.getXummTokenData == null) {
+                try {
+                    if (typeof window.ReactNativeWebView === 'undefined') {
+                        this.$store.dispatch('setAccount', 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v')
+                        this.nodetype = 'TESTNET'
+                    } else {
+                        const tokenData = await this.getTokenData()
+                        if (tokenData == null) { return }
+                        this.$store.dispatch('xummTokenData', tokenData)
+                        console.log('token data', tokenData)
+                        this.$store.dispatch('setAccount', tokenData.account)
+                        this.nodetype = tokenData.nodetype
 
-            //             if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
-            //                 console.log('consuming payload...')
-            //                 this.consumePayload(tokenData?.origin?.data?.payload)
-            //             }
-            //             const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
-            //             console.log('is user', data)
-            //             if (data.user == false) {
-            //                 await this.signIn()
-            //             }
-            //             else {
-            //                 this.$store.dispatch('setUUID', data.uuid)
-            //             }
-            //         }
+                        if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
+                            console.log('consuming payload...')
+                            this.consumePayload(tokenData?.origin?.data?.payload)
+                        }
+                        const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
+                        console.log('is user', data)
+
+                        await this.signIn()
+
+                        if (data.user == false) {
+                            await this.signIn()
+                        }
+                        else {
+                            this.$store.dispatch('setUUID', data.uuid)
+                        }
+                    }
                     
-            //     } catch(e) { 
-            //         console.log('error mounted', e)
-            //         return 
-            //     }
-            // }
+                } catch(e) { 
+                    console.log('error mounted', e)
+                    return 
+                }
+            }
 
-            // this.ready = true
+            this.ready = true
 
-            // if (this.ready) {
-            //     this.connectWebsocket()
-            // }
+            if (this.ready) {
+                this.connectWebsocket()
+            }
         },
         methods: {
             async consumePayload(payload_uuid) {
-
+                console.log('consumePayload....', payload)
                 // const payload = await Sdk.payload.get(payload_uuid)
-                // console.log('payload....', payload)
+                
             },
             async signIn() {
                 console.log('in signIn')
+
+                // const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
+                // console.log('comand', comand)
+                // const payload = await Sdk.payload.create(comand)
+                // console.log('signin..... payload', payload)
                 
-                const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
-                console.log('comand', comand)
-                const payload = await Sdk.payload.create(comand)
-                console.log('signin..... payload', payload)
-                
-                // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
-                // console.log('result', data)
-                // console.log('UUID', data?.application?.issued_user_token)
-                // this.$store.dispatch('setUUID', data?.application?.issued_user_token)
-                // console.log('uuid from store', this.$store.getters.getUUID)
+                const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
+                console.log('result', data)
+                console.log('UUID', data?.application?.issued_user_token)
+                this.$store.dispatch('setUUID', data?.application?.issued_user_token)
+                console.log('uuid from store', this.$store.getters.getUUID)
             },
-            // async getTokenData() {
-            //     try {
-            //         console.log('fetching token data')
-            //         const urlParams = new URLSearchParams(window.location.search)
-            //         const ott = urlParams.get('xAppToken')
-            //         if (ott == null)  { return }
-            //         return await xapp.getTokenData(ott)
-            //     } catch(e) {
-            //         console.log('error token fetch', e)
-            //     }
-            // },
+            async getTokenData() {
+                try {
+                    console.log('fetching token data')
+                    const urlParams = new URLSearchParams(window.location.search)
+                    const ott = urlParams.get('xAppToken')
+                    if (ott == null)  { return }
+                    return await xapp.getTokenData(ott)
+                } catch(e) {
+                    console.log('error token fetch', e)
+                }
+            },
             connectWebsocket() {
                 const self = this
                 console.log('location', window.location.origin)
