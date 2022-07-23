@@ -1,9 +1,8 @@
 {
-    "name": "starter-template_vue-3-vite-bootstrap-5-with-icons",
+    "name": "three-loans",
     "version": "0.9.5",
-    "description": "Boilerplate for Vue 3 with Vite and Bootstrap 5 with Icons",
+    "description": "xApp for escrows and loans",
     "license": "MIT",
-    "author": "how@errazib.com",
     "private": true,
     "scripts": {
         "dev": "vite --port 3007",
@@ -16,18 +15,16 @@
         "bootstrap": "^5.0.2",
         "bootstrap-icons": "^1.5.0",
         "events": "^3.3.0",
-        "fs": "^0.0.1-security",
+        "vite-plugin-mkcert": "^1.9.0",
         "vue": "^3.1.2",
         "vue-axios": "^3.4.1",
         "vue-numerals": "^4.0.6",
         "vue-router": "^4.0.10",
         "vuex": "^4.0.2",
-        "xrpl": "^2.3.1",
         "xrpl-client": "^1.9.5",
         "xumm-sdk": "^1.3.4"
     },
     "devDependencies": {
-        "@vue/cli-service": "~5.0.0",
         "@vitejs/plugin-vue": "^1.2.4",
         "@vue/compiler-sfc": "^3.1.2",
         "sass": "^1.35.1",
