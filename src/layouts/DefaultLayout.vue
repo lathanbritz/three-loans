@@ -122,7 +122,7 @@
             //         console.log('error mounted', e)
             //         return 
             //     }
-            }
+            // }
 
             this.ready = true
 
