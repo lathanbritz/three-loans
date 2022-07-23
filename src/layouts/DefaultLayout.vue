@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    // import {XummSdkJwt} from 'xumm-sdk'
+    import {XummSdkJwt} from 'xumm-sdk'
     import xapp from '../plugins/xapp.js'
 
     import Refs from '../components/Refs.vue'
@@ -61,18 +61,25 @@
             console.log('beforeMount beforeMount beforeMount')
         },
         async mounted() {
-            const payload_uuid = '5b1c847c-15f5-4ce2-882d-d9fca6126600'
-            const {data} = await this.axios.get(`https://xumm.app/api/v1/platform/payload/${payload_uuid}`, {
-                    headers: { 
-                        'Accept': 'application/json',  
-                        'X-API-Key': import.meta.env.VITE_APP_XAPP_KEY, 
-                        'X-API-Secret': import.meta.env.VITE_APP_XAPP_KEY 
-                    }
-                }
-            )
-            console.log('payload..........', data)
-            
+            // const payload_uuid = '5b1c847c-15f5-4ce2-882d-d9fca6126600'
+            // const {data} = await this.axios.get(`https://xumm.app/api/v1/platform/payload/${payload_uuid}`, {
+            //         headers: { 
+            //             'Accept': 'application/json',  
+            //             'X-API-Key': import.meta.env.VITE_APP_XAPP_KEY, 
+            //             'X-API-Secret': import.meta.env.VITE_APP_XAPP_KEY 
+            //         }
+            //     }
+            // )
+            // console.log('payload..........', data)
+            // const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
 
+            // Sdk.getOttData().then(c => {
+            //     console.log('OTT Data', c)
+
+            //     Sdk.ping().then(c => {
+            //         console.log('Pong', c)
+            //     })
+            // })
 
             console.log('token data on mounted', this.$store.getters.getXummTokenData)
 
