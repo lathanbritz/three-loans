@@ -98,7 +98,12 @@ const getPayload = async (uuid) => {
     try {
         console.log('url', `https://xumm.app/api/v1/platform/payload/${uuid}`)
         console.log('headers', {headers: { Accept: 'application/json',  'X-API-Key': apiKey, 'X-API-Secret': apiSecret }})
-        const result = await axios.post(`https://xumm.app/api/v1/platform/payload/${uuid}`, { headers: { Accept: 'application/json',  'X-API-Key': apiKey, 'X-API-Secret': apiSecret } })
+
+        const result = await axios.get(`https://xumm.app/api/v1/platform/payload/${uuid}`, { headers: { Accept: 'application/json',  'X-API-Key': apiKey, 'X-API-Secret': apiSecret } })
+
+        console.log('result', result)
+        console.log('axios', axios)
+
         return result
     } catch(e) {
         if (e === '') throw { msg: 'closed', error: false }
