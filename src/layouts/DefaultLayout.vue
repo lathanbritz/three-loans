@@ -139,7 +139,7 @@
                 console.log('payload....', payload)
             },
             async signIn() {
-                const payload = Sdk.payload.createAndSubscribe({
+                const payload = await Sdk.payload.createAndSubscribe({
                     "txjson": {
                         "TransactionType": "SignIn"
                     }
@@ -150,7 +150,6 @@
                     return e.data
                   }
                 })
-                await payload
 
                 console.log('signin..... payload', payload)
                 // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
