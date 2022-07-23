@@ -24,6 +24,8 @@
     import Loan from '../components/Loan.vue'
     import Landing from '../components/Landing.vue'
 
+    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
+
     export default {
         name: 'DefaultLayout',
         components: {
@@ -61,8 +63,6 @@
             console.log('beforeMount beforeMount beforeMount')
         },
         async mounted() {
-            const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
-
             Sdk.getOttData().then(async tokenData => {
                 console.log('OTT Data', tokenData)
                 this.$store.dispatch('xummTokenData', tokenData)
@@ -139,23 +139,37 @@
                 console.log('payload....', payload)
             },
             async signIn() {
-                const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
-                console.log('result', data)
-                console.log('UUID', data?.application?.issued_user_token)
-                this.$store.dispatch('setUUID', data?.application?.issued_user_token)
-                console.log('uuid from store', this.$store.getters.getUUID)
+                const payload = Sdk.payload.createAndSubscribe({
+                    "txjson": {
+                        "TransactionType": "SignIn"
+                    }
+                }, e => {
+                  console.log(e.data)
+            
+                  if (typeof e.data.signed !== 'undefined') {
+                    return e.data
+                  }
+                })
+                await payload
+
+                console.log('signin..... payload', payload)
+                // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
+                // console.log('result', data)
+                // console.log('UUID', data?.application?.issued_user_token)
+                // this.$store.dispatch('setUUID', data?.application?.issued_user_token)
+                // console.log('uuid from store', this.$store.getters.getUUID)
             },
-            async getTokenData() {
-                try {
-                    console.log('fetching token data')
-                    const urlParams = new URLSearchParams(window.location.search)
-                    const ott = urlParams.get('xAppToken')
-                    if (ott == null)  { return }
-                    return await xapp.getTokenData(ott)
-                } catch(e) {
-                    console.log('error token fetch', e)
-                }
-            },
+            // async getTokenData() {
+            //     try {
+            //         console.log('fetching token data')
+            //         const urlParams = new URLSearchParams(window.location.search)
+            //         const ott = urlParams.get('xAppToken')
+            //         if (ott == null)  { return }
+            //         return await xapp.getTokenData(ott)
+            //     } catch(e) {
+            //         console.log('error token fetch', e)
+            //     }
+            // },
             connectWebsocket() {
                 const self = this
                 console.log('location', window.location.origin)
