@@ -137,6 +137,17 @@
             // }
         },
         methods: {
+            async signPayload(data) {
+                console.log('signPayload', data)
+                const payload = await Sdk.payload.create(data)
+                xapp.openSignRequest({ uuid: payload.uuid })
+                .then(d => {
+                    // d (returned value) can be Error or return data:
+                    console.log('ddddd', d)
+                    console.log('openSignRequest response:', d instanceof Error ? d.message : d)
+                    return d
+                })
+            },
             async consumePayload(payload_uuid) {
 
                 // const payload = await Sdk.payload.get(payload_uuid)
@@ -149,7 +160,7 @@
                 const payload = await Sdk.payload.create(comand)
                 console.log('signin..... payload', payload)
                 
-                xapp.openSignRequest({ uuid: payload.uuid })
+                return await xapp.openSignRequest({ uuid: payload.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
                     console.log('ddddd', d)
@@ -229,7 +240,7 @@
                         }
                         if ('ESCROW_CREATE' in data[account]) {
                             console.log('ESCROW_CREATE', data[account].ESCROW_CREATE)
-                            const result = await xapp.signPayload(data[account].ESCROW_CREATE)
+                            const result = await self.signPayload(data[account].ESCROW_CREATE)
                             console.log('result', result)
                         }
                     }
