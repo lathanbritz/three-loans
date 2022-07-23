@@ -81,10 +81,10 @@
                     this.$store.dispatch('setUUID', data.uuid)
                 }
 
-                // if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
-                //     console.log('consuming payload...')
-                //     this.consumePayload(tokenData?.origin?.data?.payload)
-                // }
+                if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
+                    console.log('consuming payload...', tokenData?.origin?.data?.payload)
+                    this.consumePayload(tokenData?.origin?.data?.payload)
+                }
 
                 
                 Sdk.ping().then(data => {
