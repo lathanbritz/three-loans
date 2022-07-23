@@ -143,7 +143,6 @@
             async signIn(uuid) {
                 console.log('in signIn', uuid)
 
-                xapp.openSignRequest(uuid)
                 xapp.openSignRequest({ uuid: '...' })
                 .then(d => {
                     // d (returned value) can be Error or return data:
