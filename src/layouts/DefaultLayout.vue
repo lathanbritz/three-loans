@@ -62,19 +62,6 @@
         },
         async mounted() {
             console.log('token data on mounted', this.$store.getters.getXummTokenData)
-            // console.log('keyyy', import.meta.env.VITE_APP_XAPP_KEY)
-            // const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
-
-            // Sdk.getOttData().then(c => {
-            //     console.log('OTT Data', c)
-
-            //     Sdk.ping().then(c => {
-            //         console.log('Pong', c)
-            //     })
-            // })
-
-
-            // // const xppsdk = new xAppSdk()
 
             if ( this.$store.getters.getXummTokenData == null) {
                 try {
@@ -91,8 +78,6 @@
 
                         if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
                             console.log('consuming payload...')
-                            //https://xumm.app/api/v1/xapp-jwt/payload/6b9b63bf-3d0b-4254-b5e2-97aeb1c1e142
-                            //https://xumm.app/api/v1/platform/payload/{payload_uuid}
                             this.consumePayload(tokenData?.origin?.data?.payload)
                         }
                         const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
