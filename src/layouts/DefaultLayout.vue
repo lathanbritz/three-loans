@@ -24,7 +24,7 @@
     import Loan from '../components/Loan.vue'
     import Landing from '../components/Landing.vue'
 
-    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
+    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY, import.meta.env.VITE_APP_XAPP_SECRET)
 
     export default {
         name: 'DefaultLayout',
@@ -141,16 +141,16 @@
             },
             async signIn() {
                 console.log('in signIn')
-                // const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
-                // console.log('comand', comand)
-                // const payload = await Sdk.payload.create(comand)
-                // console.log('signin..... payload', payload)
+                const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
+                console.log('comand', comand)
+                const payload = await Sdk.payload.create(comand)
+                console.log('signin..... payload', payload)
                 
-                const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
-                console.log('result', data)
-                console.log('UUID', data?.application?.issued_user_token)
-                this.$store.dispatch('setUUID', data?.application?.issued_user_token)
-                console.log('uuid from store', this.$store.getters.getUUID)
+                // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
+                // console.log('result', data)
+                // console.log('UUID', data?.application?.issued_user_token)
+                // this.$store.dispatch('setUUID', data?.application?.issued_user_token)
+                // console.log('uuid from store', this.$store.getters.getUUID)
             },
             // async getTokenData() {
             //     try {
