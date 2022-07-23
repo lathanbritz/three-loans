@@ -140,6 +140,7 @@
                 console.log('payload....', payload)
             },
             async signIn() {
+                console.log('in signInsignInsignInsignInsignInsignInsignInsignIn')
                 const payload = await Sdk.payload.get({ 'txjson': { 'TransactionType': 'SignIn' }})
                 console.log('signin..... payload', payload)
                 
