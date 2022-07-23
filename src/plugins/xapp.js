@@ -99,7 +99,7 @@ const getPayload = async (payload_uuid) => {
         console.log('url', `https://xumm.app/api/v1/platform/payload/${payload_uuid}`)
         console.log('head', {headers: { 'Accept': 'application/json',  'X-API-Key': apiKey, 'X-API-Secret': apiSecret }})
         //  curl --request GET      
-        // --url https://xumm.app/api/v1/platform/payload/5b1c847c-15f5-4ce2-882d-d9fca6126600      
+        // --url https://xumm.app/api/v1/platform/payload/5b1c847c-15f5-4ce2-882d-d9fca6126600   
         // --header 'Accept: application/json'      
         // --header 'X-API-Key: fa0382d0-ed38-458b-b0a1-2972567187de'      
         // --header 'X-API-Secret: xxxxxx'
@@ -109,7 +109,9 @@ const getPayload = async (payload_uuid) => {
             headers: { 
                 'Accept': 'application/json',  
                 'X-API-Key': apiKey, 
-                'X-API-Secret': apiSecret 
+                'X-API-Secret': apiSecret,
+                'Access-Control-Allow-Headers':'X-API-Key',
+                'Access-Control-Allow-Headers':'X-API-Secret',
             } 
         })
 
