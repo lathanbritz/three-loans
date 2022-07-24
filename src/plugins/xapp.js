@@ -97,6 +97,7 @@ const status = () => {
 //https://xumm.app/api/v1/jwt/payload/{uuid}
 const payloadGet = async (payload_uuid) => {
     try {
+        console.log('jwt', jwt)
         const result = await axios.get(`https://xumm.app/api/v1/jwt/payload/${payload_uuid}`, headers())
         return result
     } catch(e) {
