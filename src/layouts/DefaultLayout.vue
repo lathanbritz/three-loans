@@ -167,8 +167,10 @@
                 })
 
                 console.log('payloadd...............', await payload)
+                console.log('payloadd1...............', payload.created)
+                console.log('payloadd2...............', payload.created.uuid)
     
-                return await xapp.openSignRequest({ uuid: payload.created.uuid })
+                return await xapp.openSignRequest({ uuid: await payload.created.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
                     console.log('response', d)
