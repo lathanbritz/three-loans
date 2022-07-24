@@ -57,10 +57,16 @@
                 const ott = urlParams.get('xAppToken')
                 const tokenData =  await xapp.getTokenData(ott)
                 console.log('tokenData', tokenData)
+                this.$store.dispatch('xummTokenData', tokenData)
+                this.$store.dispatch('setAccount', tokenData.account)
+                this.nodetype = tokenData.nodetype
+                await this.jwtSignIn()
 
-
-                // const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
-                // console.log('result', result)
+                
+            },
+            async jwtSignIn() {
+                const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
+                console.log('result', result)
             },
             async sdkSiginIn() {
                 Sdk.getOttData().then(async tokenData => {
