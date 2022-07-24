@@ -177,6 +177,9 @@
                 
                 console.log('signedin', signedin)
 
+                xapp.on('payload', function (data) {
+                    console.log('Payload resolved', data)
+                })
                 // this.$store.dispatch('setUUID', data.uuid)
 
                 return signedin
