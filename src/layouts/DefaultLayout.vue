@@ -73,13 +73,14 @@
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
                 
-                await this.signIn()
-                if (data.user == false) {
-                    await this.signIn()
-                }
-                else {
-                    this.$store.dispatch('setUUID', data.uuid)
-                }
+                const res = await this.signIn()
+                console.log('res', res)
+                // if (data.user == false) {
+                //     await this.signIn()
+                // }
+                // else {
+                //     this.$store.dispatch('setUUID', data.uuid)
+                // }
 
                 if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
                     console.log('data origin', tokenData?.origin)
@@ -89,7 +90,7 @@
                 
                 Sdk.ping().then(data => {
                     console.log('Pong', data)
-                    console.log('PONG user UUID', data.jwtData.ott_uuidv4)
+                    console.log('jwtData', data.jwtData)
                     console.log('token data on mounted', this.$store.getters.getXummTokenData)
                     this.connectWebsocket()
                 })
@@ -185,11 +186,6 @@
                 })
 
                 return resolved_sign
-                // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
-                // console.log('result', data)
-                // console.log('UUID', data?.application?.issued_user_token)
-                // this.$store.dispatch('setUUID', data?.application?.issued_user_token)
-                // console.log('uuid from store', this.$store.getters.getUUID)
             },
             // async getTokenData() {
             //     try {
