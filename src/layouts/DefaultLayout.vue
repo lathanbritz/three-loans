@@ -138,7 +138,7 @@
         },
         methods: {
             async signPayload(data) {
-                console.log('signPayload', data)
+                console.log('ask to signPayload', data)
                 const payload = await Sdk.payload.create(data)
                 xapp.openSignRequest({ uuid: payload.uuid })
                 .then(d => {
@@ -150,7 +150,7 @@
             },
             async consumePayload(payload_uuid) {
                 console.log('consumePayload....', payload_uuid)    
-                const payload = await Sdk.payload.get(payload_uuid)
+                const payload = await Sdk.payload.delete(payload_uuid)
                 console.log('payload....', payload)
             },
             async signIn() {
