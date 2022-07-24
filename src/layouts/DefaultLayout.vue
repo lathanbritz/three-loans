@@ -20,11 +20,12 @@
     import Refs from '../components/Refs.vue'
     import Loan from '../components/Loan.vue'
     import Landing from '../components/Landing.vue'
+    import xapp from '../plugins/xapp.js'
 
     import {XummSdkJwt} from 'xumm-sdk'
 
     const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
-    const xapp = new xAppSdk()
+    const xappSdk = new xAppSdk()
 
     export default {
         name: 'DefaultLayout',
@@ -48,43 +49,50 @@
             }
         },
         async mounted() {
-            Sdk.getOttData().then(async tokenData => {
-                console.log('OTT Data', tokenData)
-                this.$store.dispatch('xummTokenData', tokenData)
-                this.$store.dispatch('setAccount', tokenData.account)
-                this.nodetype = tokenData.nodetype
-
-                const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
-                console.log('is user', data)
-
-                
-
-                // if (data.user == false) {
-                    await this.signIn()
-                // }
-                // else {
-                //     this.$store.dispatch('setUUID', data.uuid)
-                //     this.connectWebsocket()
-                // }
-
-                if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
-                    console.log('data origin', tokenData?.origin)
-                    this.consumePayload(tokenData?.origin?.data?.payload)
-                }
-
-                
-                Sdk.ping().then(data => {
-                    console.log('Pong', data)
-                    console.log('jwtData', data.jwtData)
-                    console.log('token data on mounted', this.$store.getters.getXummTokenData)
-                })
-            })
+            this.jwtSiginIn()
         },
         methods: {
+            async jwtSiginIn() {
+                const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
+                console.log('result', result)
+            },
+            async sdkSiginIn() {
+                Sdk.getOttData().then(async tokenData => {
+                    console.log('OTT Data', tokenData)
+                    this.$store.dispatch('xummTokenData', tokenData)
+                    this.$store.dispatch('setAccount', tokenData.account)
+                    this.nodetype = tokenData.nodetype
+
+                    const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
+                    console.log('is user', data)
+
+                    
+
+                    // if (data.user == false) {
+                        await this.signIn()
+                    // }
+                    // else {
+                    //     this.$store.dispatch('setUUID', data.uuid)
+                    //     this.connectWebsocket()
+                    // }
+
+                    if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
+                        console.log('data origin', tokenData?.origin)
+                        this.consumePayload(tokenData?.origin?.data?.payload)
+                    }
+
+                    
+                    Sdk.ping().then(data => {
+                        console.log('Pong', data)
+                        console.log('jwtData', data.jwtData)
+                        console.log('token data on mounted', this.$store.getters.getXummTokenData)
+                    })
+                })
+            },
             async signPayload(data) {
                 console.log('ask to signPayload', data)
                 const payload = await Sdk.payload.create(data)
-                return await xapp.openSignRequest({ uuid: payload.uuid })
+                return await xappSdk.openSignRequest({ uuid: payload.uuid })
                 .then(d => {
                     console.log('response', d)
                     console.log('openSignRequest response:', d instanceof Error ? response.d : d)
@@ -95,8 +103,6 @@
                 console.log('consumePayload....', payload_uuid)    
                 const result = await Sdk.payload.cancel(payload_uuid)
                 console.log('payload cancel result....', result)
-
-                ["data origin",{"type":"EVENT_LIST","data":{"payload":"f41241b1-e4f9-4e3f-9429-21f55ea7cff2","tx":"FF53E21AED1E7F899B864EDFEDCBA78B63E38D7E7777FE0CB9618A7AFBA1958C"}}]
             },
             async signIn() {
                 const self = this
@@ -117,8 +123,8 @@
                 // })
                 console.log('payload', payload)
                 
-                // xapp.openSignRequest({ uuid: payload.created.uuid })
-                xapp.openSignRequest({ uuid: payload.uuid })
+                // xappSdk.openSignRequest({ uuid: payload.created.uuid })
+                xappSdk.openSignRequest({ uuid: payload.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
                     console.log('response', d)
@@ -127,7 +133,7 @@
                 })
                 .catch(e => console.log('Error:', e.message))
 
-                const resolved_sign = await xapp.on('payload', function (data) {
+                const resolved_sign = await xappSdk.on('payload', function (data) {
                     console.log('signin payload', data)
                     return data?.reason
                 })
