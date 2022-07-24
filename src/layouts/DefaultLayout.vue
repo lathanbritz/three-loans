@@ -182,7 +182,7 @@
                 })
                 .catch(e => console.log('Error:', e.message))
 
-                const resolved_sign = xapp.on('payload', function (data) {
+                const resolved_sign = await xapp.on('payload', function (data) {
                     console.log('signin payload', data)
                     return data?.reason
                 })
