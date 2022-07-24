@@ -53,8 +53,14 @@
         },
         methods: {
             async jwtSiginIn() {
-                const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
-                console.log('result', result)
+                const urlParams = new URLSearchParams(window.location.search)
+                const ott = urlParams.get('xAppToken')
+                const tokenData =  await xapp.getTokenData(ott)
+                console.log('tokenData', tokenData)
+
+
+                // const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
+                // console.log('result', result)
             },
             async sdkSiginIn() {
                 Sdk.getOttData().then(async tokenData => {
