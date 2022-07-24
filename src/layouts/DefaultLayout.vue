@@ -159,6 +159,15 @@
                 const payload = await Sdk.payload.create(comand)
                 console.log('signin..... payload', payload)
                 
+                const payload = Sdk.payload.createAndSubscribe(comand, e => {
+                    console.log(e.data)
+                    if (typeof e.data.signed !== 'undefined') {
+                        return e.data
+                    }
+                })
+
+                console.log('payloadd...............', await payload)
+    
                 return await xapp.openSignRequest({ uuid: payload.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
