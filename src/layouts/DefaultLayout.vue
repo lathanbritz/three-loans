@@ -63,6 +63,9 @@
                 await this.jwtSignIn()
 
                 // now we want to consume that init token
+                if (tokenData?.origin?.type == 'EVENT_LIST') {
+                    console.log('event list uuid', tokenData?.origin?.data?.payload)
+                }
             },
             async jwtSignIn() {
                 const {data} = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
