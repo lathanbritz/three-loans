@@ -156,8 +156,8 @@
                 console.log('in signIn')
                 const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
                 console.log('comand', comand)
-                const payload = await Sdk.payload.create(comand)
-                console.log('signin..... payload', payload)
+                // const payload = await Sdk.payload.create(comand)
+                // console.log('signin..... payload', payload)
                 
                 const payload = Sdk.payload.createAndSubscribe(comand, e => {
                     console.log(e.data)
