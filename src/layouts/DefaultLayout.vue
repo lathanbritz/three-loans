@@ -102,20 +102,21 @@
                 const self = this
                 console.log('in signIn')
                 const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
-                console.log('comand', comand)
                 
-                const payload = await Sdk.payload.createAndSubscribe(comand, e => {
-                    console.log('createAndSubscribe', e.data)
-                    if (e.data?.user_token == true) {
-                        console.log('setUUID', e.data?.payload_uuidv4)
-                        this.$store.dispatch('setUUID', e.data?.payload_uuidv4)
-                        self.connectWebsocket()
-                    }
-                    if (typeof e.data.signed !== 'undefined') {
-                        return e.data
-                    }
-                })
-    
+                const payload = Sdk.payload.create(comand)
+                // const payload = await Sdk.payload.createAndSubscribe(comand, e => {
+                //     console.log('createAndSubscribe', e.data)
+                //     if (e.data?.user_token == true) {
+                //         console.log('setUUID', e.data?.payload_uuidv4)
+                //         this.$store.dispatch('setUUID', e.data?.payload_uuidv4)
+                //         self.connectWebsocket()
+                //     }
+                //     if (typeof e.data.signed !== 'undefined') {
+                //         return e.data
+                //     }
+                // })
+                console.log('payload', payload)
+                
                 xapp.openSignRequest({ uuid: payload.created.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
