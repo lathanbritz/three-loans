@@ -89,7 +89,7 @@
                 
                 Sdk.ping().then(data => {
                     console.log('Pong', data)
-                    console.log('PONG user UUID', data.jwtData.client_id)
+                    console.log('PONG user UUID', data.jwtData.ott_uuidv4)
                     console.log('token data on mounted', this.$store.getters.getXummTokenData)
                     this.connectWebsocket()
                 })
@@ -140,12 +140,11 @@
             async signPayload(data) {
                 console.log('ask to signPayload', data)
                 const payload = await Sdk.payload.create(data)
-                xapp.openSignRequest({ uuid: payload.uuid })
-                .then(d => {
-                    // d (returned value) can be Error or return data:
-                    console.log('ddddd', d)
-                    console.log('openSignRequest response:', d instanceof Error ? d.message : d)
-                    return d
+                return await xapp.openSignRequest({ uuid: payload.uuid })
+                .then(response => {
+                    console.log('response', response)
+                    console.log('openSignRequest response:', response instanceof Error ? response.message : response)
+                    return response
                 })
             },
             async consumePayload(payload_uuid) {
