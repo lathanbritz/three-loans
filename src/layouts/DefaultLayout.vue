@@ -75,6 +75,7 @@
                 
                 const res = await this.signIn()
                 console.log('res', res)
+
                 // if (data.user == false) {
                 //     await this.signIn()
                 // }
@@ -92,8 +93,9 @@
                     console.log('Pong', data)
                     console.log('jwtData', data.jwtData)
                     console.log('token data on mounted', this.$store.getters.getXummTokenData)
-                    this.connectWebsocket()
                 })
+
+                this.connectWebsocket()
             })
 
             
@@ -218,7 +220,6 @@
                         request: 'SUBSCRIBE',
                         message: {
                             account: self.$store.getters.getAccount, 
-                            uuid:self.$store.getters.getUUID,
                             version: tokenData?.version,
                             locale: tokenData?.locale,
                             currency: tokenData?.currency,
