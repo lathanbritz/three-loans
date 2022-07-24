@@ -117,7 +117,8 @@
                 // })
                 console.log('payload', payload)
                 
-                xapp.openSignRequest({ uuid: payload.created.uuid })
+                // xapp.openSignRequest({ uuid: payload.created.uuid })
+                xapp.openSignRequest({ uuid: payload.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
                     console.log('response', d)
