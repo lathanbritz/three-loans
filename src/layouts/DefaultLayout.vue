@@ -150,7 +150,7 @@
             },
             async consumePayload(payload_uuid) {
                 console.log('consumePayload....', payload_uuid)    
-                const payload = await Sdk.payload.delete(payload_uuid)
+                const payload = await Sdk.payload.cancel(payload_uuid)
                 console.log('payload....', payload)
             },
             async signIn() {
