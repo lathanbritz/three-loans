@@ -57,16 +57,15 @@
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
 
-                const userdata = Sdk.xApp.userdata.list()
-                console.log('userdata', userdata)
+                
 
-                if (data.user == false) {
+                // if (data.user == false) {
                     await this.signIn()
-                }
-                else {
-                    this.$store.dispatch('setUUID', data.uuid)
-                    this.connectWebsocket()
-                }
+                // }
+                // else {
+                //     this.$store.dispatch('setUUID', data.uuid)
+                //     this.connectWebsocket()
+                // }
 
                 if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
                     console.log('data origin', tokenData?.origin)
