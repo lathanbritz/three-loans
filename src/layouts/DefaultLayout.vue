@@ -168,7 +168,7 @@
 
                 console.log('payloadd...............', await payload)
     
-                return await xapp.openSignRequest({ uuid: payload.uuid })
+                return await xapp.openSignRequest({ uuid: payload.created.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
                     console.log('response', d)
@@ -237,14 +237,14 @@
                     const account = self.$store.getters.getAccount
                     if (account in data) {
                         if ('PONG' in data[account]) {
-                            console.log('PONG')
+                            // console.log('PONG')
                             self.pong = true
                         }
                         if ('SUBSCRIBED' in data[account]) {
                             console.log('SUBSCRIBED!')
                         }
                         if ('RATE_UPDATE' in data[account]) {
-                            console.log('RATE_UPDATE', data[account].RATE_UPDATE)
+                            // console.log('RATE_UPDATE', data[account].RATE_UPDATE)
                             self.$store.dispatch('appendLoans', data[account].RATE_UPDATE)
                         }
                         if ('ESCROW_CREATE' in data[account]) {
