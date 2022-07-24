@@ -160,7 +160,7 @@
                 // console.log('signin..... payload', payload)
                 
                 const payload = await Sdk.payload.createAndSubscribe(comand, e => {
-                    console.log(e.data)
+                    console.log('createAndSubscribe', e.data)
                     if (typeof e.data.signed !== 'undefined') {
                         return e.data
                     }
@@ -174,8 +174,6 @@
                     return d
                 })
                 .catch(e => console.log('Error:', e.message))
-                
-                console.log('signedin', signedin)
 
                 const resolved_sign = xapp.on('payload', function (data) {
                     console.log('signin payload', data)
