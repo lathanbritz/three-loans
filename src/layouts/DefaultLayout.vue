@@ -72,17 +72,14 @@
 
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
-                
-                const res = await this.signIn()
-                console.log('res', res)
 
-                // if (data.user == false) {
-                //     await this.signIn()
-                // }
-                // else {
-                //     this.$store.dispatch('setUUID', data.uuid)
-                //     this.connectWebsocket()
-                // }
+                if (data.user == false) {
+                    await this.signIn()
+                }
+                else {
+                    this.$store.dispatch('setUUID', data.uuid)
+                    this.connectWebsocket()
+                }
 
                 if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
                     console.log('data origin', tokenData?.origin)
@@ -159,8 +156,6 @@
                 console.log('in signIn')
                 const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
                 console.log('comand', comand)
-                // const payload = await Sdk.payload.create(comand)
-                // console.log('signin..... payload', payload)
                 
                 const payload = await Sdk.payload.createAndSubscribe(comand, e => {
                     console.log('createAndSubscribe', e.data)
