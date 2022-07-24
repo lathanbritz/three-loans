@@ -72,8 +72,8 @@
 
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
-                // undefined is not an object (evaluating 't.jwtData.client_id')
-                console.log('sigin result', await this.signIn())
+                
+                await this.signIn()
                 if (data.user == false) {
                     await this.signIn()
                 }
@@ -170,7 +170,7 @@
                 console.log('payloadd1...............', payload.created)
                 console.log('payloadd2...............', payload.created.uuid)
     
-                return await xapp.openSignRequest({ uuid: payload.created.uuid })
+                const signedin = await xapp.openSignRequest({ uuid: payload.created.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
                     console.log('response', d)
@@ -179,6 +179,11 @@
                 })
                 .catch(e => console.log('Error:', e.message))
                 
+                console.log('signedin', signedin)
+
+                // this.$store.dispatch('setUUID', data.uuid)
+
+                return signedin
                 // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
                 // console.log('result', data)
                 // console.log('UUID', data?.application?.issued_user_token)
