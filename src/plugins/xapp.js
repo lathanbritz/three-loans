@@ -5,7 +5,6 @@ let jwt
 
 const apiEndPoint = 'https://xumm.app/api/v1/xapp-jwt'
 const apiKey = import.meta.env.VITE_APP_XAPP_KEY
-const apiSecret = import.meta.env.VITE_APP_XAPP_KEY
 
 const headers = () => {
     return { headers: { Authorization: `Bearer ${jwt}` } }
@@ -94,6 +93,18 @@ const status = () => {
     })
 }
 
+
+//https://xumm.app/api/v1/jwt/payload/{uuid}
+const payloadGet = async (payload_uuid) => {
+    try {
+        const result = await axios.get(`https://xumm.app/api/v1/jwt/payload/${payload_uuid}`, headers())
+        return result
+    } catch(e) {
+        if (e === '') throw { msg: 'closed', error: false }
+        throw e
+    }
+}
+
 const payload = async (payload) => {
     try {
         const res = await axios.post(`${apiEndPoint}/payload`, payload, headers())
@@ -149,6 +160,7 @@ export default {
     getTokenData,
     closeXapp,
     signPayload: payload,
+    payloadGet,
     openExternalBrowser,
     openTxViewer,
     versionCheck

@@ -65,6 +65,9 @@
                 // now we want to consume that init token
                 if (tokenData?.origin?.type == 'EVENT_LIST') {
                     console.log('event list uuid', tokenData?.origin?.data?.payload)
+                    // ["event list uuid","f41241b1-e4f9-4e3f-9429-21f55ea7cff2"]
+                    const xx  = await xapp.payloadGet(tokenData?.origin?.data?.payload)
+                    console.log('xx', xx)
                 }
             },
             async jwtSignIn() {
