@@ -73,7 +73,7 @@
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
                 // undefined is not an object (evaluating 't.jwtData.client_id')
-                await this.signIn()
+                console.log('sigin result', await this.signIn())
                 if (data.user == false) {
                     await this.signIn()
                 }
@@ -141,10 +141,10 @@
                 console.log('ask to signPayload', data)
                 const payload = await Sdk.payload.create(data)
                 return await xapp.openSignRequest({ uuid: payload.uuid })
-                .then(response => {
-                    console.log('response', response)
-                    console.log('openSignRequest response:', response instanceof Error ? response.message : response)
-                    return response
+                .then(d => {
+                    console.log('response', d)
+                    console.log('openSignRequest response:', d instanceof Error ? response.d : d)
+                    return d
                 })
             },
             async consumePayload(payload_uuid) {
@@ -162,8 +162,9 @@
                 return await xapp.openSignRequest({ uuid: payload.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
-                    console.log('ddddd', d)
+                    console.log('response', d)
                     console.log('openSignRequest response:', d instanceof Error ? d.message : d)
+                    return d
                 })
                 .catch(e => console.log('Error:', e.message))
                 
