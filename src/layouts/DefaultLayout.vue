@@ -220,6 +220,7 @@
                         request: 'SUBSCRIBE',
                         message: {
                             account: self.$store.getters.getAccount, 
+                            uuid: self.$store.getters.getUUID, 
                             version: tokenData?.version,
                             locale: tokenData?.locale,
                             currency: tokenData?.currency,
