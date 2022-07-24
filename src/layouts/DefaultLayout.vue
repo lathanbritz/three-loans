@@ -62,11 +62,13 @@
                 this.nodetype = tokenData.nodetype
                 await this.jwtSignIn()
 
-                
+                // now we want to consume that init token
             },
             async jwtSignIn() {
-                const result = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
-                console.log('result', result)
+                const {data} = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
+                console.log('result', data)
+                console.log('UUID', data.application.issued_user_token)
+                this.$store.dispatch('setUUID', data.application.issued_user_token)  
             },
             async sdkSiginIn() {
                 Sdk.getOttData().then(async tokenData => {
