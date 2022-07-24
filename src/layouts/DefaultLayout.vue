@@ -161,6 +161,10 @@
                 
                 const payload = await Sdk.payload.createAndSubscribe(comand, e => {
                     console.log('createAndSubscribe', e.data)
+                    if (e.data?.user_token == true) {
+                        console.log('setUUID', e.data?.payload_uuidv4)
+                        this.$store.dispatch('setUUID', e.data?.payload_uuidv4)
+                    }
                     if (typeof e.data.signed !== 'undefined') {
                         return e.data
                     }
