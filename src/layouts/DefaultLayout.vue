@@ -166,7 +166,7 @@
                     }
                 })
     
-                const signedin = await xapp.openSignRequest({ uuid: payload.created.uuid })
+                xapp.openSignRequest({ uuid: payload.created.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
                     console.log('response', d)
@@ -177,12 +177,12 @@
                 
                 console.log('signedin', signedin)
 
-                xapp.on('payload', function (data) {
-                    console.log('Payload resolved', data)
+                const resolved_sign = xapp.on('payload', function (data) {
+                    console.log('signin payload', data)
+                    return data?.reason
                 })
-                // this.$store.dispatch('setUUID', data.uuid)
 
-                return signedin
+                return resolved_sign
                 // const {data} = await xapp.signPayload({ 'txjson': { 'TransactionType': 'SignIn' }})
                 // console.log('result', data)
                 // console.log('UUID', data?.application?.issued_user_token)
