@@ -81,6 +81,7 @@
                 // }
                 // else {
                 //     this.$store.dispatch('setUUID', data.uuid)
+                //     this.connectWebsocket()
                 // }
 
                 if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
@@ -94,8 +95,6 @@
                     console.log('jwtData', data.jwtData)
                     console.log('token data on mounted', this.$store.getters.getXummTokenData)
                 })
-
-                this.connectWebsocket()
             })
 
             
@@ -156,6 +155,7 @@
                 console.log('payload....', payload)
             },
             async signIn() {
+                const self = this
                 console.log('in signIn')
                 const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
                 console.log('comand', comand)
@@ -167,6 +167,7 @@
                     if (e.data?.user_token == true) {
                         console.log('setUUID', e.data?.payload_uuidv4)
                         this.$store.dispatch('setUUID', e.data?.payload_uuidv4)
+                        self.connectWebsocket()
                     }
                     if (typeof e.data.signed !== 'undefined') {
                         return e.data
