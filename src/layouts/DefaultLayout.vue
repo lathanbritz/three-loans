@@ -57,6 +57,9 @@
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 console.log('is user', data)
 
+                const userdata = Sdk.xApp.userdata.list()
+                console.log('userdata', userdata)
+
                 if (data.user == false) {
                     await this.signIn()
                 }
