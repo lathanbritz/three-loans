@@ -49,10 +49,10 @@
             }
         },
         async mounted() {
-            this.jwtSiginIn()
+            this.jwtFlow()
         },
         methods: {
-            async jwtSiginIn() {
+            async jwtFlow() {
                 const urlParams = new URLSearchParams(window.location.search)
                 const ott = urlParams.get('xAppToken')
                 const tokenData =  await xapp.getTokenData(ott)
@@ -69,12 +69,13 @@
                     const xx  = await xapp.payloadGet(tokenData?.origin?.data?.payload)
                     console.log('xx', xx)
                 }
+                this.connectWebsocket()
             },
             async jwtSignIn() {
                 const {data} = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
                 console.log('result', data)
                 console.log('UUID', data.application.issued_user_token)
-                this.$store.dispatch('setUUID', data.application.issued_user_token)  
+                this.$store.dispatch('setUserToken', data.application.issued_user_token)  
             },
             async sdkSiginIn() {
                 Sdk.getOttData().then(async tokenData => {
@@ -92,7 +93,7 @@
                         await this.signIn()
                     // }
                     // else {
-                    //     this.$store.dispatch('setUUID', data.uuid)
+                    //     this.$store.dispatch('setUserToken', data.uuid)
                     //     this.connectWebsocket()
                     // }
 
@@ -133,8 +134,8 @@
                 // const payload = await Sdk.payload.createAndSubscribe(comand, e => {
                 //     console.log('createAndSubscribe', e.data)
                 //     if (e.data?.user_token == true) {
-                //         console.log('setUUID', e.data?.payload_uuidv4)
-                //         this.$store.dispatch('setUUID', e.data?.payload_uuidv4)
+                //         console.log('setUserToken', e.data?.payload_uuidv4)
+                //         this.$store.dispatch('setUserToken', e.data?.payload_uuidv4)
                 //         self.connectWebsocket()
                 //     }
                 //     if (typeof e.data.signed !== 'undefined') {
@@ -180,7 +181,7 @@
                         request: 'SUBSCRIBE',
                         message: {
                             account: self.$store.getters.getAccount, 
-                            uuid: self.$store.getters.getUUID, 
+                            uuid: self.$store.getters.getUserToken, 
                             version: tokenData?.version,
                             locale: tokenData?.locale,
                             currency: tokenData?.currency,
