@@ -165,10 +165,6 @@
                         return e.data
                     }
                 })
-
-                console.log('payloadd...............', payload)
-                console.log('payloadd1...............', payload.created)
-                console.log('payloadd2...............', payload.created.uuid)
     
                 const signedin = await xapp.openSignRequest({ uuid: payload.created.uuid })
                 .then(d => {
