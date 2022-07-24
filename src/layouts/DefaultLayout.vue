@@ -17,15 +17,14 @@
 </template>
 
 <script>
-    import {XummSdkJwt} from 'xumm-sdk'
-    //import xapp from '../plugins/xapp.js'
-    const xapp = new xAppSdk()
-
     import Refs from '../components/Refs.vue'
     import Loan from '../components/Loan.vue'
     import Landing from '../components/Landing.vue'
 
+    import {XummSdkJwt} from 'xumm-sdk'
+
     const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
+    const xapp = new xAppSdk()
 
     export default {
         name: 'DefaultLayout',
@@ -47,21 +46,6 @@
                     Loan: false,
                 }
             }
-        },
-        deactivated() {
-            console.log('deactivated deactivated deactivated!!!!')
-            if (this.socket != null) {
-                this.socket.close('message test')
-            }
-        },
-        beforeUnmount() {
-            console.log('beforeUnmount beforeUnmount beforeUnmount!!!!')
-            if (this.socket != null) {
-                this.socket.close('message test')
-            }
-        },
-        beforeMount() {
-            console.log('beforeMount beforeMount beforeMount')
         },
         async mounted() {
             Sdk.getOttData().then(async tokenData => {
@@ -93,47 +77,6 @@
                     console.log('token data on mounted', this.$store.getters.getXummTokenData)
                 })
             })
-
-            
-
-            // if ( this.$store.getters.getXummTokenData == null) {
-            //     try {
-            //         if (typeof window.ReactNativeWebView === 'undefined') {
-            //             this.$store.dispatch('setAccount', 'rMB8mXNQ6spV2i7n7DHVVb5qvC4YWMqp3v')
-            //             this.nodetype = 'TESTNET'
-            //         } else {
-            //             const tokenData = await this.getTokenData()
-            //             if (tokenData == null) { return }
-            //             this.$store.dispatch('xummTokenData', tokenData)
-            //             console.log('token data', tokenData)
-            //             this.$store.dispatch('setAccount', tokenData.account)
-            //             this.nodetype = tokenData.nodetype
-
-            //             if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
-            //                 console.log('consuming payload...')
-            //                 this.consumePayload(tokenData?.origin?.data?.payload)
-            //             }
-            //             const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
-            //             console.log('is user', data)
-            //             if (data.user == false) {
-            //                 await this.signIn()
-            //             }
-            //             else {
-            //                 this.$store.dispatch('setUUID', data.uuid)
-            //             }
-            //         }
-                    
-            //     } catch(e) { 
-            //         console.log('error mounted', e)
-            //         return 
-            //     }
-            // }
-
-            // this.ready = true
-
-            // if (this.ready) {
-            //     this.connectWebsocket()
-            // }
         },
         methods: {
             async signPayload(data) {
@@ -148,8 +91,10 @@
             },
             async consumePayload(payload_uuid) {
                 console.log('consumePayload....', payload_uuid)    
-                const payload = await Sdk.payload.cancel(payload_uuid)
-                console.log('payload....', payload)
+                const result = await Sdk.payload.cancel(payload_uuid)
+                console.log('payload cancel result....', result)
+
+                ["data origin",{"type":"EVENT_LIST","data":{"payload":"f41241b1-e4f9-4e3f-9429-21f55ea7cff2","tx":"FF53E21AED1E7F899B864EDFEDCBA78B63E38D7E7777FE0CB9618A7AFBA1958C"}}]
             },
             async signIn() {
                 const self = this
@@ -185,17 +130,6 @@
 
                 return resolved_sign
             },
-            // async getTokenData() {
-            //     try {
-            //         console.log('fetching token data')
-            //         const urlParams = new URLSearchParams(window.location.search)
-            //         const ott = urlParams.get('xAppToken')
-            //         if (ott == null)  { return }
-            //         return await xapp.getTokenData(ott)
-            //     } catch(e) {
-            //         console.log('error token fetch', e)
-            //     }
-            // },
             connectWebsocket() {
                 const self = this
                 console.log('location', window.location.origin)
