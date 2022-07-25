@@ -62,11 +62,12 @@
                 this.nodetype = tokenData.nodetype
 
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
-                console.log('is user', data)
+                
                 if (data.user == false) {
                     await this.jwtSignIn()
                 }
                 else {
+                    console.log('user', data)
                     this.$store.dispatch('setUserToken', data.uuid)
                 }
                 
