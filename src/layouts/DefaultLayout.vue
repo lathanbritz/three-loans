@@ -60,8 +60,16 @@
                 this.$store.dispatch('xummTokenData', tokenData)
                 this.$store.dispatch('setAccount', tokenData.account)
                 this.nodetype = tokenData.nodetype
-                await this.jwtSignIn()
 
+                const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
+                console.log('is user', data)
+                if (data.user == false) {
+                    await this.jwtSignIn()
+                }
+                else {
+                    this.$store.dispatch('setUserToken', data.uuid)
+                }
+                
                 // now we want to consume that init token
                 if (tokenData?.origin?.type == 'EVENT_LIST') {
                     console.log('event list uuid', tokenData?.origin?.data?.payload)
