@@ -186,6 +186,7 @@
                 this.socket.onopen = function (message) {
 
                     const tokenData = self.$store.getters.getXummTokenData
+                    console.log('getUserToken', self.$store.getters.getUserToken)
                     self.socket.send(JSON.stringify({
                         request: 'SUBSCRIBE',
                         message: {
