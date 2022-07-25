@@ -23,6 +23,9 @@ export const AppStore = {
         },
         appendLoans({commit}, data) {
             commit('APPEND_LOANS', data)
+        },
+        removeLoan({commit}, data) {
+            commit('REMOVE_LOAN', data)
         }
     },
     mutations: {
@@ -65,6 +68,15 @@ export const AppStore = {
                 escrow_condition: data.escrow_condition,
                 loan_term: data.cancel_after,
             }) 
+        },
+        REMOVE_LOAN(state, data) {
+            for (let index = 0; index < state.loans.length; index++) {
+                const element = state.loans[index]
+                if (element.escrow_condition === data.escrow_condition) {
+                    state.loans.splice(index, 1)
+                    return
+                }
+            }
         }
     },
     getters: {

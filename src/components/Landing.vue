@@ -69,7 +69,6 @@
         },
         computed: {
             rows() {
-                console.log('loanss...s')
                 return this.$store.getters.getLoans
             },
             ledger() {

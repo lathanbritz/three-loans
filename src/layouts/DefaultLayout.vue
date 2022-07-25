@@ -229,6 +229,10 @@
                             const result = await self.signPayload(data[account].ESCROW_CREATE)
                             console.log('result', result)
                         }
+                        if ('ESCROW_CLEAR' in data[account]) {
+                            console.log('ESCROW_CLEAR', data[account].ESCROW_CLEAR)
+                            self.$store.dispatch('removeLoan', data[account].ESCROW_CLEAR)
+                        }
                     }
                 }
                 setInterval(() => {
