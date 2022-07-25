@@ -75,7 +75,7 @@ export const AppStore = {
             return state.xumm.tokenData
         },
         getUserToken: state => {
-            return state.uuid
+            return state.user_token
         },
         getAccount: state => {
             return state.account
