@@ -2,6 +2,7 @@
     <header class="container">
         <Loan v-if="components.Loan" @socket-send="sendSocket" @action="buttonAction">What is the point of all?</Loan>
         <Landing v-if="components.Landing" @action="buttonAction">{escrows}</Landing>
+        <LoanActions v-if="components.Actions" @action="buttonAction"></LoanActions>
     </header>
 
     <main class="container flex-shrink-0 mb-4">
