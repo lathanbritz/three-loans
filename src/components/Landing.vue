@@ -7,7 +7,7 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a class="btn btn-purple" @click="$emit('action','loan')" role="button" id="loan">loan</a>
+                    <a class="btn btn-purple" @click="$emit('action','loan-actions')" role="button" id="loan">loan</a>
                     <a class="btn btn-green ms-2" @click="$emit('action','stash')" role="button" id="stash">stash</a>
                 </p>
             </p>

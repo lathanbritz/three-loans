@@ -19,6 +19,7 @@
 <script>
     import Refs from '../components/Refs.vue'
     import Loan from '../components/Loan.vue'
+    import LoanActions from '../components/LoanActions.vue'
     import Landing from '../components/Landing.vue'
     import xapp from '../plugins/xapp.js'
 
@@ -32,7 +33,8 @@
         components: {
             Refs,
             Loan,
-            Landing
+            Landing,
+            LoanActions
         },
         data() {
             return {
@@ -45,6 +47,7 @@
                 components: {
                     Landing: true,
                     Loan: false,
+                    Actions: false
                 }
             }
         },
@@ -278,10 +281,17 @@
                     case 'loan':
                         this.components.Loan = true
                         this.components.Landing = false
+                        this.components.Actions = false
                         break
                     case 'home':
                         this.components.Landing = true
                         this.components.Loan = false
+                        this.components.Actions = false
+                        break
+                    case 'loan-actions':
+                        this.components.Landing = false
+                        this.components.Loan = false
+                        this.components.Actions = true
                         break
                 }
             }
