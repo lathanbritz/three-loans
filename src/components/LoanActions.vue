@@ -30,7 +30,8 @@
         },
         methods: {
             async subscribeLender() {
-                const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/subscribe?account=${this.$store.getters.getAccount}&notifications=true`)
+                console.log('url', this.connection.url + `/api/v1/loans/subscribe?account=${this.$store.getters.getAccount}&notifications=true&user_token=${this.$store.getters.getUserToken}`)
+                const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/subscribe?account=${this.$store.getters.getAccount}&notifications=true&user_token=${this.$store.getters.getUserToken}`)
                 console.log('subscribeLender', data)
             },
             "currencyHexToUTF8": function currencyHexToUTF8(code) {
