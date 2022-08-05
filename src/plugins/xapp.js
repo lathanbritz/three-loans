@@ -97,12 +97,6 @@ const status = () => {
 
 
 //https://xumm.app/api/v1/jwt/payload/{uuid}
-
-// curl --request GET \
-//       --url https://xumm.app/api/v1/platform/payload/fced2f02-5f19-4b35-b29c-c9d4cc62ab3b \
-//       --header 'Accept: application/json' \
-//       --header 'X-API-Key: fa0382d0-ed38-458b-b0a1-2972567187de' \
-//       --header 'X-API-Secret: ba43f18b-aaab-46db-83b6-06aa09070d6a'
 const payloadGet = async (payload_uuid) => {
     try {
         console.log('header', {
@@ -112,11 +106,12 @@ const payloadGet = async (payload_uuid) => {
                 'X-API-Secret': apiSecret
             }
         })
+        //const res = await axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': ott } })
         const result = await axios.get(`https://xumm.app/api/v1/platform/payload/${payload_uuid}`, {
             headers: { 
                 'Accept': 'application/json',
-                'X-API-Key': apiKey,
-                'X-API-Secret': apiSecret
+                'x-api-key': apiKey,
+                'x-api-secret': apiSecret
             }
         })
         return result
