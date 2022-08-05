@@ -166,6 +166,5 @@ export default {
     payloadGet,
     openExternalBrowser,
     openTxViewer,
-    versionCheck,
-    getJWT
+    versionCheck
 }
