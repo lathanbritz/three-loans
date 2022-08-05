@@ -115,6 +115,7 @@ const payloadGet = async (payload_uuid) => {
         })
         return result
     } catch(e) {
+        console.log(e)
         if (e === '') throw { msg: 'closed', error: false }
         throw e
     }
