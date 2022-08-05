@@ -3,9 +3,9 @@
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold"><slot></slot></h1>
             <p>
-                <a class="btn btn-purple text-white" @click="subscribeLender" role="button" id="login">Subscribe Lend</a>
-                <a class="btn btn-purple text-white ms-2" @click="$emit('action','loan')" role="button" id="login">Create Loan</a>
-                <a class="btn btn-dark text-white ms-2" @click="$emit('action','home')" role="button" id="return">Return</a>
+                <a class="btn btn-purple text-white mb-2" @click="subscribeLender" role="button" id="login">Subscribe Lend</a>
+                <a class="btn btn-purple text-white ms-2 mb-2" @click="$emit('action','loan')" role="button" id="login">Create Loan</a>
+                <a class="btn btn-dark text-white ms-2 mb-2" @click="$emit('action','home')" role="button" id="return">Return</a>
             </p>
         </div>
     </div>

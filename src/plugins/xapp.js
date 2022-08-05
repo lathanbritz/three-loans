@@ -108,6 +108,7 @@ const payloadGet = async (payload_uuid) => {
 
 const payload = async (payload) => {
     try {
+        console.log('jwt', jwt)
         const res = await axios.post(`${apiEndPoint}/payload`, payload, headers())
         openSignRequest(res.data.uuid)
         await status()
