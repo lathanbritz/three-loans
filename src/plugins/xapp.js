@@ -10,13 +10,16 @@ const headers = () => {
     return { headers: { Authorization: `Bearer ${jwt}` } }
 }
 
+const getJWT = () => {
+    return jwt
+}
+
 const getTokenData = async (ott) => {
     if(!tokenData) {
         try {
             const res = await axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': ott } })
             tokenData = res.data.ott
             jwt = res.data.jwt
-            console.log('jwt', jwt)
             return tokenData
         } catch(e) {
             throw 'Error getting Token Data'
@@ -166,5 +169,6 @@ export default {
     payloadGet,
     openExternalBrowser,
     openTxViewer,
-    versionCheck
+    versionCheck,
+    getJWT
 }

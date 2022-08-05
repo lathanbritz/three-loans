@@ -60,6 +60,8 @@
                 const urlParams = new URLSearchParams(window.location.search)
                 const ott = urlParams.get('xAppToken')
                 const tokenData =  await xapp.getTokenData(ott)
+                const jwt = await Sdk.getJwt()
+                console.log('jwt', jwt)
                 console.log('tokenData', tokenData)
                 this.$store.dispatch('xummTokenData', tokenData)
                 this.$store.dispatch('setAccount', tokenData.account)
