@@ -99,20 +99,7 @@ const status = () => {
 //https://xumm.app/api/v1/jwt/payload/{uuid}
 const payloadGet = async (payload_uuid) => {
     try {
-        console.log('header', {
-            headers: { 
-                'Accept': 'application/json',
-                'X-API-Key': apiKey,
-                'X-API-Secret': apiSecret
-            }
-        })
-        //const res = await axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': ott } })
-        const result = await axios.get(`https://xumm.app/api/v1/platform/payload/${payload_uuid}`, {
-            headers: {
-                'x-api-key': apiKey,
-                'x-api-secret': apiSecret
-            }
-        })
+        const result = await axios.get(`${apiEndPoint}/payload/${payload_uuid}`, headers())
         return result
     } catch(e) {
         console.log(e)
