@@ -108,8 +108,7 @@ const payloadGet = async (payload_uuid) => {
         })
         //const res = await axios.get(`${apiEndPoint}/authorize`, { headers: { 'x-api-key': apiKey, 'x-api-ott': ott } })
         const result = await axios.get(`https://xumm.app/api/v1/platform/payload/${payload_uuid}`, {
-            headers: { 
-                'Accept': 'application/json',
+            headers: {
                 'x-api-key': apiKey,
                 'x-api-secret': apiSecret
             }
