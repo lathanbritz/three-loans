@@ -2,4 +2,4 @@
 export NODE_ENV=production
 export DEBUG=main*
 
-pm2 start --name three-loans --time
+pm2 start start.sh --name three-loans --time
