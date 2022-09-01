@@ -1,4 +1,4 @@
 #!/bin/bash
 export NODE_ENV=production
 export DEBUG=main*
-pm2 start ./src/index.js --name three-loans --time
+yarn serve --name three-loans --time
