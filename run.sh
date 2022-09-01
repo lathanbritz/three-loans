@@ -1,4 +1,5 @@
 #!/bin/bash
 export NODE_ENV=production
 export DEBUG=main*
-yarn serve --name three-loans --time
+
+pm2 start --name three-loans --time
