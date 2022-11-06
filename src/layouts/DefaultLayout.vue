@@ -1,7 +1,7 @@
 <template>
     <header class="container">
         <Loan v-if="components.Loan" @socket-send="sendSocket" @action="buttonAction">What is the point of all?</Loan>
-        <Landing v-if="components.Landing" @action="buttonAction">{escrows}</Landing>
+        <Landing v-if="components.Landing" @action="buttonAction">{NFT Flush}</Landing>
         <LoanActions v-if="components.Actions" @action="buttonAction"></LoanActions>
     </header>
 

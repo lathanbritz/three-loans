@@ -7,7 +7,7 @@ export const routes = [
         path: "/",
         name: "Home",
         component: Home,
-        props: { msg: "Escrows" },
+        props: { msg: "flush" },
     }
 ];
 
