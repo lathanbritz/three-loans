@@ -26,7 +26,7 @@
 
     import {XummSdkJwt} from 'xumm-sdk'
 
-    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_XAPP_KEY)
+    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
     const xappSdk = new xAppSdk()
 
     export default {
