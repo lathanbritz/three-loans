@@ -24,8 +24,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="row in NFTokenOffers">
+                        <td scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]00000000') }}</td>
                         <td scope="row">{{row['NFTokenID']}}</td>
-                        <td scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]000000') }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -44,6 +44,7 @@
         name: 'Landing',
         data() {
             return {
+                isLoading: true,
                 client: new XrplClient(['wss://hooks-testnet-v2.xrpl-labs.com']),
                 NFTokenOffers:[],
                 ascending: false
@@ -51,7 +52,8 @@
             }
         },
         async mounted() {
-            
+            await this.fetchNFTs()
+            this.isLoading = false
         },
         computed: {
             ledger() {
@@ -62,7 +64,7 @@
             }
         },
         methods: {
-            async flushAll() {
+            async fetchNFTs() {
                 const payload = {
                     'id': 8,
                     'command': 'account_objects',
@@ -79,6 +81,8 @@
                         this.NFTokenOffers.push(element)
                     }
                 }
+            },
+            async flushAll() {
             },
             sortTable(col) {
                 if (this.sortColumn === col) {
