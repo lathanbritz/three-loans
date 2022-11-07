@@ -5,9 +5,9 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "dev": "vite --port 3007",
+        "dev": "vite --port 3009",
         "build": "vite build",
-        "serve": "vite preview --port 3007"
+        "serve": "vite preview --port 3009"
     },
     "dependencies": {
         "@popperjs/core": "^2.9.2",
