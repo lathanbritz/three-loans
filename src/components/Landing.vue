@@ -43,11 +43,9 @@
             async flushAll() {
                 const payload = {
                     'id': 8,
-                    'command': 'account_objects',
+                    'command': 'account_nfts',
                     'account': 'rKiNWUkVsq1rb9sWForfshDSEQDSUncwEu',
                     'ledger_index': 'validated',
-                    'type': 'state',
-                    'deletion_blockers_only': false,
                     'limit': 200
                 }
                 const res = await this.client.send(payload)
