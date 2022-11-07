@@ -25,7 +25,7 @@
         name: 'Landing',
         data() {
             return {
-                client: new XrplClient(['ws://panicbot.xyz:6005', 'wss://xrplcluster.com', 'wss://s2.ripple.com']),
+                client: new XrplClient(['wss://hooks-testnet-v2.xrpl-labs.com']),
             }
         },
         async mounted() {
@@ -43,13 +43,22 @@
             async flushAll() {
                 const payload = {
                     'id': 8,
-                    'command': 'account_nfts',
-                    'account': 'rKiNWUkVsq1rb9sWForfshDSEQDSUncwEu',
+                    'command': 'account_objects',
+                    'account': 'rNxpKPGexAFoyr9QjNmLqu2eP5iVLrJWrt',
                     'ledger_index': 'validated',
+                    'type': 'state',
+                    'deletion_blockers_only': false,
                     'limit': 200
                 }
                 const res = await this.client.send(payload)
                 console.log('res', res)
+                for (let index = 0; index < res.length; index++) {
+                    const element = res[index]
+                    if (element?.LedgerEntryType === 'NFTokenOffer') {
+                        console.log('NFTokenOffer', element)
+
+                    }
+                }
             },
             currencyHexToUTF8(code) {
 				if (code.length === 3)
