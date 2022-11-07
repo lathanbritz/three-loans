@@ -24,7 +24,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="row in NFTokenOffers">
-                        <td scope="row">{{numeralFormat(row['amount'], '0,0[.]000000')}} {{row['currency']}}</td>
+                        <td scope="row">{{row['NFTokenID']}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -44,8 +44,8 @@
         data() {
             return {
                 client: new XrplClient(['wss://hooks-testnet-v2.xrpl-labs.com']),
-                NFTokenOffers:[]
-                ascending: false,
+                NFTokenOffers:[],
+                ascending: false
 
             }
         },
