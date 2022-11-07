@@ -108,6 +108,7 @@
                     'Account': this.$store.getters.getAccount,
                     'NFTokenOffers': openOffers
                 }
+                console.log('signPayload', payload)
                 const {data} = await xapp.signPayload({ "txjson": payload })
                 console.log('result', data)
             },
