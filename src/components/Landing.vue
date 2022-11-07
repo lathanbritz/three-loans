@@ -7,8 +7,7 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a class="btn btn-purple" @click="$emit('action','loan-actions')" role="button" id="loan">loan</a>
-                    <a class="btn btn-green ms-2" @click="$emit('action','stash')" role="button" id="stash">stash</a>
+                    <a class="btn btn-purple" @click="flushAll" role="button" id="loan">flush</a>
                 </p>
             </p>
         </div>
@@ -20,11 +19,13 @@
 </template>
 
 <script>
+    import { XrplClient } from 'xrpl-client'
+
     export default {
         name: 'Landing',
         data() {
             return {
-                
+                client: new XrplClient(['ws://panicbot.xyz:6005', 'wss://xrplcluster.com', 'wss://s2.ripple.com']),
             }
         },
         async mounted() {
@@ -39,7 +40,20 @@
             }
         },
         methods: {
-            "currencyHexToUTF8": function currencyHexToUTF8(code) {
+            async flushAll() {
+                const payload = {
+                    'id': 8,
+                    'command': 'account_objects',
+                    'account': 'r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59',
+                    'ledger_index': 'validated',
+                    'type': 'state',
+                    'deletion_blockers_only': false,
+                    'limit': 200
+                }
+                const res = await this.client.send(payload)
+                console.log('res', res)
+            },
+            currencyHexToUTF8(code) {
 				if (code.length === 3)
 					return code
 
@@ -52,7 +66,7 @@
 
 				return decoded.slice(0, padNull)
 			},
-            "hexToBytes": function hexToBytes(hex) {
+            hexToBytes(hex) {
 				let bytes = new Uint8Array(hex.length / 2)
 
 				for (let i = 0; i !== bytes.length; i++) {
