@@ -25,6 +25,7 @@
                 <tbody>
                     <tr v-for="row in NFTokenOffers">
                         <td scope="row">{{row['NFTokenID']}}</td>
+                        <td scope="row">{{numeralFormat((row['Amount']/1_000_000), '0,0[.]000000') }}</td>
                     </tr>
                 </tbody>
             </table>
