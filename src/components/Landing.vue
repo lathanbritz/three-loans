@@ -39,7 +39,8 @@
 
 <script>
     import { XrplClient } from 'xrpl-client'
-
+    import xapp from '../plugins/xapp.js'
+    
     export default {
         name: 'Landing',
         data() {
