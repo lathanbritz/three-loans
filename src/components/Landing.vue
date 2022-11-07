@@ -7,7 +7,7 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a class="btn btn-purple" @click="flushAll" role="button" id="flush">flush</a>
+                    <a class="btn btn-purple" @click="flushAll" role="button" id="flushAll">flush all</a>
                 </p>
             </p>
         </div>
@@ -90,6 +90,14 @@
                 }
             },
             async flushAll() {
+                const openOffers = this.NFTokenOffers.reduce((a, b) => b.NFTokenID, [])
+                console.log('openOffers', openOffers)
+                const payload = {
+                    'TransactionType': 'NFTokenCancelOffer',
+                    'Account': 'ra5nK24KXen9AHvsdFTKHSANinZseWnPcX',
+                    'NFTokenOffers': []
+                }
+                
             },
             sortTable(col) {
                 if (this.sortColumn === col) {
