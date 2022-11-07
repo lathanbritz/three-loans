@@ -7,7 +7,7 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a class="btn btn-purple" @click="flushAll" role="button" id="loan">flush</a>
+                    <a class="btn btn-purple" @click="flushAll" role="button" id="flush">flush</a>
                 </p>
             </p>
         </div>
@@ -46,8 +46,6 @@
                     'command': 'account_objects',
                     'account': 'rNxpKPGexAFoyr9QjNmLqu2eP5iVLrJWrt',
                     'ledger_index': 'validated',
-                    'type': 'state',
-                    'deletion_blockers_only': false,
                     'limit': 200
                 }
                 const res = await this.client.send(payload)
