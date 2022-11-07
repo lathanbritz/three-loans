@@ -7,7 +7,7 @@
             </p>
             <p class="col-md-12 fs-4">
                 <p class="text-center">
-                    <a class="btn btn-purple" @click="flushAll" role="button" id="flushAll">flush all</a>
+                    <a class="btn btn-purple" @click="flushAll" role="button" id="flushAll" v-if="account != undefined">flush all</a>
                 </p>
             </p>
         </div>
@@ -48,7 +48,6 @@
                 client: new XrplClient(['wss://hooks-testnet-v2.xrpl-labs.com']),
                 NFTokenOffers:[],
                 ascending: false
-
             }
         },
         async mounted() {
@@ -91,13 +90,14 @@
             },
             async flushAll() {
                 const openOffers = this.NFTokenOffers.reduce((a, b) => a.concat(b.NFTokenID), [])
-                console.log('openOffers', openOffers)
+                // console.log('openOffers', openOffers)
                 const payload = {
                     'TransactionType': 'NFTokenCancelOffer',
                     'Account': 'ra5nK24KXen9AHvsdFTKHSANinZseWnPcX',
-                    'NFTokenOffers': []
+                    'NFTokenOffers': openOffers
                 }
-                
+                const {data} = await xapp.signPayload({ "txjson": payload })
+                console.log('result', data)
             },
             sortTable(col) {
                 if (this.sortColumn === col) {
