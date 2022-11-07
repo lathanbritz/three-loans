@@ -50,8 +50,8 @@
                 }
                 const res = await this.client.send(payload)
                 console.log('res', res)
-                for (let index = 0; index < res.length; index++) {
-                    const element = res[index]
+                for (let index = 0; index < res.account_objects.length; index++) {
+                    const element = res.account_objects[index]
                     if (element?.LedgerEntryType === 'NFTokenOffer') {
                         console.log('NFTokenOffer', element)
 
