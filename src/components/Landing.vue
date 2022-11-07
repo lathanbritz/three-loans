@@ -1,7 +1,7 @@
 <template>
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
-            <img src="dist/assets/a.png">
+            <img class="bog-roll" src="dist/assets/a.png">
             <p class="col-md-8 fs-4">
                 <p class="text-muted text-end fs-6">by three</p>
             </p>
@@ -65,6 +65,9 @@
     }
 </script>
 <style scoped>
+    .bog-roll {
+        width: 100%;
+    }
     .main-text {
         color: #753ee2;
         -webkit-text-stroke-width: 1px;
