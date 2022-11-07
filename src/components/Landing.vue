@@ -61,6 +61,13 @@
             },
             account() {
                 return this.$store.getters.getAccount
+            },
+            columns() {
+                if (this.NFTokenOffers.length == 0) {
+                    return []
+                }
+                return ['Amount', 'NFTokenID']
+                //return Object.keys(this.NFTokenOffers[0]).filter( code => code !== 'ledger')
             }
         },
         methods: {
