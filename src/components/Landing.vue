@@ -90,7 +90,7 @@
                 }
             },
             async flushAll() {
-                const openOffers = this.NFTokenOffers.reduce((a, b) => b.NFTokenID, [])
+                const openOffers = this.NFTokenOffers.reduce((a, b) => a.concat(b.NFTokenID), [])
                 console.log('openOffers', openOffers)
                 const payload = {
                     'TransactionType': 'NFTokenCancelOffer',
