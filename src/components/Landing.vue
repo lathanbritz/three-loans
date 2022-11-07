@@ -77,7 +77,7 @@
         },
         methods: {
             async fetchNFTs() {
-                if (account == '') { return }
+                if (this.$store.getters.getAccount == '') { return }
 
                 const payload = {
                     'id': 8,
@@ -98,7 +98,7 @@
                 this.isLoading = false
             },
             async flushAll() {
-                if (account == '') { return }
+                if (this.$store.getters.getAccount == '') { return }
 
                 const openOffers = this.NFTokenOffers.reduce((a, b) => a.concat(b.NFTokenID), [])
                 // console.log('openOffers', openOffers)
