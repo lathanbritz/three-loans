@@ -92,11 +92,11 @@
                     'limit': 200
                 }
                 const res = await this.client.send(payload)
-                console.log('res', res)
+                // console.log('res', res)
                 for (let index = 0; index < res.account_objects.length; index++) {
                     const element = res.account_objects[index]
                     if (element?.LedgerEntryType === 'NFTokenOffer') {
-                        console.log('NFTokenOffer', element)
+                        // console.log('NFTokenOffer', element)
                         this.NFTokenOffers.push(element)
                     }
                 }
