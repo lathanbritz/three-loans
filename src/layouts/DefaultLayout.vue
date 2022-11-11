@@ -29,9 +29,7 @@
         name: 'DefaultLayout',
         components: {
             Refs,
-            Loan,
-            Landing,
-            LoanActions
+            Landing
         },
         data() {
             return {
