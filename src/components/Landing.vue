@@ -108,16 +108,16 @@
                 const openOffers = this.NFTokenOffers.reduce((a, b) => a.concat(b.NFTokenID), [])
                 // console.log('openOffers', openOffers)
                 const tx = {
-                    'TransactionType': 'NFTokenCancelOffer',
-                    'Account': this.$store.getters.getAccount,
-                    'NFTokenOffers': openOffers
+                    TransactionType: 'NFTokenCancelOffer',
+                    Account: this.$store.getters.getAccount,
+                    NFTokenOffers: openOffers
                 }
                 console.log('signPayload', tx)
-                //const {data} = await xapp.signPayload({ "txjson": tx })
+                const {data} = await xapp.signPayload({ txjson:  tx })
 
 
-                const payload = await Sdk.payload.create(tx)
-                const data = await xappSdk.openSignRequest({ uuid: payload.uuid })
+                // const payload = await Sdk.payload.create(tx)
+                // const data = await xappSdk.openSignRequest({ uuid: payload.uuid })
                 
                 
                 console.log('result', data)
