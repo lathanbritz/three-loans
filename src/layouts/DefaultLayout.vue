@@ -75,53 +75,14 @@
                     this.$store.dispatch('setUserToken', data.uuid)
                 }
                 
-                // now we want to consume that init token
-                if (tokenData?.origin?.type == 'EVENT_LIST') {
-                    console.log('event list uuid', tokenData?.origin?.data?.payload)
-                    // ["event list uuid","f41241b1-e4f9-4e3f-9429-21f55ea7cff2"]
-                    const xx  = await xapp.payloadGet(tokenData?.origin?.data?.payload)
-                    console.log('xx', xx)
-                }
                 this.connectWebsocket()
             },
             async jwtSignIn() {
-                const {data} = await xapp.signPayload({ "txjson": { "TransactionType": "SignIn" }})
+                console.log('jwtSignInjwtSignInjwtSignIn')
+                const {data} = await xapp.signPayload({ txjson: { TransactionType: 'SignIn' }})
                 console.log('result', data)
                 console.log('UUID', data.application.issued_user_token)
                 this.$store.dispatch('setUserToken', data.application.issued_user_token)  
-            },
-            async sdkSiginIn() {
-                Sdk.getOttData().then(async tokenData => {
-                    console.log('OTT Data', tokenData)
-                    this.$store.dispatch('xummTokenData', tokenData)
-                    this.$store.dispatch('setAccount', tokenData.account)
-                    this.nodetype = tokenData.nodetype
-
-                    const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
-                    console.log('is user', data)
-
-                    
-
-                    // if (data.user == false) {
-                        await this.signIn()
-                    // }
-                    // else {
-                    //     this.$store.dispatch('setUserToken', data.uuid)
-                    //     this.connectWebsocket()
-                    // }
-
-                    if (tokenData?.origin?.type == 'PUSH_NOTIFICATION' || tokenData?.origin?.type == 'EVENT_LIST') {
-                        console.log('data origin', tokenData?.origin)
-                        this.consumePayload(tokenData?.origin?.data?.payload)
-                    }
-
-                    
-                    Sdk.ping().then(data => {
-                        console.log('Pong', data)
-                        console.log('jwtData', data.jwtData)
-                        console.log('token data on mounted', this.$store.getters.getXummTokenData)
-                    })
-                })
             },
             async signPayload(data) {
                 console.log('ask to signPayload', data)
@@ -144,20 +105,7 @@
                 const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
                 
                 const payload = await Sdk.payload.create(comand)
-                // const payload = await Sdk.payload.createAndSubscribe(comand, e => {
-                //     console.log('createAndSubscribe', e.data)
-                //     if (e.data?.user_token == true) {
-                //         console.log('setUserToken', e.data?.payload_uuidv4)
-                //         this.$store.dispatch('setUserToken', e.data?.payload_uuidv4)
-                //         self.connectWebsocket()
-                //     }
-                //     if (typeof e.data.signed !== 'undefined') {
-                //         return e.data
-                //     }
-                // })
                 console.log('payload', payload)
-                
-                // xappSdk.openSignRequest({ uuid: payload.created.uuid })
                 xappSdk.openSignRequest({ uuid: payload.uuid })
                 .then(d => {
                     // d (returned value) can be Error or return data:
@@ -224,19 +172,19 @@
                         if ('SUBSCRIBED' in data[account]) {
                             console.log('SUBSCRIBED!')
                         }
-                        if ('RATE_UPDATE' in data[account]) {
-                            // console.log('RATE_UPDATE', data[account].RATE_UPDATE)
-                            self.$store.dispatch('appendLoans', data[account].RATE_UPDATE)
-                        }
-                        if ('ESCROW_CREATE' in data[account]) {
-                            console.log('ESCROW_CREATE', data[account].ESCROW_CREATE)
-                            const result = await self.signPayload(data[account].ESCROW_CREATE)
-                            console.log('result', result)
-                        }
-                        if ('ESCROW_CLEAR' in data[account]) {
-                            console.log('ESCROW_CLEAR', data[account].ESCROW_CLEAR)
-                            self.$store.dispatch('removeLoan', data[account].ESCROW_CLEAR)
-                        }
+                        // if ('RATE_UPDATE' in data[account]) {
+                        //     // console.log('RATE_UPDATE', data[account].RATE_UPDATE)
+                        //     self.$store.dispatch('appendLoans', data[account].RATE_UPDATE)
+                        // }
+                        // if ('ESCROW_CREATE' in data[account]) {
+                        //     console.log('ESCROW_CREATE', data[account].ESCROW_CREATE)
+                        //     const result = await self.signPayload(data[account].ESCROW_CREATE)
+                        //     console.log('result', result)
+                        // }
+                        // if ('ESCROW_CLEAR' in data[account]) {
+                        //     console.log('ESCROW_CLEAR', data[account].ESCROW_CLEAR)
+                        //     self.$store.dispatch('removeLoan', data[account].ESCROW_CLEAR)
+                        // }
                     }
                 }
                 setInterval(() => {
