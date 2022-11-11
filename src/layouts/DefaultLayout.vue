@@ -68,7 +68,7 @@
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 
                 await this.jwtSignIn()
-                
+
                 // if (data.user == false) {
                 //     await this.jwtSignIn()
                 // }
@@ -77,7 +77,7 @@
                 //     this.$store.dispatch('setUserToken', data.uuid)
                 // }
                 
-                this.connectWebsocket()
+                // this.connectWebsocket()
             },
             async jwtSignIn() {
                 console.log('jwtSignInjwtSignInjwtSignIn')
@@ -85,44 +85,6 @@
                 console.log('result', data)
                 console.log('UUID', data.application.issued_user_token)
                 this.$store.dispatch('setUserToken', data.application.issued_user_token)  
-            },
-            async signPayload(data) {
-                console.log('ask to signPayload', data)
-                const payload = await Sdk.payload.create(data)
-                return await xappSdk.openSignRequest({ uuid: payload.uuid })
-                .then(d => {
-                    console.log('response', d)
-                    console.log('openSignRequest response:', d instanceof Error ? response.d : d)
-                    return d
-                })
-            },
-            async consumePayload(payload_uuid) {
-                console.log('consumePayload....', payload_uuid)    
-                const result = await Sdk.payload.cancel(payload_uuid)
-                console.log('payload cancel result....', result)
-            },
-            async signIn() {
-                const self = this
-                console.log('in signIn')
-                const comand = { 'txjson': { 'TransactionType': 'SignIn' }}
-                
-                const payload = await Sdk.payload.create(comand)
-                console.log('payload', payload)
-                xappSdk.openSignRequest({ uuid: payload.uuid })
-                .then(d => {
-                    // d (returned value) can be Error or return data:
-                    console.log('response', d)
-                    console.log('openSignRequest response:', d instanceof Error ? d.message : d)
-                    return d
-                })
-                .catch(e => console.log('Error:', e.message))
-
-                const resolved_sign = await xappSdk.on('payload', function (data) {
-                    console.log('signin payload', data)
-                    return data?.reason
-                })
-
-                return resolved_sign
             },
             connectWebsocket() {
                 const self = this
