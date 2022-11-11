@@ -1,8 +1,6 @@
 <template>
     <header class="container">
-        <Loan v-if="components.Loan" @socket-send="sendSocket" @action="buttonAction">What is the point of all?</Loan>
         <Landing v-if="components.Landing" @action="buttonAction">{NFT Flush}</Landing>
-        <LoanActions v-if="components.Actions" @action="buttonAction"></LoanActions>
     </header>
 
     <main class="container flex-shrink-0 mb-4">
@@ -19,8 +17,6 @@
 
 <script>
     import Refs from '../components/Refs.vue'
-    import Loan from '../components/Loan.vue'
-    import LoanActions from '../components/LoanActions.vue'
     import Landing from '../components/Landing.vue'
     import xapp from '../plugins/xapp.js'
 
