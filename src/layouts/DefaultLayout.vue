@@ -67,13 +67,15 @@
 
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 
-                if (data.user == false) {
-                    await this.jwtSignIn()
-                }
-                else {
-                    console.log('user', data)
-                    this.$store.dispatch('setUserToken', data.uuid)
-                }
+                await this.jwtSignIn()
+                
+                // if (data.user == false) {
+                //     await this.jwtSignIn()
+                // }
+                // else {
+                //     console.log('user', data)
+                //     this.$store.dispatch('setUserToken', data.uuid)
+                // }
                 
                 this.connectWebsocket()
             },
