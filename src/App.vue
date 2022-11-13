@@ -16,15 +16,15 @@
 </template>
 
 <script>
-    import Refs from '../components/Refs.vue'
-    import Landing from '../components/Landing.vue'
-    import xapp from '../plugins/xapp.js'
+    import Refs from './components/Refs.vue'
+    import Landing from './components/Landing.vue'
+    import xapp from './plugins/xapp.js'
     
     import {XummSdkJwt} from 'xumm-sdk'
 
     const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
     const xappSdk = new xAppSdk()
-    
+
     export default {
         components: {
             Landing,
