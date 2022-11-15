@@ -53,6 +53,15 @@
                 const urlParams = new URLSearchParams(window.location.search)
                 const ott = urlParams.get('xAppToken')
                 const tokenData =  await xapp.getTokenData(ott)
+
+                Sdk.getOttData().then(c => {
+                    console.log('OTT Data', c)
+
+                    Sdk.ping().then(c => {
+                        console.log('Pong', c)
+                    })
+                })
+
                 console.log('tokenData', tokenData)
                 this.$store.dispatch('xummTokenData', tokenData)
                 this.$store.dispatch('setAccount', tokenData.account)
