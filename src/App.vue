@@ -23,7 +23,6 @@
     import {XummSdkJwt} from 'xumm-sdk'
 
     const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
-    const xappSdk = new xAppSdk()
 
     export default {
         components: {
@@ -50,22 +49,13 @@
         },
         methods: {
             async jwtFlow() {
-                const urlParams = new URLSearchParams(window.location.search)
-                const ott = urlParams.get('xAppToken')
-                const tokenData =  await xapp.getTokenData(ott)
-
-                Sdk.getOttData().then(c => {
-                    console.log('OTT Data', c)
-
-                    Sdk.ping().then(c => {
-                        console.log('Pong', c)
-                    })
+                const self = this
+                Sdk.getOttData().then(tokenData => {
+                    console.log('tokenData', tokenData)
+                    self.$store.dispatch('xummTokenData', tokenData)
+                    self.$store.dispatch('setAccount', tokenData.account)
+                    self.nodetype = tokenData.nodetype
                 })
-
-                console.log('tokenData', tokenData)
-                this.$store.dispatch('xummTokenData', tokenData)
-                this.$store.dispatch('setAccount', tokenData.account)
-                this.nodetype = tokenData.nodetype
 
                 const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 
@@ -82,11 +72,18 @@
                 // this.connectWebsocket()
             },
             async jwtSignIn() {
+                const self = this
                 console.log('jwtSignInjwtSignInjwtSignIn')
-                const {data} = await xapp.signPayload({ txjson: { TransactionType: 'SignIn' }})
-                console.log('result', data)
-                console.log('UUID', data.application.issued_user_token)
-                this.$store.dispatch('setUserToken', data.application.issued_user_token)  
+                Sdk.openSignRequest({ txjson: { TransactionType: 'SignIn' }})
+                    .then(data => {
+                        // d (returned value) can be Error or return data:
+                        console.log('openSignRequest response:', data instanceof Error ? data.message : data)
+
+                        console.log('result', data)
+                        console.log('UUID', data.application.issued_user_token)
+                        self.$store.dispatch('setUserToken', data.application.issued_user_token)
+                    })
+                    .catch(e => console.log('Error:', e.message))                
             },
         }
     }
