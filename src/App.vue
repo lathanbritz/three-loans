@@ -49,15 +49,13 @@
         },
         methods: {
             async jwtFlow() {
-                const self = this
-                Sdk.getOttData().then(tokenData => {
-                    console.log('tokenData', tokenData)
-                    self.$store.dispatch('xummTokenData', tokenData)
-                    self.$store.dispatch('setAccount', tokenData.account)
-                    self.nodetype = tokenData.nodetype
+                const tokenData = await Sdk.getOttData()
+                console.log('tokenData', tokenData)
+                this.$store.dispatch('xummTokenData', tokenData)
+                this.$store.dispatch('setAccount', tokenData.account)
+                this.nodetype = tokenData.nodetype
 
-                    this.jwtSignIn()
-                })
+                this.jwtSignIn()
                 
                 
 
@@ -76,20 +74,18 @@
 
                 console.log('test')
 
-                Sdk.xApp.userdata.list().then(data => {
-                    console.log('userdata.list', data)
-                })
-                console.log('jwtSignInjwtSignInjwtSignIn')
-                Sdk.payload.create({ txjson: { TransactionType: 'SignIn' }})
-                    .then(data => {
-                        // d (returned value) can be Error or return data:
-                        console.log('openSignRequest response:', data instanceof Error ? data.message : data)
+                const userdata = await Sdk.xApp.userdata.list()
+                console.log('userdata.list', userdata)
 
-                        console.log('result', data)
-                        console.log('UUID', data.application.issued_user_token)
-                        self.$store.dispatch('setUserToken', data.application.issued_user_token)
-                    })
-                    .catch(e => console.log('Error:', e.message))                
+                console.log('jwtSignInjwtSignInjwtSignIn')
+                const signin = await Sdk.payload.create({ txjson: { TransactionType: 'SignIn' }})
+                    
+                 
+                console.log('result', signin)
+                console.log('UUID', signin.application.issued_user_token)
+                this.$store.dispatch('setUserToken', signin.application.issued_user_token)
+                    
+                                    
             },
         }
     }
