@@ -56,7 +56,7 @@
             }
         },
         async mounted() {
-            
+            console.log('landing mounted...')
         },
         computed: {
             ledger() {
@@ -76,6 +76,7 @@
         watch: {
             async account() {
                 if (this.$store.getters.getAccount != '') {
+                    console.log('landing fetchNFTs...')
                     await this.fetchNFTs()
                 }
             }
