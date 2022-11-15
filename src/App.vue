@@ -79,7 +79,7 @@
 
                 console.log('jwtSignInjwtSignInjwtSignIn')
                 const signin = await Sdk.payload.create({ txjson: { TransactionType: 'SignIn' }})
-                ["result",{"uuid":"be20a92c-9a0f-4bb2-891d-08fbd73b156e","next":{"always":"https://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e"},"refs":{"qr_png":"https://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e_q.png","qr_matrix":"https://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e_q.json","qr_uri_quality_opts":["m","q","h"],"websocket_status":"wss://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e"},"pushed":false}]
+                //["result",{"uuid":"be20a92c-9a0f-4bb2-891d-08fbd73b156e","next":{"always":"https://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e"},"refs":{"qr_png":"https://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e_q.png","qr_matrix":"https://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e_q.json","qr_uri_quality_opts":["m","q","h"],"websocket_status":"wss://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e"},"pushed":false}]
                  
                 console.log('result', signin)
                 console.log('UUID', signin.uuid)
