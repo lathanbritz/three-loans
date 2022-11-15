@@ -55,9 +55,11 @@
                     self.$store.dispatch('xummTokenData', tokenData)
                     self.$store.dispatch('setAccount', tokenData.account)
                     self.nodetype = tokenData.nodetype
+
+                    this.jwtSignIn()
                 })
                 
-                await this.jwtSignIn()
+                
 
                 // if (data.user == false) {
                 //     await this.jwtSignIn()
