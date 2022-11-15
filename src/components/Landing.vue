@@ -40,6 +40,9 @@
 <script>
     import { XrplClient } from 'xrpl-client'
     // import xapp from '../plugins/xapp.js'
+
+    const xapp = new xAppSdk()
+
     import {XummSdkJwt} from 'xumm-sdk'
     const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
 
@@ -116,13 +119,13 @@
                     NFTokenOffers: openOffers
                 }
                 console.log('signPayload', tx)
-                const signPayload = await Sdk.payload.create({ txjson: tx})
+                // const signPayload = await Sdk.payload.create({ txjson: tx})
 
                 // const {data} = await xapp.signPayload({ txjson: tx })
 
 
                 // const payload = await Sdk.payload.create(tx)
-                // const data = await xappSdk.openSignRequest({ uuid: payload.uuid })
+                const signPayload = await xapp.openSignRequest({ txjson: tx})
                 
                 
                 console.log('result', signPayload)
