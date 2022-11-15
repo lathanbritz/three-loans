@@ -38,14 +38,13 @@
                 pong: false,
                 ready: false,
                 components: {
-                    Landing: true,
-                    Loan: false,
-                    Actions: false
+                    Landing: false
                 }
             }
         },
-        mounted() {
-            this.jwtFlow()
+        async mounted() {
+            await this.jwtFlow()
+            this.components.Landing = true
         },
         methods: {
             async jwtFlow() {
