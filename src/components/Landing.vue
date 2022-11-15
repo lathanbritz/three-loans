@@ -57,6 +57,10 @@
         },
         async mounted() {
             console.log('landing mounted...')
+            if (this.$store.getters.getAccount != '') {
+                console.log('landing fetchNFTs...')
+                await this.fetchNFTs()
+            }
         },
         computed: {
             ledger() {
