@@ -72,7 +72,7 @@
             async jwtSignIn() {
                 const self = this
                 console.log('jwtSignInjwtSignInjwtSignIn')
-                Sdk.openSignRequest({ txjson: { TransactionType: 'SignIn' }})
+                Sdk.payload.create({ txjson: { TransactionType: 'SignIn' }})
                     .then(data => {
                         // d (returned value) can be Error or return data:
                         console.log('openSignRequest response:', data instanceof Error ? data.message : data)
