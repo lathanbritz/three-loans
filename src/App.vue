@@ -73,6 +73,12 @@
             },
             async jwtSignIn() {
                 const self = this
+
+                console.log('test')
+
+                Sdk.xApp.userdata.list().then(data => {
+                    console.log('userdata.list', data)
+                })
                 console.log('jwtSignInjwtSignInjwtSignIn')
                 Sdk.payload.create({ txjson: { TransactionType: 'SignIn' }})
                     .then(data => {
