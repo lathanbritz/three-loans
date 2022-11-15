@@ -52,6 +52,7 @@
                 const tokenData = await Sdk.getOttData()
                 console.log('tokenData', tokenData)
                 this.$store.dispatch('xummTokenData', tokenData)
+                console.log('account', tokenData.account)
                 this.$store.dispatch('setAccount', tokenData.account)
                 this.nodetype = tokenData.nodetype
 
