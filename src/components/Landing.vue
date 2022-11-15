@@ -40,10 +40,8 @@
 <script>
     import { XrplClient } from 'xrpl-client'
     // import xapp from '../plugins/xapp.js'
-    // import { XummSdkJwt } from 'xumm-sdk'
-
+    import {XummSdkJwt} from 'xumm-sdk'
     const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
-    // const xappSdk = new xAppSdk()
 
     export default {
         name: 'Landing',
