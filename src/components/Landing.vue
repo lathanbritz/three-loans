@@ -39,10 +39,10 @@
 
 <script>
     import { XrplClient } from 'xrpl-client'
-    import xapp from '../plugins/xapp.js'
+    // import xapp from '../plugins/xapp.js'
     // import { XummSdkJwt } from 'xumm-sdk'
 
-    // const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
+    const Sdk = new XummSdkJwt(import.meta.env.VITE_APP_NFT_KEY)
     // const xappSdk = new xAppSdk()
 
     export default {
@@ -118,14 +118,16 @@
                     NFTokenOffers: openOffers
                 }
                 console.log('signPayload', tx)
-                const {data} = await xapp.signPayload({ txjson:  tx })
+                const signPayload = await Sdk.payload.create({ txjson: tx})
+
+                // const {data} = await xapp.signPayload({ txjson: tx })
 
 
                 // const payload = await Sdk.payload.create(tx)
                 // const data = await xappSdk.openSignRequest({ uuid: payload.uuid })
                 
                 
-                console.log('result', data)
+                console.log('result', signPayload)
             },
             sortTable(col) {
                 if (this.sortColumn === col) {
