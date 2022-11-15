@@ -56,8 +56,6 @@
                     self.$store.dispatch('setAccount', tokenData.account)
                     self.nodetype = tokenData.nodetype
                 })
-
-                const {data} = await this.axios.get(this.connection.url + `/api/v1/loans/user?account=${tokenData.account}`)
                 
                 await this.jwtSignIn()
 
