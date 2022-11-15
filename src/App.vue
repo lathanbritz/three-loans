@@ -54,10 +54,10 @@
                 const ott = urlParams.get('xAppToken')
                 const tokenData =  await xapp.getTokenData(ott)
 
-                xappSdk.getOttData().then(c => {
+                Sdk.getOttData().then(c => {
                     console.log('OTT Data', c)
 
-                    xappSdk.ping().then(c => {
+                    Sdk.ping().then(c => {
                         console.log('Pong', c)
                     })
                 })
