@@ -82,11 +82,16 @@
                 console.log('uuid', subscription.uuid)
                 this.$store.dispatch('setUserToken', subscription.uuid)
 
-                const res = await xapp.openSignRequest({ uuid: subscription.uuid })
-                console.log('res', res)
-                // console.log('result', signin)
-                // console.log('UUID', signin.uuid)
-                // this.$store.dispatch('setUserToken', signin.uuid)                      
+                xapp.openSignRequest({ uuid: subscription.uuid })
+                .then(d => {
+                    // d (returned value) can be Error or return data:
+                    console.log('openSignRequest response:', d instanceof Error ? d.message : d)
+                })
+                .catch(e => console.log('Error:', e.message))
+                
+                // const res = await xapp.openSignRequest({ uuid: subscription.uuid })
+                // console.log('res', res)
+
             },
         }
     }
