@@ -80,7 +80,7 @@
                 const subscription = await Sdk.payload.create(request)
                 console.log('subscription.created', subscription)
 
-                const res = Sdk.openSignRequest({ uuid: subscription.uuid })
+                const res = xapp.openSignRequest({ uuid: subscription.uuid })
                 console.log('res', res)
                
 
