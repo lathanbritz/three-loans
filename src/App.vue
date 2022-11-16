@@ -78,9 +78,9 @@
 
                 const request  = { txjson: { TransactionType: 'SignIn' }}
                 const subscription = await Sdk.payload.create(request)
-                console.log('subscription.created', subscription.created)
+                console.log('subscription.created', subscription)
 
-                const res = subscription.openSignRequest({ uuid: payload.uuid })
+                const res = subscription.openSignRequest({ uuid: subscription.uuid })
                 console.log('res', res)
                
 
