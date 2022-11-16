@@ -77,47 +77,14 @@
                 console.log('test')
 
                 const request  = { txjson: { TransactionType: 'SignIn' }}
-                const subscription = await Sdk.payload.createAndSubscribe(request, event => {
-                    console.log('New payload event:', event.data)
-
-                    if (event.data.signed === true) {
-                    // No need to console.log here, we'll do that below
-                    return event.data
-                    }
-
-                    if (event.data.signed === false) {
-                    // No need to console.log here, we'll do that below
-                    return false
-                    }
-                })
+                const subscription = await Sdk.payload.create(request)
                 console.log('subscription.created', subscription.created)
 
+                const res = subscription.openSignRequest({ uuid: payload.uuid })
+                console.log('res', res)
+               
 
-                /**
-                 * Now let's wait until the subscription resolved (by returning something)
-                 * in the callback function.
-                 */
-                const resolveData = await subscription.resolved
-
-                if (resolveData.signed === false) {
-                    console.log('The sign request was rejected :(')
-                }
-
-                if (resolveData.signed === true) {
-                    console.log('Woohoo! The sign request was signed :)')
-
-                    /**
-                     * Let's fetch the full payload end result, and get the issued
-                     * user token, we can use to send our next payload per Push notification
-                     */
-                    const result = await Sdk.payload.get(resolveData.payload_uuidv4)
-                    console.log('User token:', result.application.issued_user_token)
-                }
-
-
-                // const signin = await xapp.openSignRequest(userdata)
-                // //["result",{"uuid":"be20a92c-9a0f-4bb2-891d-08fbd73b156e","next":{"always":"https://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e"},"refs":{"qr_png":"https://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e_q.png","qr_matrix":"https://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e_q.json","qr_uri_quality_opts":["m","q","h"],"websocket_status":"wss://xumm.app/sign/be20a92c-9a0f-4bb2-891d-08fbd73b156e"},"pushed":false}]
-                 
+ 
                 // console.log('result', signin)
                 // console.log('UUID', signin.uuid)
                 // this.$store.dispatch('setUserToken', signin.uuid)                      
