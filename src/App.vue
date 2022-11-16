@@ -78,13 +78,12 @@
 
                 const request  = { txjson: { TransactionType: 'SignIn' }}
                 const subscription = await Sdk.payload.create(request)
-                console.log('subscription.created', subscription)
+                console.log('subscription', subscription)
+                console.log('uuid', subscription.uuid)
+                this.$store.dispatch('setUserToken', subscription.uuid)
 
-                const res = xapp.openSignRequest({ uuid: subscription.uuid })
+                const res = await xapp.openSignRequest({ uuid: subscription.uuid })
                 console.log('res', res)
-               
-
- 
                 // console.log('result', signin)
                 // console.log('UUID', signin.uuid)
                 // this.$store.dispatch('setUserToken', signin.uuid)                      
