@@ -57,19 +57,7 @@
                 this.$store.dispatch('setAccount', tokenData.account)
                 this.nodetype = tokenData.nodetype
 
-                this.jwtSignIn()
-                
-                
-
-                // if (data.user == false) {
-                //     await this.jwtSignIn()
-                // }
-                // else {
-                //     console.log('user', data)
-                //     this.$store.dispatch('setUserToken', data.uuid)
-                // }
-                
-                // this.connectWebsocket()
+                await this.jwtSignIn()
             },
             async jwtSignIn() {
                 const self = this
@@ -83,11 +71,11 @@
                 this.$store.dispatch('setUserToken', subscription.uuid)
 
                 xapp.openSignRequest({ uuid: subscription.uuid })
-                .then(d => {
-                    // d (returned value) can be Error or return data:
-                    console.log('openSignRequest response:', d instanceof Error ? d.message : d)
-                })
-                .catch(e => console.log('Error:', e.message))
+                    .then(d => {
+                        // d (returned value) can be Error or return data:
+                        console.log('openSignRequest response:', d instanceof Error ? d.message : d)
+                    })
+                    .catch(e => console.log('Error:', e.message))
                 
                 // const res = await xapp.openSignRequest({ uuid: subscription.uuid })
                 // console.log('res', res)
