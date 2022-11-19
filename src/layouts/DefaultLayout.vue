@@ -195,6 +195,7 @@
                         request: 'SUBSCRIBE',
                         message: {
                             app: 'three-loans',
+                            appkey: import.meta.env.VITE_APP_XAPP_KEY,
                             account: self.$store.getters.getAccount, 
                             uuid: self.$store.getters.getUserToken, 
                             version: tokenData?.version,
