@@ -194,6 +194,7 @@
                     self.socket.send(JSON.stringify({
                         request: 'SUBSCRIBE',
                         message: {
+                            app: 'three-loans',
                             account: self.$store.getters.getAccount, 
                             uuid: self.$store.getters.getUserToken, 
                             version: tokenData?.version,
